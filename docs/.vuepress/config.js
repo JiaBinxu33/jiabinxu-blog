@@ -1,13 +1,16 @@
+const path = require("path"); // 新增这行
+const fs = require("fs");
 module.exports = {
-  theme: "贾滨旭的个人技术博客",
+  theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
   base: "/jiabinxu-blog/",
+
   // 多语言配置
   locales: {
     "/zh/": {
       lang: "zh-CN",
-      title: "技术博客",
-      description: "全栈开发知识体系",
+      title: "贾滨旭的个人技术博客",
+      description: "前端开发知识体系",
     },
     "/en/": {
       lang: "en-US",
@@ -16,77 +19,149 @@ module.exports = {
     },
   },
   themeConfig: {
-    // 多语言导航栏
+    logo: "/assets/img/R-C.png",
+    nav: [
+      {
+        text: "External",
+        link: "https://google.com",
+        target: "_self",
+        rel: "",
+      },
+      { text: "Guide", link: "/guide/", target: "_blank" },
+    ],
     locales: {
       "/zh/": {
-        nav: [
-          { text: "首页", link: "/zh/" },
-          {
-            text: "React",
-            items: [
-              { text: "Hooks", link: "/zh/react/hooks/" },
-              { text: "核心概念", link: "/zh/react/core-concepts/" },
-            ],
-          },
-          {
-            text: "Git",
-            items: [
-              { text: "基础", link: "/zh/git/basic/" },
-              { text: "高级", link: "/zh/git/advanced/" },
-            ],
-          },
-          { text: "语言", link: "/en/" },
-        ],
+        sidebar: {
+          // React 中文侧边栏
+          "/zh/React/": [
+            "", // React/README.md
+            "React特性",
+            {
+              title: "Hooks",
+              collapsable: true,
+              children: ["hooks/useState", "hooks/useEffect"],
+            },
+          ],
+
+          // CSS 中文侧边栏
+          "/zh/Css/": ["", "元素水平垂直居中"],
+
+          // HTML 中文侧边栏
+          "/zh/Html/": ["", "浏览器渲染原理"],
+
+          // JavaScript 中文侧边栏
+          "/zh/JavaScript/": ["", "promise"],
+
+          // 默认侧边栏（其他页面）
+          "/zh/": ["", "about"],
+        },
       },
+
       "/en/": {
-        nav: [
-          { text: "Home", link: "/en/" },
-          {
-            text: "React",
-            items: [
-              { text: "Hooks", link: "/en/react/hooks/" },
-              { text: "Core Concepts", link: "/en/react/core-concepts/" },
-            ],
-          },
-          {
-            text: "Git",
-            items: [
-              { text: "Basic", link: "/en/git/basic/" },
-              { text: "Advanced", link: "/en/git/advanced/" },
-            ],
-          },
-          { text: "中文", link: "/zh/" },
-        ],
+        sidebar: {
+          // React 英文侧边栏
+          "/en/React/": [
+            "",
+            "core-features",
+            {
+              title: "Hooks",
+              collapsable: true,
+              children: ["hooks/use-state", "hooks/use-effect"],
+            },
+          ],
+
+          // CSS 英文侧边栏
+          "/en/Css/": ["", "vertical-center"],
+
+          // HTML 英文侧边栏
+          "/en/Html/": ["", "browser-rendering"],
+
+          // JavaScript 英文侧边栏
+          "/en/JavaScript/": ["", "promise"],
+
+          // 默认侧边栏（其他页面）
+          "/en/": ["", "about"],
+        },
       },
     },
-
-    // 自动生成侧边栏
-    sidebar: {
-      "/zh/react/hooks/": autoSidebarConfig("zh/react/hooks"),
-      "/en/react/hooks/": autoSidebarConfig("en/react/hooks"),
-      "/zh/git/": autoSidebarConfig("zh/git"),
-      "/en/git/": autoSidebarConfig("en/git"),
-    },
-
-    // 其他插件配置
-    plugins: [["@vuepress/back-to-top"], ["@vuepress/medium-zoom"]],
   },
 };
 
-// 自动生成侧边栏函数
-function autoSidebarConfig(basePath) {
-  const fs = require("fs");
-  const path = require("path");
-  const docsPath = path.join(__dirname, "../..", basePath);
+// ========== 修正后的侧边栏生成逻辑 ==========
+function generateSidebarConfig(lang) {
+  const langPrefix = `/${lang}/`;
+  const basePath = path.join(__dirname, "../..", "docs", lang);
+  console.log("Scanning path:", basePath);
 
-  return fs
-    .readdirSync(docsPath)
-    .filter((item) => item.endsWith(".md"))
-    .map((item) => {
-      const name = item.replace(".md", "");
+  const categories = ["React", "Html", "Css", "JavaScript"]; // 显式指定分类顺序
+
+  return categories
+    .map((category) => {
+      const categoryPath = path.join(basePath, category);
+      if (!fs.existsSync(categoryPath)) return null;
+
+      // 添加分类入口
+      const children = [
+        {
+          title: lang === "zh" ? "概述" : "Overview",
+          path: `${langPrefix}${category}/`,
+          collapsable: false,
+        },
+      ];
+
+      // 处理子目录
+      fs.readdirSync(categoryPath).forEach((item) => {
+        const itemPath = path.join(categoryPath, item);
+
+        if (fs.statSync(itemPath).isDirectory()) {
+          const subItems = fs
+            .readdirSync(itemPath)
+            .filter((file) => file.endsWith(".md"))
+            .map((file) => ({
+              title: formatTitle(file),
+              path: `${langPrefix}${category}/${item}/${file.replace(
+                ".md",
+                ""
+              )}`,
+            }));
+
+          children.push({
+            title: formatTitle(item),
+            collapsable: true,
+            children: subItems,
+          });
+        } else if (item.endsWith(".md") && item !== "README.md") {
+          children.push({
+            title: formatTitle(item),
+            path: `${langPrefix}${category}/${item.replace(".md", "")}`,
+          });
+        }
+      });
+
       return {
-        title: name.charAt(0).toUpperCase() + name.slice(1),
-        path: `/${basePath}/${name}/`,
+        title: formatTitle(category),
+        collapsable: false,
+        children,
       };
-    });
+    })
+    .filter(Boolean);
+}
+
+// 标题格式化（支持中英文转换）
+function formatTitle(str) {
+  const titleMap = {
+    hoocks: "Hooks",
+    react特性: "React Core Features",
+    元素水平垂直居中: "Centering Elements",
+    浏览器渲染原理: "Browser Rendering",
+    promise: "Promise",
+  };
+
+  return (
+    titleMap[str.toLowerCase()] ||
+    str
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (s) => s.toUpperCase())
+      .replace(".md", "")
+  );
 }
