@@ -1,27 +1,16 @@
-# Ji Binxu's Personal Technical Blog
-
-欢迎访问我的个人技术博客，这里记录了我的学习笔记、项目实践和技术思考。
-
-## ✨ 博客特点
-
-- **前端开发由浅入深**：Html+css+js
-- **内容方向**：
-  - 前端工程化实践
-  - 算法与数据结构
-  - 常见面试问题总结
-- **特色专栏**：
-  - 「源码探秘」系列 - 深入解析主流库的实现原理
-  - 「性能优化手记」 - 实战性能调优案例
-
-## 🚀 本地开发
-
-```bash
-# 克隆项目
-git clone https://github.com/jiabinxu/jiabinxu-blog.git
-
-# 安装依赖
-yarn install
-
-# 启动开发服务器
-yarn docs:dev
-```
+---
+home: true
+heroImage: /R-C.png
+heroText: 技术成长之路
+tagline: 记录前端开发的点点滴滴1
+actionText: 快速上手 →
+actionLink: /zh/html/
+features:
+  - title: 系统化学习
+    details: 从基础到进阶，构建完整知识体系
+  - title: 实战案例
+    details: 结合真实项目，掌握核心开发技能
+  - title: 持续更新
+    details: 跟踪技术前沿，保持内容最新
+footer: MIT Licensed | Copyright © 2023-present 贾滨旭
+---

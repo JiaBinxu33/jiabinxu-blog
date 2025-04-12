@@ -17,11 +17,15 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/jiabinxu/jiabinxu-blog.git
+git clone https://github.com/Jiabinxu33/jiabinxu-blog.git
 
 # 安装依赖
 yarn install
 
 # 启动开发服务器
 yarn docs:dev
+yarn dev
+
+#打包到远程
+yarn deploy
 ```

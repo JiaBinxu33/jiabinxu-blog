@@ -8,10 +8,11 @@
   "private": false,
   "devDependencies": {
     "@vuepress/theme-blog": "^2.3.3",
-    "vuepress": "^1.9.10"
+    "vuepress": "^1.9.10",
+    "vuepress-plugin-auto-sidebar": "^2.3.2"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
+    "dev": "vuepress dev docs --temp .temp",
     "docs:build": "vuepress build docs",
     "deploy": "yarn docs:build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@github.com:13804970786/jiabinxu-blog.git master:blog_pages"
   }
