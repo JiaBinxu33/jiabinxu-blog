@@ -2,9 +2,9 @@
 home: true
 heroImage: /R-C.png
 heroText: 技术成长之路
-tagline: 记录前端开发的点点滴滴1
+tagline: 记录前端开发的点点滴滴
 actionText: 快速上手 →
-actionLink: /zh/html/
+actionLink: /html/
 features:
   - title: 系统化学习
     details: 从基础到进阶，构建完整知识体系
