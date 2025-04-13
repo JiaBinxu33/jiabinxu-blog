@@ -1,12 +1,9 @@
-const path = require("path");
-const fs = require("fs");
-
 module.exports = {
   theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
   base: "/jiabinxu-blog/",
 
-  // 多语言配置（保持原样）
+  // 多语言配置
   locales: {
     "/": {
       lang: "zh-CN",
@@ -25,41 +22,73 @@ module.exports = {
         nav: [
           { text: "Home", link: "/" },
           { text: "Css", link: "/css/" },
-          { text: "JavaScript", link: "/JavaScript/" },
+          {
+            text: "JavaScript",
+            items: [
+              { text: "JavaScript", link: "/JavaScript/" },
+              { text: "常见面试手写题", link: "/JavaScript/常见面试手写题/" },
+            ],
+          },
+          {
+            text: "React",
+            items: [
+              { text: "React", link: "/React/" },
+              { text: "Hooks", link: "/React/Hooks/" },
+            ],
+          },
+
           { text: "External", link: "https://google.com" },
         ],
-        // sidebar: generateSidebar(),
-        sidebar: {
-          "/html/": [
-            { title: "advanced", path: "advanced" },
-            { title: "basics", path: "basics" },
-            { title: "面试相关", path: "面试" },
-          ],
-          "/css/": [{ title: "layout", path: "layout" }],
-          "/JavaScript/": [{ title: "常见面试手写题", path: "常见面试手写题" }],
-        },
+        sidebar: "auto",
+        // sidebar: {
+        //   "/html/": [
+        //     { title: "advanced", path: "advanced" },
+        //     { title: "basics", path: "basics" },
+        //     { title: "面试相关", path: "面试" },
+        //   ],
+        //   "/css/": [{ title: "layout", path: "layout" }],
+        //   "/JavaScript/": [{ title: "常见面试手写题", path: "常见面试手写题" }],
+        // },
       },
       "/en/": {
         nav: [
           { text: "Home", link: "/en/" },
-          { text: "Css", link: "/en//css/" },
+          { text: "Css", link: "/en/css/" },
+
+          {
+            text: "JavaScript",
+            items: [
+              { text: "JavaScript", link: "/JavaScript/" },
+              {
+                text: "Common-written-test-questions",
+                link: "/en/JavaScript/Common-written-test-questions/",
+              },
+            ],
+          },
+          {
+            text: "React",
+            items: [
+              { text: "React", link: "/React/" },
+              { text: "Hooks", link: "/en/React/Hooks/" },
+            ],
+          },
           { text: "External", link: "https://google.com" },
         ],
-        // sidebar: generateSidebar(),
-        sidebar: {
-          "/en/html/": [
-            { title: "advanced", path: "advanced" },
-            { title: "basics", path: "basics" },
-            { title: "interview", path: "interview" },
-          ],
-          "/en/css/": [{ title: "layout", path: "layout" }],
-          "/en/JavaScript/": [
-            {
-              title: "Common-written-test-questions",
-              path: "Common-written-test-questions",
-            },
-          ],
-        },
+        sidebar: "auto",
+        // sidebar: {
+        //   "/en/html/": [
+        //     { title: "advanced", path: "advanced" },
+        //     { title: "basics", path: "basics" },
+        //     { title: "interview", path: "interview" },
+        //   ],
+        //   "/en/css/": [{ title: "layout", path: "layout" }],
+        //   "/en/JavaScript/": [
+        //     {
+        //       title: "Common-written-test-questions",
+        //       path: "Common-written-test-questions",
+        //     },
+        //   ],
+        // },
       },
     },
   },

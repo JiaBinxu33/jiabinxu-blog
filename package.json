@@ -14,6 +14,6 @@
   "scripts": {
     "dev": "vuepress dev docs --temp .temp",
     "docs:build": "vuepress build docs",
-    "deploy": "yarn docs:build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@github.com:13804970786/jiabinxu-blog.git master:blog_pages"
+    "deploy": "yarn docs:build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@github.com:Jiabinxu33/jiabinxu-blog.git master:blog_pages"
   }
 }

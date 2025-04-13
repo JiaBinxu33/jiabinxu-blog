@@ -1,92 +1,90 @@
 #!/usr/bin/env sh
 
 # ==============================================
-#             多语言博客部署脚本
-# 功能：构建中英文版本、自动语言重定向、部署到GitHub Pages
-# 使用方法：在项目根目录执行 ./deploy.sh
+#             多语言博客部署脚本（安全版）
 # ==============================================
 
-# ---------- 初始化配置 ----------
-REPO_NAME="jiabinxu-blog"      # GitHub仓库名称
-DEPLOY_BRANCH="blog_pages"     # 部署分支名称
-MAIN_BRANCH="master"             # 主开发分支名称
+# 配置变量
+REPO_NAME="jiabinxu-blog"
+DEPLOY_BRANCH="blog_pages"
+MAIN_BRANCH="master"
+TEMP_DIR=".temp_deploy"  # 使用临时目录避免污染工作区
 
-# ---------- 阶段1：清理旧构建文件 ----------
-echo "🗑  正在清理旧构建文件..."
-rm -rf docs/.vuepress/dist     # 删除旧的构建目录避免缓存问题
-echo "✅ 清理完成"
+# 确保脚本出错时退出
+set -e
+
+echo "🚀 开始安全部署流程..."
+
+# ---------- 阶段1：清理旧文件 ----------
+echo "🗑  清理旧文件..."
+rm -rf $TEMP_DIR
+mkdir -p $TEMP_DIR
 
 # ---------- 阶段2：构建多语言版本 ----------
-# 构建中文版本（输出到 zh/ 子目录）
-echo "🛠  正在构建中文版本..."
+echo "🛠  构建中文版本..."
 vuepress build docs \
-  --dest docs/.vuepress/dist/zh \
-  --lang zh-CN || { echo "❌ 中文构建失败"; exit 1; }
+  --dest $TEMP_DIR/zh \
+  --lang zh-CN
 
-# 构建英文版本（输出到 en/ 子目录）
-echo "🛠  正在构建英文版本..."
+echo "🛠  构建英文版本..."
 vuepress build docs \
-  --dest docs/.vuepress/dist/en \
-  --lang en-US || { echo "❌ 英文构建失败"; exit 1; }
-
-echo "✅ 多语言构建完成"
+  --dest $TEMP_DIR/en \
+  --lang en-US
 
 # ---------- 阶段3：创建语言切换入口 ----------
 echo "🌐 配置多语言自动重定向..."
-mkdir -p docs/.vuepress/dist    # 确保根目录存在
-
-# 生成智能跳转页面（根据浏览器语言自动重定向）
-cat > docs/.vuepress/dist/index.html <<EOF
+cat > $TEMP_DIR/index.html <<EOF
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <script>
-      // 根据浏览器语言首选项跳转
       const lang = navigator.language.startsWith('zh') ? 'zh' : 'en';
-      // 带仓库名称的完整路径跳转
       window.location.href = \`/${REPO_NAME}/\${lang}/\`;
     </script>
-    <!-- 备胎方案：手动选择 -->
     <noscript>
       <meta http-equiv="refresh" content="0; url=/${REPO_NAME}/zh/">
     </noscript>
   </head>
 </html>
 EOF
-echo "✅ 重定向配置完成"
 
 # ---------- 阶段4：部署到GitHub Pages ----------
-echo "🚚 开始部署流程..."
+echo "🚚 准备部署到GitHub..."
 
-# 切换到部署分支
-echo "↩ 切换到部署分支 ${DEPLOY_BRANCH}..."
-git checkout ${DEPLOY_BRANCH}
+# 克隆部署分支到临时目录
+echo "⏬ 克隆部署分支..."
+DEPLOY_REPO="git@github.com:Jiabinxu33/${REPO_NAME}.git"
+git clone --depth 1 --branch $DEPLOY_BRANCH $DEPLOY_REPO $TEMP_DIR/deploy
 
-# 清空部署分支内容（保留.git目录）
+# 清空部署目录（保留.git）
 echo "🧹 清理旧部署文件..."
-rm -rf *                      # 删除所有文件
-git rm -rf --cached .         # 从git索引中移除所有文件
+cd $TEMP_DIR/deploy
+git rm -rf .
+git clean -fd
 
 # 复制新构建内容
-echo "📦 复制新构建文件..."
-cp -r docs/.vuepress/dist/* .  # 复制所有生成的文件到根目录
+echo "📦 复制新文件..."
+cd ../..
+cp -r $TEMP_DIR/* $TEMP_DIR/deploy/
+rm -rf $TEMP_DIR/deploy/deploy  # 避免递归复制
 
 # 提交更改
 echo "💾 提交部署更新..."
+cd $TEMP_DIR/deploy
 git add .
-commit_msg="Deploy: $(date +'%Y-%m-%d %H:%M') (自动部署)"
+commit_msg="Deploy: $(date +'%Y-%m-%d %H:%M')"
 git commit -m "${commit_msg}"
 
-# 强制推送到远程分支
-echo "🚀 推送到远程仓库..."
-git push -f origin ${DEPLOY_BRANCH}
+# 推送到远程
+echo "🚀 推送到GitHub..."
+git push origin $DEPLOY_BRANCH
 
-# 切换回开发分支
-echo "↩ 切换回开发分支 ${MAIN_BRANCH}..."
-git checkout ${MAIN_BRANCH}
+# ---------- 清理阶段 ----------
+echo "🧼 清理临时文件..."
+cd ../..
+rm -rf $TEMP_DIR
 
-# ---------- 完成通知 ----------
-echo "🎉 部署成功！访问地址："
+echo "🎉 部署成功完成!"
 echo "   - 中文版：https://Jiabinxu33.github.io/${REPO_NAME}/zh/"
 echo "   - 英文版：https://Jiabinxu33.github.io/${REPO_NAME}/en/"

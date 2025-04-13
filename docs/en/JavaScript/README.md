@@ -1,1 +1,1 @@
-# JavaScript：介绍
+# JavaScript

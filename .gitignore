@@ -17,3 +17,6 @@ docs/.vuepress/dist/
 # 编辑器配置
 .idea/
 .vscode/
+
+#版本文件
+package-lock.json
