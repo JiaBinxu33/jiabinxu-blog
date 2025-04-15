@@ -1096,6 +1096,3 @@ key 值发生改变后会执行哪些生命周期函数
 3.componentWillMount（可以不说）
 4.render
 5.componentDidMount
-
-
-# hocks

@@ -4,7 +4,7 @@ heroImage: /R-C.png
 heroText: Tech Journey
 tagline: Documenting Front-end Development
 actionText: Get Started →
-actionLink: /en/html/
+actionLink: /en/Html+Css/
 features:
   - title: Structured Learning
     details: From basics to advanced topics, build complete knowledge system
