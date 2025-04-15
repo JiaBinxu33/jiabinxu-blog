@@ -21,12 +21,13 @@ module.exports = {
       "/": {
         nav: [
           { text: "Home", link: "/" },
-          { text: "Css", link: "/css/" },
+          { text: "Html+Css", link: "/Html+Css/" },
           {
             text: "JavaScript",
             items: [
               { text: "JavaScript", link: "/JavaScript/" },
               { text: "常见面试手写题", link: "/JavaScript/常见面试手写题/" },
+              { text: "JavaScript核心对象", link: "/JavaScript/JavaScript核心对象/" },
             ],
           },
           {
@@ -37,7 +38,7 @@ module.exports = {
             ],
           },
 
-          { text: "External", link: "https://google.com" },
+          // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",
         // sidebar: {
@@ -72,7 +73,7 @@ module.exports = {
               { text: "Hooks", link: "/en/React/Hooks/" },
             ],
           },
-          { text: "External", link: "https://google.com" },
+          // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",
         // sidebar: {
