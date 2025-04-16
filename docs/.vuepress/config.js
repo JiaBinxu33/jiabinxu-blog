@@ -27,17 +27,23 @@ module.exports = {
             items: [
               { text: "JavaScript", link: "/JavaScript/" },
               { text: "常见面试手写题", link: "/JavaScript/常见面试手写题/" },
-              { text: "JavaScript核心对象", link: "/JavaScript/JavaScript核心对象/" },
+              {
+                text: "JavaScript核心对象",
+                link: "/JavaScript/JavaScript核心对象/",
+              },
             ],
           },
           {
             text: "React",
+            link: "/React/",
+          },
+          {
+            text: "Hooks",
             items: [
-              { text: "React", link: "/React/" },
-              { text: "Hooks", link: "/React/Hooks/" },
+              { text: "useState", link: "/React/Hooks/useState/" },
+              { text: "useEffect", link: "/React/Hooks/useEffect/" },
             ],
           },
-
           // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",
@@ -59,7 +65,7 @@ module.exports = {
           {
             text: "JavaScript",
             items: [
-              { text: "JavaScript", link: "/JavaScript/" },
+              { text: "JavaScript", link: "/en/JavaScript/" },
               {
                 text: "Common-written-test-questions",
                 link: "/en/JavaScript/Common-written-test-questions/",
@@ -68,10 +74,7 @@ module.exports = {
           },
           {
             text: "React",
-            items: [
-              { text: "React", link: "/React/" },
-              { text: "Hooks", link: "/en/React/Hooks/" },
-            ],
+            link: "/en/React/",
           },
           // { text: "External", link: "https://google.com" },
         ],
