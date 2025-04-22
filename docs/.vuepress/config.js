@@ -42,6 +42,7 @@ module.exports = {
             items: [
               { text: "useState", link: "/React/Hooks/useState/" },
               { text: "useEffect", link: "/React/Hooks/useEffect/" },
+              { text: "useRef", link: "/React/Hooks/useRef/" },
             ],
           },
           // { text: "External", link: "https://google.com" },
