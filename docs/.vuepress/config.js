@@ -2,7 +2,7 @@ module.exports = {
   theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
   base: "/jiabinxu-blog/",
-
+  head: [["link", { rel: "icon", href: "/R-C.png" }]],
   // 多语言配置
   locales: {
     "/": {
@@ -17,10 +17,10 @@ module.exports = {
     },
   },
   themeConfig: {
+    logo: "/R-C.png",
     locales: {
       "/": {
         nav: [
-          { text: "Home", link: "/" },
           { text: "Html+Css", link: "/Html+Css/" },
           {
             text: "JavaScript",
@@ -45,6 +45,10 @@ module.exports = {
               { text: "useRef", link: "/React/Hooks/useRef/" },
             ],
           },
+          {
+            text: "项目实战",
+            items: [{ text: "nextjs", link: "/project/nextjs/" }],
+          },
           // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",
@@ -60,7 +64,6 @@ module.exports = {
       },
       "/en/": {
         nav: [
-          { text: "Home", link: "/en/" },
           { text: "Css", link: "/en/css/" },
 
           {

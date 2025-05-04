@@ -1,6 +1,6 @@
 # JavaScript
-## 闭包原理/优点/缺点/使用场景
 
+## 闭包原理/优点/缺点/使用场景
 
 1. 什么是闭包（外层函数调用时，外层函数的函数作用域对象被内层函数引用着，无法释放，就形成了闭包。）
    - 函数嵌套函数
@@ -13,7 +13,7 @@
    - 为变量提供访问和操作的相关接口
    - 便于进行模块化开发
    - 减少形参个数，延长了形参的生命周期
-   缺点： 占用过多的资源(内存) 大量使用不利于代码优化 【解决方式：清除变量】
+     缺点： 占用过多的资源(内存) 大量使用不利于代码优化 【解决方式：清除变量】
 3. 闭包的应用场景
    - 通过循环给页面上多个 dom 节点绑定事件
    - 封装私有变量(计数器)
@@ -25,47 +25,53 @@
    内层函数通过作用域链使用了外层函数的变量或参数，从而导致内存无法释放，需要手动设置为 null 进行清除
    模块化就是以闭包为基础构建的;
 
-
 ## promise
 
+- ES6-Promise(承诺)
+  Promise 异步编程的一种解决方案，比传统的解决方案（回调函数）更合理和更强大。
+  Promise 可以解决回调地狱的问题
+- 状态
+  Promise 对象代表一个异步操作，有三种状态：pending 进行中、fulfilled(resolve)成功、rejected 失败
+  Promise 一旦状态设定，就不会再变.
+  Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected,只要这两种情况发生，状态就凝固了。
+- 编写 promise
+
+```js
+let promise = new Promise((resolve, reject) => {
+  //resolve 成功 reject 失败
+  resolve(); //设定成功，找 promise 下面的 then 方法,resolve 传递参数值给 then
+  reject(); //设定失败，找 promise 下面的 catch 方法,reject 传递参数值给 catch
+});
 ```
-一.ES6-Promise(承诺)
-Promise 异步编程的一种解决方案，比传统的解决方案（回调函数）更合理和更强大。
-Promise 可以解决回调地狱的问题
-二.状态
-Promise 对象代表一个异步操作，有三种状态：pending 进行中、fulfilled(resolve)成功、rejected 失败
-Promise 一旦状态设定，就不会再变.
-Promise 对象的状态改变，只有两种可能：从 pending 变为 fulfilled 和从 pending 变为 rejected,只要这两种情况发生，状态就凝固了。
-三.编写 promise
-let promise = new Promise((resolve, reject) => { resolve 成功 reject 失败
-resolve() 设定成功，找 promise 下面的 then 方法,resolve 传递参数值给 then
-reject() 设定失败，找 promise 下面的 catch 方法,reject 传递参数值给 catch
-})
-四.promise 原型下面两个方法
-then 方法的作用：resolve 函数将 Promise 对象的状态从“未完成”变为“成功”，找 then 方法，将 resolve 函数的参数值传递给 then 方法。
-catch 方法的作用：reject 函数将 Promise 对象的状态从“ 未完成” 变为“ 失败”，找 catch 方法，将 reject 函数的参数值传递给 catch 方法。
-promise.then((data) => {
-console.log('11111111')
-}).catch(() => {
-console.log('22222222')
-})
+
+- promise 原型下面两个方法
+
+  - then 方法的作用：resolve 函数将 Promise 对象的状态从“未完成”变为“成功”，找 then 方法，将 resolve 函数的参数值传递给 then 方法。
+  - catch 方法的作用：reject 函数将 Promise 对象的状态从“ 未完成” 变为“ 失败”，找 catch 方法，将 reject 函数的参数值传递给 catch 方法。
+
+```js
+promise
+  .then((data) => {
+    console.log("11111111");
+  })
+  .catch(() => {
+    console.log("22222222");
+  });
+```
+
 Promise.all():用于将多个 Promise 实例，包装成一个新的 Promise 实例，所有的 promise 成功才成功，只要有一个失败了那就是失败 使用场景：发送多个请求并根据请求顺序获取和使用数据
 Promise.race():是一个数组，返回一个新的 promise，第一个完成的状态就是结果状态
-五.缺点：
-一旦新建立即执行，无法中途取消
-pending 状态时，无法知道当前处于哪一个状态，是开始还是结束
-不设置回调，内部抛出的错误，不会反应到外部
-```
+
+- 缺点：
+  一旦新建立即执行，无法中途取消
+  pending 状态时，无法知道当前处于哪一个状态，是开始还是结束
+  不设置回调，内部抛出的错误，不会反应到外部
 
 ## 设计模式 - 发布订阅模式 - 单例模式
 
-```
 发布 — 订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
-单例模式
-单例模式就是一个实例在整个网页的生命周期里只创建一次，后续再调用实例创建函数的时候，返回的仍是之前创建的实例。在实际开发中应用十分广泛，例如页面中的登录框，显示消息的提示窗
-```
 
-## 发布订阅的实现（基础版）
+发布订阅模式的基础实现
 
 ```JS
   // 利用发布订阅模式实现自定义事件(买菜，买车，买房子...)
@@ -139,6 +145,9 @@ class Ob {
   observer.emit("买车"); //执行事件
   observer.emit("cai");
 ```
+
+单例模式
+单例模式就是一个实例在整个网页的生命周期里只创建一次，后续再调用实例创建函数的时候，返回的仍是之前创建的实例。在实际开发中应用十分广泛，例如页面中的登录框，显示消息的提示窗
 
 ## Es6 新增了那些语法
 
@@ -754,7 +763,6 @@ js 中现在比较成熟的有四种模块加载方案：
 
 ## 内存泄漏是什么 内存泄露造成的原因
 
-
 内存泄漏也称作"存储渗漏"，用动态存储分配函数动态开辟的空间，在使用完毕后未释放，结果导致一直占据该内存单元。直到程序结束
 简单来说就是该内存空间使用完毕后未回收
 
@@ -769,6 +777,7 @@ js 中现在比较成熟的有四种模块加载方案：
 7. 不合理的使用闭包
 
 ## 函数柯里化
+
 柯里化（Currying）
 柯里化（Currying）是一种关于函数的高阶技术。它不仅被用于 JavaScript，还被用于其他编程语言。
 
@@ -779,6 +788,7 @@ js 中现在比较成熟的有四种模块加载方案：
 让我们先来看一个例子，以更好地理解我们正在讲的内容，然后再进行一个实际应用。
 
 我们将创建一个辅助函数 curry(f)，该函数将对两个参数的函数 f 执行柯里化。换句话说，对于两个参数的函数 f(a, b) 执行 curry(f) 会将其转换为以 f(a)(b) 形式运行的函数：
+
 ```JavaScript
 function curry(f) { // curry(f) 执行柯里化转换
   return function(a) {
@@ -797,12 +807,14 @@ let curriedSum = curry(sum);
 
 alert( curriedSum(1)(2) ); // 3
 ```
+
 正如你所看到的，实现非常简单：只有两个包装器（wrapper）。
 
 curry(func) 的结果就是一个包装器 function(a)。
 当它被像 curriedSum(1) 这样调用时，它的参数会被保存在词法环境中，然后返回一个新的包装器 function(b)。
 然后这个包装器被以 2 为参数调用，并且，它将该调用传递给原始的 sum 函数。
-柯里化更高级的实现，例如 lodash 库的 _.curry，会返回一个包装器，该包装器允许函数被正常调用或者以偏函数（partial）的方式调用：
+柯里化更高级的实现，例如 lodash 库的 \_.curry，会返回一个包装器，该包装器允许函数被正常调用或者以偏函数（partial）的方式调用：
+
 ```JavaScript
 function sum(a, b) {
   return a + b;
@@ -813,6 +825,7 @@ let curriedSum = _.curry(sum); // 使用来自 lodash 库的 _.curry
 alert( curriedSum(1, 2) ); // 3，仍可正常调用
 alert( curriedSum(1)(2) ); // 3，以偏函数的方式调用
 ```
+
 柯里化？目的是什么？
 要了解它的好处，我们需要一个实际中的例子。
 
@@ -851,6 +864,7 @@ let debugNow = logNow("DEBUG");
 
 debugNow("message"); // [HH:mm] DEBUG message
 ```
+
 所以：
 
 柯里化之后，我们没有丢失任何东西：log 依然可以被正常调用。
@@ -859,6 +873,7 @@ debugNow("message"); // [HH:mm] DEBUG message
 如果你想了解更多细节，下面是用于多参数函数的“高级”柯里化实现，我们也可以把它用于上面的示例。
 
 它非常短：
+
 ```JavaScript
 function curry(func) {
 
@@ -924,4 +939,3 @@ function curried(...args) {
 柯里化 是一种转换，将 f(a,b,c) 转换为可以被以 f(a)(b)(c) 的形式进行调用。JavaScript 实现通常都保持该函数可以被正常调用，并且如果参数数量不足，则返回偏函数。
 
 柯里化让我们能够更容易地获取偏函数。就像我们在日志记录示例中看到的那样，普通函数 log(date, importance, message) 在被柯里化之后，当我们调用它的时候传入一个参数（如 log(date)）或两个参数（log(date, importance)）时，它会返回偏函数。
-
