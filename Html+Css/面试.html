@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>如何让元素⽔平垂直居中（最多问到） | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <meta name="description" content="前端开发知识体系">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.b2d4e4aa.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.d086b101.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.eacf488d.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/1.1cbc5082.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/25.f99949b0.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/10.3529bcb2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/11.8e802c1e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.eaba6033.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.03a72e64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.a69b86ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.e40ead57.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.9dd77b55.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.dc3323dd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.648b10c4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.2a696a53.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.89f58454.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31e32fb9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.562fc2a5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.20d48fe4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.d415fa99.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.c996752b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.453c7663.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.a680d99c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.ad7b3dfd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/3.f74b7660.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.a6a2ec94.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.31aa0552.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.54c7911f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.22a837ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.eff9aadb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a4b5977c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.413fadf8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.9fd67ad7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.a6c6ead3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.18341018.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.119e5097.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.9247712d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.c3831169.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.24250740.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.3655b58c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.4b0e5826.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.e0903fd7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.38197ddf.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.22ec170c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.b5d8a9a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.50bd0b0d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.635a7794.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.8e6e8abb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.37bc5c70.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.301ea018.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.442dabf9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.06f5d163.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.b2d4e4aa.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link router-link-active">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/Html+Css/面试.html" class="nav-link">
+  zh-CN
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/en/" class="nav-link">
+  en-US
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link router-link-active">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/Html+Css/面试.html" class="nav-link">
+  zh-CN
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/en/" class="nav-link">
+  en-US
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>如何让元素⽔平垂直居中（最多问到）</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#如何让元素水平垂直居中-最多问到" class="sidebar-link">如何让元素⽔平垂直居中（最多问到）</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#flex-的几个默认属性" class="sidebar-link">flex 的⼏个默认属性</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#清除浮动" class="sidebar-link">清除浮动</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#回流重绘" class="sidebar-link">回流重绘</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#本地存储-缓存" class="sidebar-link">本地存储 缓存</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#css-盒模型的理解" class="sidebar-link">Css 盒模型的理解</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#bfc" class="sidebar-link">BFC</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#常见浏览器兼容问题" class="sidebar-link">常见浏览器兼容问题？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#手机端上图片长时间点击会选中图片-如何处理" class="sidebar-link">手机端上图片长时间点击会选中图片，如何处理？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/Html+Css/%E9%9D%A2%E8%AF%95.html#清除图片间隙" class="sidebar-link">清除图片间隙</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="如何让元素水平垂直居中-最多问到"><a href="#如何让元素水平垂直居中-最多问到" class="header-anchor">#</a> <strong>如何让元素⽔平垂直居中（最多问到）</strong></h2> <ol><li>定位偏移 top，left 为 50%，margin-left，margin-top 为⼩元素的-50%</li> <li>定位平均 top，left，bottom，right 为 0，margin 为 auto</li> <li>定位平移 top，left 为 50%，transform：translate(⼩元素的 50%)</li> <li>弹性盒 主轴与交叉轴居中</li> <li>表格 ⽗ block，⼦ table-cell</li></ol> <h2 id="flex-的几个默认属性"><a href="#flex-的几个默认属性" class="header-anchor">#</a> <strong>flex 的⼏个默认属性</strong></h2> <p>问三个答划线三个： 第⼀个值为默认值
+flex-direction: row 横 | column | 主轴⽅向
+flex-wrap: nowrap 不换⾏ | wrap | wrap-reverse 是否⾃动换⾏
+justify-content: flex-start 左或上 | flex-end | center |space-between | space-around 主轴对⻬⽅式
+align-items: stretch ⾼度不设置则占满 | flex-start | flex-end | center | baseline 交叉轴对⻬⽅式
+flex-shrink: 默认 1，空间不⾜按⽐缩⼩，设为 0 不缩⼩
+flex-basis: 默认 auto，占据主轴多少空间
+flex-grow：默认为 0，属性定义项⽬的放⼤⽐例，即如果存在剩余空间，也不放⼤。
+flex: 0 1 auto，</p> <h2 id="清除浮动"><a href="#清除浮动" class="header-anchor">#</a> <strong>清除浮动</strong></h2> <ol><li>给高度塌陷的元素加 overflow: hidden （触发 BFC）</li> <li>给高度塌陷的元素里面的最下面加一个空 div，div 属性 clear:both</li> <li>万能清除法
+div::after{
+content:'';
+height:0;
+overflow:hidden;
+visibility:hidden;
+display:block;
+clear:both;
+}</li></ol> <h2 id="回流重绘"><a href="#回流重绘" class="header-anchor">#</a> <strong>回流重绘</strong></h2> <p><strong><em>什么是回流</em></strong>
+当 render tree 中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建 render tree。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。
+<strong><em>什么是重绘</em></strong>
+当 render tree 中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如 background-color。则就叫称为重绘。</p> <h2 id="本地存储-缓存"><a href="#本地存储-缓存" class="header-anchor">#</a> <strong>本地存储 缓存</strong></h2> <p>1.存储大小
+cookie 数据大小不能超过 4k。
+sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。 2.有效时间
+localStorage 存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+sessionStorage 数据在当前浏览器窗口关闭后自动删除。
+cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭 3. 数据与服务器之间的交互方式
+cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
+sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。</p> <h2 id="css-盒模型的理解"><a href="#css-盒模型的理解" class="header-anchor">#</a> <strong>Css 盒模型的理解</strong></h2> <p>当对⼀个⽂档进⾏布局的时候，浏览器的渲染引擎会将所有元素表示为⼀个个矩形的盒⼦。CSS 决定这些盒⼦的⼤⼩、位置以及属性（例如颜⾊、背
+景、边框尺⼨…
+盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。
+⽽ IE 怪异盒模型 width 的宽度并不是 content 的宽度，⽽是 border + padding + content 的宽度值
+元素占据的宽度 = margin+ width</p> <h2 id="bfc"><a href="#bfc" class="header-anchor">#</a> BFC</h2> <ul><li><p>概念：
+BFC 块状格式化上下文 （block formatting context），是一个独立空间，只有块状元素参与，规定了里面的块状元素如何布局，与外界毫不相干</p></li> <li><p>如何触发 BFC 1. 根元素 html 2. float 除了 none 选项之外 3. position : absolute/fixed 4. display: inline-block/table-cell/flex/inline-flex 5. overflow 除了 visible 选项之外</p></li> <li><p>BFC 布局规则</p> <ol><li>内部的块状元素从上往下排列</li> <li>垂直方向的距离由 margin 控制
+属于同一个 BFC 的元素，上下 margin 会重叠</li> <li>每个元素的 margin-left 会和父元素的 border-left 相接触</li> <li>BFC 的区域不会和浮动元素相重叠</li> <li>BFC 区域和外界空间毫不相干</li> <li>计算 BFC 元素高度，浮动元素也参与计算</li></ol></li> <li><p>BFC 应用</p> <ol><li>两栏布局</li> <li>清除 margin 重叠</li> <li>清除浮动</li></ol></li></ul> <h2 id="常见浏览器兼容问题"><a href="#常见浏览器兼容问题" class="header-anchor">#</a> <strong>常见浏览器兼容问题？</strong></h2> <p>1、不同浏览器下的 padding 和 margin 不同
+解决方法：使用通配符(*)将 padding 和 margin 设置为 0
+2、块属性标签 float 之后，又有横向的 margin 值，在 IE6 中显示会比设置的大（IE6 双边距 bug）
+解决方法：在 float 标签样式控制中加入 display:inline;
+3、设置较小的高度标签（一般小于 10px），在 IE6，IE7，遨游中超出自己设置的高度
+解决方法：给超出高度的标签设置 overflow:hidden;或者设置行高 line-height 小于你设置的高度。
+4、行内标签设置 display:block;后又采用 float 布局，再设置横向 margin 值时，在 IE6 中显示会比设置的大（IE6 双边距 bug）
+解决方法：在 display:block;后面加上 display:inline;display:table;</p> <h2 id="手机端上图片长时间点击会选中图片-如何处理"><a href="#手机端上图片长时间点击会选中图片-如何处理" class="header-anchor">#</a> 手机端上图片长时间点击会选中图片，如何处理？</h2> <p>img{ pointer-events:none }，禁止事件，但会把整个标签的事件都禁用掉，不建议使用
+img{ -webkit-user-select:none }，用户选中状态
+推荐：
+img{
+-webkit-touch-callout: none; //触摸
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}</p> <h2 id="清除图片间隙"><a href="#清除图片间隙" class="header-anchor">#</a> 清除图片间隙</h2> <ul><li>清除图片左右的间隙</li> <li>将图片挨着写（中间没有空格，也没有回车）</li> <li>将图片的父元素的 font-size 设置成 0</li> <li>给图片设置浮动</li> <li>清除图片的上下间距</li> <li>将图片设置成 display: block</li> <li>给图片设置 vertical-align: top / middle / bottom</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.d086b101.js" defer></script><script src="/jiabinxu-blog/assets/js/2.eacf488d.js" defer></script><script src="/jiabinxu-blog/assets/js/1.1cbc5082.js" defer></script><script src="/jiabinxu-blog/assets/js/25.f99949b0.js" defer></script>
+  </body>
+</html>

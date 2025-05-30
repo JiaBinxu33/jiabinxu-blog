@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>nextjs - 15 版本及以上 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <meta name="description" content="前端开发知识体系">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.b2d4e4aa.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.d086b101.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.eacf488d.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/1.1cbc5082.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/51.37bc5c70.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/10.3529bcb2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/11.8e802c1e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.eaba6033.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.03a72e64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.a69b86ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.e40ead57.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.9dd77b55.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.dc3323dd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.648b10c4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.2a696a53.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.89f58454.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31e32fb9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.562fc2a5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.20d48fe4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.d415fa99.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.f99949b0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.c996752b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.453c7663.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.a680d99c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.ad7b3dfd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/3.f74b7660.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.a6a2ec94.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.31aa0552.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.54c7911f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.22a837ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.eff9aadb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a4b5977c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.413fadf8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.9fd67ad7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.a6c6ead3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.18341018.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.119e5097.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.9247712d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.c3831169.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.24250740.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.3655b58c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.4b0e5826.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.e0903fd7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.38197ddf.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.22ec170c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.b5d8a9a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.50bd0b0d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.635a7794.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.8e6e8abb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.301ea018.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.442dabf9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.06f5d163.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.b2d4e4aa.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  zh-CN
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/en/" class="nav-link">
+  en-US
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  zh-CN
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/en/" class="nav-link">
+  en-US
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>nextjs - 15 版本及以上</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/project/nextjs.html#介绍" class="sidebar-link">介绍</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs.html#环境准备" class="sidebar-link">环境准备</a></li></ul></li><li><a href="/jiabinxu-blog/project/nextjs.html#项目搭建" class="sidebar-link">项目搭建</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs.html#项目目录结构" class="sidebar-link">项目目录结构</a></li></ul></li><li><a href="/jiabinxu-blog/project/nextjs.html#nextjs-中-userouter-错误引入" class="sidebar-link">nextjs 中 useRouter 错误引入</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/nextjs.html#ant-design-静态方法与-react-context-问题-app-组件" class="sidebar-link">Ant Design 静态方法与 React Context 问题 (&lt;App&gt; 组件)</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/nextjs.html#nextjs-项目的-env-local-文件" class="sidebar-link">nextjs 项目的.env.local 文件</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/nextjs.html#为项目添加可使用-引入" class="sidebar-link">为项目添加可使用@引入</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs.html#修改-next-config-mjs" class="sidebar-link">修改 next.config.mjs</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs.html#配置-jsconfig-json-tsconfig-json" class="sidebar-link">配置 jsconfig.json/tsconfig.json</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs.html#注意事项-2" class="sidebar-link">注意事项</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="nextjs-15-版本及以上"><a href="#nextjs-15-版本及以上" class="header-anchor">#</a> nextjs - 15 版本及以上</h1> <h2 id="介绍"><a href="#介绍" class="header-anchor">#</a> 介绍</h2> <p>nextjs 官网：https://nextjs.org/docs/getting-started
+Next.js 是一个 React 框架，它允许你使用 React 框架建立超强的、有利于 SEO 的、极度面向用户的静态网站和网络应用。Next.js 以在构建具有你所需要的所有功能的生产就绪的应用程序时的最佳开发者体验而闻名。</p> <p>它具有混合静态和服务器渲染、TypeScript 支持、智能捆绑、路由预取等功能，无需额外配置。</p> <h3 id="环境准备"><a href="#环境准备" class="header-anchor">#</a> 环境准备</h3> <ul><li>Node.js 18+</li> <li>npm/yarn/pnpm（推荐使用 pnpm）</li> <li>代码编辑器（推荐 VS Code）</li></ul> <h2 id="项目搭建"><a href="#项目搭建" class="header-anchor">#</a> 项目搭建</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>$ npx create-next-app
+
+<span class="token comment"># 若还未安装 create-next-app ，则需要先安装以下软件包:</span>
+Need to <span class="token function">install</span> the following packages:
+  create-next-app
+Ok to proceed? <span class="token punctuation">(</span>y<span class="token punctuation">)</span> y
+
+<span class="token comment"># 项目名称</span>
+√ What is your project named? <span class="token punctuation">..</span>. my-app
+
+<span class="token comment"># 是否需要使用 TypeScript</span>
+√ Would you like to use TypeScript? <span class="token punctuation">..</span>. No / Yes ✔
+
+<span class="token comment"># 是否需要使用 ESLint</span>
+√ Would you like to use ESLint? <span class="token punctuation">..</span>. No / Yes ✔
+
+<span class="token comment"># 是否需要使用 Tailwind CSS（https://www.tailwindcss.cn/）只需书写 HTML 代码，无需书写 CSS</span>
+<span class="token comment"># 本质上是一个工具集，包含了大量类似 flex、 pt-4、 text-center 以及 rotate-90 等工具类，可以组合使用并直接在 HTML 代码上实现任何 UI 设计。</span>
+√ Would you like to use Tailwind CSS? <span class="token punctuation">..</span>. No / Yes ✔
+
+<span class="token comment"># 是否需要在项目中使用 src 目录，若不使用 src 目录默认会把所有文件放在根目录，为了方便开发，这里启用 src 目录</span>
+√ Would you like to use <span class="token variable"><span class="token variable">`</span>src/<span class="token variable">`</span></span> directory? <span class="token punctuation">..</span>. No / Yes ✔
+
+<span class="token comment"># 是否使用 App Router，若选择 No 则默认是 Pages Router（具体区别在下面，可以先简单看下再选择）</span>
+√ Would you like to use App Router? <span class="token punctuation">(</span>recommended<span class="token punctuation">)</span> <span class="token punctuation">..</span>. No ✔ / Yes
+
+<span class="token comment"># 是否启用路径别名</span>
+√ Would you like to customize the default <span class="token function">import</span> alias? <span class="token punctuation">..</span>. No / Yes ✔
+
+<span class="token comment"># 希望配置什么导入别名（默认是 @/*，若不修改默认别名则直接回车）</span>
+√ What <span class="token function">import</span> <span class="token builtin class-name">alias</span> would you like configured? <span class="token punctuation">..</span>. @/*
+
+<span class="token comment"># 完成配置选择后，下面工具将会根据上述配置进行项目搭建</span>
+Creating a new Next.js app <span class="token keyword">in</span> E:<span class="token punctuation">\</span>xxx<span class="token punctuation">\</span>my-app.
+
+Using npm.
+<span class="token comment"># 若上述选择了 App Router 则模板初始化项目为 app-tw，若没选择则模板初始化项目为 default-tw</span>
+<span class="token comment">#（下面会展示对应模板的初始化目录）</span>
+Initializing project with template: default-tw
+
+
+Installing dependencies:
+- react
+- react-dom
+- next
+- typescript
+- @types/react
+- @types/node
+- @types/react-dom
+- tailwindcss
+- postcss
+- autoprefixer
+- eslint
+- eslint-config-next
+
+
+added <span class="token number">326</span> packages, and audited <span class="token number">327</span> packages <span class="token keyword">in</span> 2m
+
+<span class="token number">117</span> packages are looking <span class="token keyword">for</span> funding
+  run <span class="token variable"><span class="token variable">`</span><span class="token function">npm</span> fund<span class="token variable">`</span></span> <span class="token keyword">for</span> details
+
+found <span class="token number">0</span> vulnerabilities
+Initialized a <span class="token function">git</span> repository.
+
+Success<span class="token operator">!</span> Created my-app at E:<span class="token punctuation">\</span>xxx<span class="token punctuation">\</span>my-app
+
+</code></pre></div><h3 id="项目目录结构"><a href="#项目目录结构" class="header-anchor">#</a> 项目目录结构</h3> <div class="language- extra-class"><pre class="language-text"><code>├── src/
+│   ├── app/                # App Router 核心目录
+│   │   ├── layout.tsx      # 全局布局
+│   │   └── page.tsx        # 首页组件
+│   ├── components/         # 公共组件
+│   ├── lib/                # 工具函数/第三方库
+│   └── styles/             # 全局样式
+├── public/                 # 静态资源
+├── next.config.js          # Next.js 配置
+└── package.json
+</code></pre></div><h2 id="nextjs-中-userouter-错误引入"><a href="#nextjs-中-userouter-错误引入" class="header-anchor">#</a> nextjs 中 useRouter 错误引入</h2> <p>这个报错 <code>Error: NextRouter was not mounted.</code> 通常发生在 Next.js 应用中，当你尝试在不正确的上下文中使用 <code>useRouter</code> Hook 时 。</p> <p>根据你的文件路径 <code>src/app/register/page.jsx</code>，你的项目正在使用 Next.js 的 <strong>App Router</strong> 。</p> <p>然而，在你的代码中，你导入 <code>useRouter</code> 的方式是：</p> <div class="language- extra-class"><pre class="language-text"><code>import { useRouter } from &quot;next/router&quot;;
+</code></pre></div><p>这个导入路径是用于 <strong>Pages Router</strong> 的 。</p> <p><strong>问题原因：</strong> 你在 App Router 的页面 (<code>src/app/...</code>) 中使用了 Pages Router 的 <code>useRouter</code> Hook。这两个路由系统有不同的 API 。</p> <p><strong>解决方法：</strong> 你需要将 <code>useRouter</code> 的导入路径更改为 App Router 对应的 <code>next/navigation</code> 。</p> <p>请将你的代码中的导入语句修改为：</p> <p>JavaScript</p> <div class="language- extra-class"><pre class="language-text"><code>import { useRouter } from &quot;next/navigation&quot;;
+</code></pre></div><h2 id="ant-design-静态方法与-react-context-问题-app-组件"><a href="#ant-design-静态方法与-react-context-问题-app-组件" class="header-anchor">#</a> Ant Design 静态方法与 React Context 问题 (<code>&lt;App&gt;</code> 组件)</h2> <p><strong>日期:</strong> 2025 年 05 月 01 日</p> <p><strong>主题:</strong> 理解并解决 Ant Design 警告: <code>Warning: [antd: Modal] Static function can not consume context like dynamic theme. Please use 'App' component instead.</code></p> <p><strong>受影响的方法:</strong> 主要包括 <code>Modal.confirm()</code>, <code>Modal.info()</code>, <code>Modal.success()</code>, <code>Modal.error()</code>, <code>Modal.warning()</code>, <code>message.success()</code>, <code>message.error()</code>, <code>message.info()</code>, <code>message.warning()</code>, <code>message.loading()</code>, <code>notification.open()</code> 等静态调用方法。</p> <hr> <h4 id="问题描述"><a href="#问题描述" class="header-anchor">#</a> 问题描述</h4> <p>当在代码中直接（静态地）调用 <code>Modal.confirm(...)</code> 或 <code>message.success(...)</code> 这类方法时，浏览器的开发者控制台会出现上述警告。该警告指出这些静态函数无法消费（获取）像动态主题这样的 React Context 信息。</p> <h4 id="问题根源-静态方法-vs-react-context"><a href="#问题根源-静态方法-vs-react-context" class="header-anchor">#</a> 问题根源：静态方法 vs React Context</h4> <ol><li><strong>React Context (上下文):</strong> 这是 React 提供的一种机制，允许数据（例如主题配置、语言设置、用户信息等）在组件树中向下传递，而无需手动地在每一层都传递 props。Ant Design 使用 <code>&lt;ConfigProvider&gt;</code> 组件来提供主题、国际化等全局配置的 Context。</li> <li>**静态方法 (Static Methods)😗*像 <code>Modal.confirm</code> 这样的方法是直接在导入的 <code>Modal</code> 对象上调用的，而不是在 React 组件树中渲染的某个实例上调用。这些方法的调用发生在触发它们的 React 组件的常规渲染生命周期和上下文之外。</li> <li><strong>核心矛盾:</strong> 由于这些静态方法在 React 组件实例的上下文之外执行，它们无法“看到”或“访问”由上层 <code>&lt;ConfigProvider&gt;</code> 等组件提供的 Context。因此，它们对应用内设置的主题、语言等配置是“无感知”的。</li></ol> <h4 id="解决方案-app-组件与-useapp-hook"><a href="#解决方案-app-组件与-useapp-hook" class="header-anchor">#</a> 解决方案: <code>&lt;App /&gt;</code> 组件与 <code>useApp</code> Hook</h4> <p>为了解决这个问题，Ant Design v5 版本引入了 <code>&lt;App /&gt;</code> 组件和 <code>App.useApp()</code> 这个 Hook：</p> <ol><li><strong><code>&lt;App /&gt;</code> 组件包裹:</strong> 你需要在应用的根节点附近（通常在 <code>&lt;ConfigProvider&gt;</code> 内部）使用 <code>&lt;App /&gt;</code> 组件包裹你的主要应用内容。这个 <code>&lt;App /&gt;</code> 组件会创建一个特殊的上下文环境，并在内部管理 <code>modal</code>, <code>message</code>, <code>notification</code> 等服务的实例。</li> <li><strong><code>App.useApp()</code> Hook:</strong> 在 <code>&lt;App /&gt;</code> 组件包裹下的<strong>任何子组件</strong>中，可以通过调用 <code>App.useApp()</code> 这个 Hook 来获取一个包含 <code>modal</code>, <code>message</code>, <code>notification</code> 实例的对象。这些实例是<strong>能够感知到 Context</strong> 的。</li> <li><strong>正确用法:</strong> <ul><li><strong>第一步:</strong> 在你的根布局文件（如 <code>layout.jsx</code>）中，用 <code>&lt;App&gt;</code> 包裹你的应用主体。</li> <li><strong>第二步:</strong> 在你需要调用 <code>Modal</code>, <code>message</code>, <code>notification</code> 的<strong>具体组件</strong>中，导入 <code>App</code> 并调用 <code>const { modal, message, notification } = App.useApp();</code>。</li> <li><strong>第三步:</strong> 将原先的静态调用（如 <code>Modal.confirm(...)</code>）替换为通过 Hook 获取到的实例调用（如 <code>modal.confirm(...)</code>）。</li></ul></li></ol> <h4 id="如果不使用-app-包裹会怎么样"><a href="#如果不使用-app-包裹会怎么样" class="header-anchor">#</a> 如果不使用 <code>&lt;App /&gt;</code> 包裹会怎么样？</h4> <p>如果你选择不使用 <code>&lt;App /&gt;</code> 组件包裹应用，或者继续使用静态方法调用，会导致以下后果：</p> <ol><li><strong>主题样式不一致:</strong> 这是最直接的影响。通过静态方法创建的 <code>Modal</code>, <code>message</code>, <code>notification</code> 组件<strong>无法应用</strong>通过 <code>&lt;ConfigProvider&gt;</code> 设置的<strong>动态主题</strong>。例如，当你的应用切换到暗色模式时，这些弹窗或提示可能仍然显示为默认的亮色模式样式，造成界面视觉风格的割裂和不统一。</li> <li><strong>其他 Context 配置失效:</strong> 虽然动态主题是最典型的例子，但理论上 <code>&lt;ConfigProvider&gt;</code> 提供的其他基于 Context 的配置（如国际化语言包影响默认按钮文字、全局组件尺寸等，如果这些配置未来会影响静态方法的话）也可能无法被这些静态组件获取。</li> <li><strong>持续的控制台警告:</strong> 浏览器开发者工具中会一直显示该警告信息，这表明你的代码实践与 Ant Design 的推荐方式不符，也可能干扰调试。</li> <li><strong>潜在的未来兼容性问题:</strong> Ant Design 未来可能会更加依赖 Context 机制来配置组件行为。坚持使用旧的静态方法调用方式，在未来升级 antd 版本时，可能会遇到更多难以预料的行为或兼容性问题。</li></ol> <h4 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h4> <p>Ant Design 中关于静态方法无法消费 Context 的警告，源于全局静态调用与 React 组件树上下文之间的隔离。使用 <code>&lt;App /&gt;</code> 组件包裹应用并在具体组件中通过 <code>App.useApp()</code> Hook 获取 <code>modal</code>, <code>message</code>, <code>notification</code> 实例，是 antd v5+ 官方推荐的、确保这些全局提示/弹窗能正确继承上下文（尤其是动态主题）的<strong>标准解决方案</strong>。忽略此模式会导致 UI 样式不一致，并可能引发未来的维护和兼容性风险。</p> <h2 id="nextjs-项目的-env-local-文件"><a href="#nextjs-项目的-env-local-文件" class="header-anchor">#</a> nextjs 项目的.env.local 文件</h2> <p><code>.env.local</code> 是一个本地环境变量文件，用于存储敏感信息或特定于开发环境的配置</p> <h4 id="nextpublic前缀"><a href="#nextpublic前缀" class="header-anchor">#</a> <strong>NEXT<em>PUBLIC</em></strong>前缀</h4> <p>表示这个变量会被内联到客户端 JavaScript 中</p> <p>可以用来存放全局的 baseUrl</p> <div class="language- extra-class"><pre class="language-text"><code>NEXT_PUBLIC_API_BASE_URL=https://your-actual-api-url.com/api
+</code></pre></div><p>组件中使用</p> <div class="language- extra-class"><pre class="language-text"><code>const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+</code></pre></div><h4 id="无前缀变量"><a href="#无前缀变量" class="header-anchor">#</a> 无前缀变量</h4> <p>只能在 Node.js 环境中使用（服务器端）</p> <div class="language- extra-class"><pre class="language-text"><code>SECRET_KEY=mysecret
+</code></pre></div><p>只能在 API 路由或 <code>getServerSideProps</code> 等服务器端代码中使用</p> <h4 id="注意事项"><a href="#注意事项" class="header-anchor">#</a> 注意事项</h4> <ol><li><p><strong>重启服务</strong>：修改 <code>.env.local</code> 后需要重启开发服务器才能生效</p></li> <li><p><strong>类型支持</strong>：在 TypeScript 项目中，需要在 <code>next-env.d.ts</code> 或自定义类型文件中声明环境变量</p> <div class="language- extra-class"><pre class="language-text"><code>declare namespace NodeJS {
+  interface ProcessEnv {
+    NEXT_PUBLIC_API_URL: string;
+    DB_HOST?: string;
+  }
+}
+</code></pre></div></li> <li><p><strong>生产环境</strong>：在生产环境中，通常使用平台提供的环境变量配置，而不是 <code>.env.local</code> 文件</p></li></ol> <h2 id="为项目添加可使用-引入"><a href="#为项目添加可使用-引入" class="header-anchor">#</a> 为项目添加可使用@引入</h2> <h3 id="修改-next-config-mjs"><a href="#修改-next-config-mjs" class="header-anchor">#</a> 修改 next.config.mjs</h3> <div class="language- extra-class"><pre class="language-text"><code>import path from &quot;path&quot;;
+import { fileURLToPath } from &quot;url&quot;;
+
+// 获取 ESM 的 __dirname 等效值
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
+  webpack: (config) =&gt; {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      //路径映射
+      &quot;@&quot;: path.resolve(__dirname, &quot;src&quot;),
+    };
+    return config;
+  },
+};
+
+</code></pre></div><h3 id="配置-jsconfig-json-tsconfig-json"><a href="#配置-jsconfig-json-tsconfig-json" class="header-anchor">#</a> 配置 jsconfig.json/tsconfig.json</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;compilerOptions&quot;: {
+    &quot;baseUrl&quot;: &quot;.&quot;,
+    &quot;paths&quot;: {
+     // 注意，这里不需要单独为每个文件配置路径，直接配置根路径，根路径下所有子文件夹都可以被访问到
+      // &quot;@components/*&quot;: [&quot;src/components/*&quot;],
+      &quot;@/*&quot;: [&quot;src/*&quot;]
+    }
+  }
+}
+</code></pre></div><h3 id="注意事项-2"><a href="#注意事项-2" class="header-anchor">#</a> 注意事项</h3> <ul><li>jsconfig.json 中
+不需要单独为每个文件配置路径，直接配置根路径，根路径下所有子文件夹都可以被访问到</li> <li>组件中使用：@/xxx，注意斜杠，要使用@/，不是只有@，根据 jsconfig.json 中的配置作为判断依据</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.d086b101.js" defer></script><script src="/jiabinxu-blog/assets/js/2.eacf488d.js" defer></script><script src="/jiabinxu-blog/assets/js/1.1cbc5082.js" defer></script><script src="/jiabinxu-blog/assets/js/51.37bc5c70.js" defer></script>
+  </body>
+</html>
