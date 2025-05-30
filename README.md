@@ -15,6 +15,9 @@
 
 ## 🚀 本地开发
 
+# 访问项目
+https://jiabinxu33.github.io/jiabinxu-blog/
+
 ```bash
 # 克隆项目
 git clone -b master https://github.com/Jiabinxu33/jiabinxu-blog.git
