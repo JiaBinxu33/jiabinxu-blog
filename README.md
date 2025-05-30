@@ -17,7 +17,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/Jiabinxu33/jiabinxu-blog.git
+git clone -b master https://github.com/Jiabinxu33/jiabinxu-blog.git
 
 # 安装依赖
 yarn install
@@ -28,4 +28,16 @@ yarn dev
 
 #打包到远程
 yarn deploy
+```
+
+## 配置文件
+
+在 jiabinxu-blog/docs/.vuepress/config.js 中
+
+## 跳转链接写法
+
+```
+[要展示的文字](#链接到的地址)
+//在下面要有相对应的地址，方可跳转
+### 链接到的地址
 ```
