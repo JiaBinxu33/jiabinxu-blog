@@ -10,11 +10,12 @@ module.exports = {
       title: "贾滨旭的个人技术博客",
       description: "前端开发知识体系",
     },
-    "/en/": {
-      lang: "en-US",
-      title: "Ji Binxu's Personal Technical Blog",
-      description: "Web Development Knowledge System",
-    },
+    // TODO: 英文页面未完成暂时注释多语言入口
+    // "/en/": {
+    //   lang: "en-US",
+    //   title: "Ji Binxu's Personal Technical Blog",
+    //   description: "Web Development Knowledge System",
+    // },
   },
   themeConfig: {
     logo: "/R-C.png",
@@ -65,6 +66,7 @@ module.exports = {
         //   "/JavaScript/": [{ title: "常见面试手写题", path: "常见面试手写题" }],
         // },
       },
+      // TODO: 暂时注释多语言入口
       "/en/": {
         nav: [
           { text: "Css", link: "/en/css/" },

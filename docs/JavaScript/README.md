@@ -224,13 +224,10 @@ class Ob {
 
 ### for in. for of 的区别
 
-```
 1. for...in 循环：只能获得对象的键名，不能获得键值，for...of 循环：允许遍历获得键值
 2. 对于普通对象，没有部署原生的 iterator 接口，直接使用 for...of 会报错，可以使用 for...in 循环遍历键名
 3. for...in 循环不仅遍历数字键名，还会遍历手动添加的其它键，甚至包括原型链上的键。for...of 则不会这样
-4. 无论是 for...in 还是 for...of 都不能遍历出 Symbol 类型的值，遍历 Symbol 类型的值需要用 Object.getOwnPropertySymbols() 方法（可以不说）
-
-```
+4. 无论是 for...in 还是 for...of 都不能遍历出 Symbol 类型的值，遍历 Symbol 类型的值需要用 Object.getOwnPropertySymbols() 方法
 
 ## 异步解决方案有哪些？ - 回调函数 callback Promise Generator
 
