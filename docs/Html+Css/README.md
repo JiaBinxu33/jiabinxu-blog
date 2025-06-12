@@ -1,4 +1,5 @@
-# HTML+Css概述
+# HTML+Css 概述
+
 ## HTML 的概述
 
 HTML 是一门超文本标记语言而不是编程语言，其包括诸多标签可以用于构建基本的网页，而浏览器可以通过其内核去解析这些标签，将其界面正确的展示出来；
@@ -11,8 +12,9 @@ HTML 的标签一般是成对出现的，如 div 标签,类似这种的称为双
 ```
 
 标签的关系有包含关系和并列关系,如下所示：
-//包含关系：html 标签里包含着 head 标签，因此可以称为是包含关系（父子关系）
-//并列关系：head 标签和 body 标签不存在包含关系，而是并列在一起的，因此称为并列关系（兄弟关系）
+
+- 包含关系：html 标签里包含着 head 标签，因此可以称为是包含关系（父子关系）
+- 并列关系：head 标签和 body 标签不存在包含关系，而是并列在一起的，因此称为并列关系（兄弟关系）
 
 ```Html
 <html>
@@ -57,10 +59,10 @@ HTML 的标签一般是成对出现的，如 div 标签,类似这种的称为双
 - 如何转换，通过 display 设置：display: block | inline-block | line
 
 - 区别
-  显示方式：块级元素和行内块级元素会独占一行或多行空间，而行内元素会在同一行内显示。
-  尺寸设置：块级元素和行内块级元素可以设置宽度和高度，而行内元素的尺寸由其内容决定。
-  内外边距：块级元素和行内块级元素可以设置上下内外边距，而行内元素通常只能设置左右内外边距。
-  换行行为：块级元素和行内块级元素会在其前后创建换行，而行内元素不会。
+  - 显示方式：块级元素和行内块级元素会独占一行或多行空间，而行内元素会在同一行内显示。
+  - 尺寸设置：块级元素和行内块级元素可以设置宽度和高度，而行内元素的尺寸由其内容决定。
+  - 内外边距：块级元素和行内块级元素可以设置上下内外边距，而行内元素通常只能设置左右内外边距。
+  - 换行行为：块级元素和行内块级元素会在其前后创建换行，而行内元素不会。
 
 通过深入理解这三种元素类型的特性、区别以及转换方法，我们能够更有效地管理页面的结构和外观，从而实现更具丰富性和灵活性的网页设计。
 
@@ -186,9 +188,13 @@ xhr.send()
 ```
 
 上述渲染算法在网络情况较差时是起作用的，但不代表它是正确的。 比如当 https://harttle.land 对应的 HTML 非常大而且网络很好时， onprogress 事件处理器可能碰撞在同一个渲染帧中，或者干脆在同一个 Tick。 这样页面会长时间空白，即使 onprogress 早已被调用过。
+
 ## 常见问题
+
 ### 弹性盒
+
 display:flex;
+
 - flex-direction: row 横 | column | 主轴⽅向
 - flex-wrap: nowrap 不换⾏ | wrap | wrap-reverse 是否⾃动换⾏
 - justify-content: flex-start 左或上 | flex-end | center |space-between | space-around 主轴对⻬⽅式
@@ -197,6 +203,7 @@ display:flex;
 - flex-basis: 默认 auto，占据主轴多少空间
 - flex-grow：默认为 0，属性定义项⽬的放⼤⽐例，即如果存在剩余空间，也不放⼤。
 - flex: 0 1 auto，
+
 ### **如何让元素⽔平垂直居中（最多问到）**
 
 1. 定位偏移 top，left 为 50%，margin-left，margin-top 为⼩元素的-50%
@@ -207,15 +214,16 @@ display:flex;
 
 ### **flex 的⼏个默认属性**
 
-问三个答划线三个： 第⼀个值为默认值
-flex-direction: row 横 | column | 主轴⽅向
-flex-wrap: nowrap 不换⾏ | wrap | wrap-reverse 是否⾃动换⾏
-justify-content: flex-start 左或上 | flex-end | center |space-between | space-around 主轴对⻬⽅式
-align-items: stretch ⾼度不设置则占满 | flex-start | flex-end | center | baseline 交叉轴对⻬⽅式
-flex-shrink: 默认 1，空间不⾜按⽐缩⼩，设为 0 不缩⼩
-flex-basis: 默认 auto，占据主轴多少空间
-flex-grow：默认为 0，属性定义项⽬的放⼤⽐例，即如果存在剩余空间，也不放⼤。
-flex: 0 1 auto，
+第⼀个值为默认值
+
+- flex-direction: row 横 | column | 主轴⽅向
+- flex-wrap: nowrap 不换⾏ | wrap | wrap-reverse 是否⾃动换⾏
+- justify-content: flex-start 左或上 | flex-end | center |space-between | space-around 主轴对⻬⽅式
+- align-items: stretch ⾼度不设置则占满 | flex-start | flex-end | center | baseline 交叉轴对⻬⽅式
+- flex-shrink: 默认 1，空间不⾜按⽐缩⼩，设为 0 不缩⼩
+- flex-basis: 默认 auto，占据主轴多少空间
+- flex-grow：默认为 0，属性定义项⽬的放⼤⽐例，即如果存在剩余空间，也不放⼤。
+- flex: 0 1 auto，
 
 ### **清除浮动**
 
@@ -233,26 +241,28 @@ flex: 0 1 auto，
 
 ### **回流重绘**
 
-**_什么是回流_**
-当 render tree 中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建 render tree。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。
-**_什么是重绘_**
-当 render tree 中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如 background-color。则就叫称为重绘。
+- **_什么是回流_**
+  当 render tree 中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建 render tree。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。
+- **_什么是重绘_**
+  当 render tree 中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如 background-color。则就叫称为重绘。
 
 ### **本地存储 缓存**
 
-1.存储大小
-cookie 数据大小不能超过 4k。
-sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。 2.有效时间
-localStorage 存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
-sessionStorage 数据在当前浏览器窗口关闭后自动删除。
-cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭 3. 数据与服务器之间的交互方式
-cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
-sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。
+- 存储大小
+  cookie 数据大小不能超过 4k。
+  sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。
+- 有效时间
+  localStorage 存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+  sessionStorage 数据在当前浏览器窗口关闭后自动删除。
+  cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭
+- 数据与服务器之间的交互方式
+  cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
+  sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。
 
 ### **Css 盒模型的理解**
 
 当对⼀个⽂档进⾏布局的时候，浏览器的渲染引擎会将所有元素表示为⼀个个矩形的盒⼦。CSS 决定这些盒⼦的⼤⼩、位置以及属性（例如颜⾊、背
-景、边框尺⼨…
+景、边框尺⼨…）
 盒模型由 content（内容）、padding（内边距）、border（边框）、margin（外边距）组成。
 ⽽ IE 怪异盒模型 width 的宽度并不是 content 的宽度，⽽是 border + padding + content 的宽度值
 元素占据的宽度 = margin+ width
@@ -278,27 +288,14 @@ sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本
 
 ### **常见浏览器兼容问题？**
 
-1、不同浏览器下的 padding 和 margin 不同
-解决方法：使用通配符(\*)将 padding 和 margin 设置为 0
-2、块属性标签 float 之后，又有横向的 margin 值，在 IE6 中显示会比设置的大（IE6 双边距 bug）
-解决方法：在 float 标签样式控制中加入 display:inline;
-3、设置较小的高度标签（一般小于 10px），在 IE6，IE7，遨游中超出自己设置的高度
-解决方法：给超出高度的标签设置 overflow:hidden;或者设置行高 line-height 小于你设置的高度。
-4、行内标签设置 display:block;后又采用 float 布局，再设置横向 margin 值时，在 IE6 中显示会比设置的大（IE6 双边距 bug）
-解决方法：在 display:block;后面加上 display:inline;display:table;
-
-### 手机端上图片长时间点击会选中图片，如何处理？
-
-img{ pointer-events:none }，禁止事件，但会把整个标签的事件都禁用掉，不建议使用
-img{ -webkit-user-select:none }，用户选中状态
-推荐：
-img{
--webkit-touch-callout: none; //触摸
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-}
+1. 不同浏览器下的 padding 和 margin 不同
+   解决方法：使用通配符(\*)将 padding 和 margin 设置为 0
+2. 块属性标签 float 之后，又有横向的 margin 值，在 IE6 中显示会比设置的大（IE6 双边距 bug）
+   解决方法：在 float 标签样式控制中加入 display:inline;
+3. 设置较小的高度标签（一般小于 10px），在 IE6，IE7，遨游中超出自己设置的高度
+   解决方法：给超出高度的标签设置 overflow:hidden;或者设置行高 line-height 小于你设置的高度。
+4. 行内标签设置 display:block;后又采用 float 布局，再设置横向 margin 值时，在 IE6 中显示会比设置的大（IE6 双边距 bug）
+   解决方法：在 display:block;后面加上 display:inline;display:table;
 
 ### 清除图片间隙
 

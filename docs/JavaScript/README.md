@@ -67,6 +67,18 @@ Promise.race():是一个数组，返回一个新的 promise，第一个完成的
   pending 状态时，无法知道当前处于哪一个状态，是开始还是结束
   不设置回调，内部抛出的错误，不会反应到外部
 
+### promise async await 以及两者区别
+
+- Promise 概念：
+  - Promise 是用来做异步的，Promise 好比容器，里面存放着一些异步的事件的结果，而这些结果一旦生成是无法改变的
+  - Promise 的出现解决了传统 callback 函数导致的“地域回调”问题
+- async await 概念：
+  - async await 也是异步编程的一种解决方案，拥有 promise 的风格，他遵循的是 Generator 函数的语法糖，他拥有内置执行器，不需要额外的调用直接会自动执行并输出结果，async 修饰过的函数也有 then 和 catch ⽅法，await 只能放在 async 中，只能修饰 promise 对象.它返回的是一个 Promise 对象。
+- 两者的区别：
+  - Promise 的出现解决了传统 callback 函数导致的“地域回调”问题，但它的语法导致了它向纵向发展行成了一个回调链，遇到复杂的业务场景，这样的语法显然也是不美观的。而 async await 代码看起来会简洁些，使得异步代码看起来像同步代码，await 的本质是可以提供等同于”同步效果“的等待异步返回能力的语法糖，只有这一句代码执行完，才会执行下一句。
+  - async await 与 Promise 一样，是非阻塞的。
+  - async await 是基于 Promise 实现的，可以说是改良版的 Promise，它不能用于普通的回调函数。
+
 ## 设计模式 - 发布订阅模式 - 单例模式
 
 发布 — 订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
@@ -151,7 +163,6 @@ class Ob {
 
 ## Es6 新增了那些语法
 
-```
 1. let 和 const
 2. 解构赋值 let{一一对应} = {一一对应}
 3. 扩展运算符... 将数组拆分成一个一个数字的形式
@@ -166,67 +177,50 @@ class Ob {
 
 - 如果属性名和属性值名称相同，写一个。
 - 属性值是函数可以省略 function
-```
 
 ### let const var 区别
 
-```
-- let 关键字 - 重点
-- 块作用域，声明的变量绑定在这个区域里面。
-- 不存在变量提升(暂时性死区：先声明再使用)。
-- 相同的作用域内不能重复声明(熟悉报错:Identifier 'a' has already been declared)
+- let 关键字
 
-  - var 关键字
+  - 块作用域，声明的变量绑定在这个区域里面。
+  - 不存在变量提升(暂时性死区：先声明再使用)。
+  - 相同的作用域内不能重复声明(熟悉报错:Identifier 'a' has already been declared)
+
+- var 关键字
+
   - 局部和全局作用域，函数内部是局部，函数外面是全局。
   - 变量提升
   - 相同的作用域内可以重复声明
   - 预解析(1.预编译 var,function 2.代码逐行执行)
   - var 声明的变量也是 window 的属性
 
-  - const 关键字 - 重点
+- const 关键字
   - 声明的常量值不能被改变
   - 对象的值不能改变，对象里面的属性可以改变的。
   - 使用场景(存储不变的值，存储函数，存储元素对象，存储对象)
-```
 
 ### 箭头函数和普通函数有什么差异？
 
-```
-1. 相比普通函数更简洁的语法
-2. 没有 this,捕获其所在上下文的 this 值，作为自己的 this 值
-3. 不能使用 new,箭头函数作为匿名函数,是不能作为构造函数的,不能使用 new
-4. 不绑定 arguments，用 rest 参数...解决
-   let test3=(...a)=>{console.log(a[1])} //22
-5. 使用 call()和 apply()调用:由于 this 已经在词法层面完成了绑定，通过 call() 或 apply() 方法调用一个函数时，只是传入了参数而已，对 this 并没有什么影响：
-6. 箭头函数没有原型属性
-7. 不能简单返回对象字面量
-   let fun5 = ()=>({ foo: x }) //如果 x => { foo: x } //则语法出错
-8. 箭头函数不能当做 Generator 函数,不能使用 yield 关键字
-9. 箭头函数不能换行
-   let a = ()
-   =>1; //SyntaxError: Unexpected token =>
-   使用箭头函数应该注意什么？
-10. 不要在对象里面定义函数，对象里面的行数应该用传统的函数方法
-11. 不要在对原型对象上定义函数，在对象原型上定义函数也是遵循着一样的规则
-12. 不要用箭头定义构造函数
-13. 不要用箭头定义事件回调函数
-```
-
-### promise async await 以及两者区别
-
-```
-    /*---------Promise概念：---------*/
-
-Promise 是用来做异步的，Promise 好比容器，里面存放着一些异步的事件的结果，而这些结果一旦生成是无法改变的
-Promise 的出现解决了传统 callback 函数导致的“地域回调”问题
-/_---------async await 概念：---------_/
-async await 也是异步编程的一种解决方案，拥有 promise 的风格，他遵循的是 Generator 函数的语法糖，他拥有内置执行器，不需要额外的调用直接会自动执行并输出结果，async 修饰过的函数也有 then 和 catch ⽅法，await 只能放在 async 中，只能修饰 promise 对象
-它返回的是一个 Promise 对象。
-两者的区别：
-Promise 的出现解决了传统 callback 函数导致的“地域回调”问题，但它的语法导致了它向纵向发展行成了一个回调链，遇到复杂的业务场景，这样的语法显然也是不美观的。而 async await 代码看起来会简洁些，使得异步代码看起来像同步代码，await 的本质是可以提供等同于”同步效果“的等待异步返回能力的语法糖，只有这一句代码执行完，才会执行下一句。
-async await 与 Promise 一样，是非阻塞的。
-async await 是基于 Promise 实现的，可以说是改良版的 Promise，它不能用于普通的回调函数。
-```
+- 相比普通函数更简洁的语法
+- 没有 this,捕获其所在上下文的 this 值，作为自己的 this 值
+- 不能使用 new,箭头函数作为匿名函数,是不能作为构造函数的,不能使用 new
+- 不绑定 arguments，用 rest 参数...解决
+  let test3=(...a)=>{console.log(a[1])} //22
+- 使用 call()和 apply()调用:由于 this 已经在词法层面完成了绑定，通过 call() 或 apply() 方法调用一个函数时，只是传入了参数而已，对 this 并没有什么影响：
+- 箭头函数没有原型属性
+- 不能简单返回对象字面量
+  let fun5 = ()=>({ foo: x }) //如果 x => { foo: x } //则语法出错
+- 箭头函数不能当做 Generator 函数,不能使用 yield 关键字
+- 箭头函数不能换行
+  ```JS
+    let a = ()
+    =>1; //SyntaxError: Unexpected token =>
+  ```
+- 使用箭头函数应该注意什么？
+  - 不要在对象里面定义函数，对象里面的行数应该用传统的函数方法
+  - 不要在对原型对象上定义函数，在对象原型上定义函数也是遵循着一样的规则
+  - 不要用箭头定义构造函数
+  - 不要用箭头定义事件回调函数
 
 ### for in. for of 的区别
 
@@ -240,106 +234,93 @@ async await 是基于 Promise 实现的，可以说是改良版的 Promise，它
 
 ## 异步解决方案有哪些？ - 回调函数 callback Promise Generator
 
-```
-1.回调函数 callback：回调地狱：多个回调函数嵌套的情况，使代码看起来很混乱，不易于维护。 2.事件发布订阅:消耗内存，过度使用会使代码难以维护和理解
-3.Promise:无法取消 promise。如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。当处于 Pending 状态时，无法得知目前进展到哪一个阶段
-4.Generator:Generator 是 es6 提出的另一种异步编程解决方案，需要在函数名之前加一个*号，函数内部使用 yield 语句。Generaotr 函数会返回一个遍历器，可以进行遍历操作执行每个中断点 yield,不能自动执行异步操作，需要写多个 next()方法.
-5.async/await:es2017 引入的异步操作解决方案，可以理解为 Generator 的语法糖，最重要的好处是同步编程风格,async 函数返回一个 Promise。内置执行器，比 Generator 操作更简单。async/await 比*yield 语义更清晰。返回值是 Promise 对象，可以用 then 指定下一步操作。代码更整洁。可以捕获同步和异步的错误。
-
-```
+- 回调函数 callback：回调地狱：多个回调函数嵌套的情况，使代码看起来很混乱，不易于维护。
+- 事件发布订阅:消耗内存，过度使用会使代码难以维护和理解
+- Promise:无法取消 promise。如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。当处于 Pending 状态时，无法得知目前进展到哪一个阶段
+- Generator:Generator 是 es6 提出的另一种异步编程解决方案，需要在函数名之前加一个\*号，函数内部使用 yield 语句。Generaotr 函数会返回一个遍历器，可以进行遍历操作执行每个中断点 yield,不能自动执行异步操作，需要写多个 next()方法.
+- async/await:es2017 引入的异步操作解决方案，可以理解为 Generator 的语法糖，最重要的好处是同步编程风格,async 函数返回一个 Promise。内置执行器，比 Generator 操作更简单。async/await 比\*yield 语义更清晰。返回值是 Promise 对象，可以用 then 指定下一步操作。代码更整洁。可以捕获同步和异步的错误。
 
 ## 什么是事件委托 什么是事件冒泡
 
-```
+- 事件流：事件流就是事件冒泡和事件捕获
+- 事件冒泡：事件开始时由最具体的元素接收(操作元素)，然后逐级向上传播到较为不具体的节点,一直到文档 document
+- 事件捕获：反过来从最不具体的到最具体的
 
-```
-
-事件流：事件流就是事件冒泡和事件捕获
-事件冒泡：事件开始时由最具体的元素接收(操作元素)，然后逐级向上传播到较为不具体的节点,一直到文档 document
-事件捕获：反过来从最不具体的到最具体的
-
-事件委托就是将自身要添加的事件委托给其他元素 从而实现相同的效果
-原生 js 里面添加事件委托是 addEventListener 移出是 removeEventListener
-事件委托的优缺点：
-优点：减少事件注册次数，节约内存，提升性能。
-缺点：所有事件都用事件代理，可能会出现事件误判。即本不该被触发的事件被绑定上了事件。
-
-```
-
-```
+- 事件委托就是将自身要添加的事件委托给其他元素 从而实现相同的效果
+  原生 js 里面添加事件委托是 addEventListener 移出是 removeEventListener
+- 事件委托的优缺点：
+  - 优点：减少事件注册次数，节约内存，提升性能。
+  - 缺点：所有事件都用事件代理，可能会出现事件误判。即本不该被触发的事件被绑定上了事件。
 
 ## 事件轮询
 
-```
-    事件轮询
-
-执行完一个宏任务，询问一次微任务队列，微任务队列有任务，就清空微任务队列，循环往复
-调用栈：执行代码的地方
-轮询：轮流询问宏任务队列和微任务队列
-宏任务：script 整体代码，setTimeout setInterval
-微任务：promise 下面的 then
-同步代码：script 代码 除了下面的异步代码都是同步代码
-异步代码：定时器 promise 的 then ajax
-WEB API :提供了异步机制 分配代码去哪个队列
-事件轮询首先第一次执行宏任务把 script 代码放入调用栈调用（调用栈就是执行代码的地方） 同步代码直接输出异步代码则放入 WEB API （提供了异步机制 分配代码去哪个队列）webapi 分配完任务进行事件轮询（轮询轮流访问宏任务和微任务）然后执行微任务再把微任务的代码放到调用栈调用 在执行 同步输出异步 webapi 在分配直达调用栈和 webapi 和队列都为空事件轮询就结束了 这就是整个事件轮询的执行过程
-
-```
+- 概念：执行完一个宏任务，询问一次微任务队列，微任务队列有任务，就清空微任务队列，循环往复
+- 调用栈：执行代码的地方
+- 轮询：轮流询问宏任务队列和微任务队列
+- 宏任务：script 整体代码，setTimeout setInterval
+- 微任务：promise 下面的 then
+- 同步代码：script 代码 除了下面的异步代码都是同步代码
+- 异步代码：定时器 promise 的 then ajax
+- WEB API :提供了异步机制 分配代码去哪个队列
+  事件轮询首先第一次执行宏任务把 script 代码放入调用栈调用（调用栈就是执行代码的地方） 同步代码直接输出异步代码则放入 WEB API （提供了异步机制 分配代码去哪个队列）webapi 分配完任务进行事件轮询（轮询轮流访问宏任务和微任务）然后执行微任务再把微任务的代码放到调用栈调用 在执行 同步输出异步 webapi 在分配直达调用栈和 webapi 和队列都为空事件轮询就结束了 这就是整个事件轮询的执行过程
 
 ## 本地存储 缓存
 
-```
-1.存储大小
-   cookie 数据大小不能超过 4k。
-   sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。
-2.有效时间
-   localStorage 存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
-   sessionStorage 数据在当前浏览器窗口关闭后自动删除。
-   cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭
-3. 数据与服务器之间的交互方式
-   cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
-   sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。
-···
+- 存储大小
+  cookie 数据大小不能超过 4k。
+  sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。
+- 有效时间
+  localStorage 存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+  sessionStorage 数据在当前浏览器窗口关闭后自动删除。
+  cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭
+- 数据与服务器之间的交互方式
+  cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
+  sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。
+
 cookie 验证不安全易遭到 CSRF 攻击：
 当你当前网站没有退出，而恰好漏洞网站又已你当前网站为漏洞，并添加转账信息或各种增删改查信息等，你的数据就会被篡改，导致不安全，CSRF 攻击是攻击者利用用户的身份操作用户帐户的一种攻击方式。
 方法：
 通常使用 Anti CSRF Token 来防御 CSRF 攻击，同时要注意 Token 的保密性和随机性。
-1、尽量使用 POST，限制 GET
-2、将 cookie 设置为 HttpOnly
-3、增加 token
-4、并且 CSRF 攻击问题一般是由服务端解决。
 
-```
+- 尽量使用 POST，限制 GET
+- 将 cookie 设置为 HttpOnly
+- 增加 token
+- 并且 CSRF 攻击问题一般是由服务端解决。
 
 ## get 和 post 的区别
 
-```
-1. 语义化：get 获取 post 传输
-2. 数据长度：get 地址栏，地址栏仅能传输 2000 多个字符，post 理论上无限。
-3. 安全性：get 不安全，地址栏显示，post 安全。
-4. 传输数据：get 通过地址栏?和& post 通过请求头和 send 方法
-5. 缓存问题：get 有缓存，post 没有缓存。
-   清除缓存：浏览器设置 - 清除数据。 快捷方式：ctrl+h 左侧查看清除按钮
-
-```
+- 语义化：get 获取 post 传输
+- 数据长度：get 地址栏，地址栏仅能传输 2000 多个字符，post 理论上无限。
+- 安全性：get 不安全，地址栏显示，post 安全。
+- 传输数据：get 通过地址栏?和& post 通过请求头和 send 方法
+- 缓存问题：get 有缓存，post 没有缓存。
+  清除缓存：浏览器设置 - 清除数据。 快捷方式：ctrl+h 左侧查看清除按钮
 
 ## http 请求过程
 
-```
+用户输入网址 → 域名解析 → 建立连接 → 发送 HTTP 请求 → 服务器处理 → 返回响应 → 浏览器渲染
 http 请求流程
 浏览器端，客户端，前端
-1.输入域名，比如https://www.taobao.com
-2.域名解析，将域名和服务器对应的 ip 地址绑定在一起。
-3.通过对应的端口找到程序的入口。
-4.将程序解析成浏览器设别的语言(html,css,javascript)
-5.返回给用户使用
-服务器端，后端
-服务器端的代码来自哪里，开发完成后，通过 ftp 工具将开发的代码传到服务器中，需要用户名和密码。
 
-```
+- 用户在浏览器地址栏输入域名
+  例如输入：https://www.taobao.com
+- 域名解析（DNS 解析）
+  浏览器首先检查本地缓存（浏览器 DNS 缓存、操作系统 DNS 缓存）是否有该域名的 IP 地址。
+  如果没有，则向本地 DNS 服务器发起请求，逐级递归或迭代查询，最终获取到 www.taobao.com 对应的 IP 地址。
+  域名和服务器的 IP 地址建立绑定关系。
+- 建立 TCP 连接（三次握手）
+  浏览器和目标服务器（如淘宝服务器）在目标端口（通常是 80/443）上建立 TCP 连接。
+  HTTPS 协议还会有 TLS/SSL 握手过程，协商加密方式和密钥。
+- 浏览器向服务器发送 HTTP 请求
+  包括请求方法（GET/POST 等）、请求头（headers）、请求体（body，POST 时有）等。
+  服务器处理请求，返回响应
+  服务器收到请求后，查找对应的资源，处理业务逻辑，并生成响应内容（HTML、CSS、JS、图片等）。
+- 浏览器接收响应，渲染页面
+  浏览器解析返回的 HTML，遇到 CSS、JS、图片等资源会继续发起新的 HTTP 请求。
+  解析和执行 CSS 样式、JavaScript 代码，最终渲染出完整的网页供用户交互。
 
 ## http 状态码
 
-```
 200：成功，所有数据都在响应主体中
 300：有多个资源地址，选择要访问的资源便可链接过去
 301:被请求的资源已经永久移动到新位置
@@ -356,155 +337,209 @@ http 请求流程
 503:服务不可用;
 504:网关超时;
 
-```
-
 ## 什么是跨域?
 
-```
 所谓的同源是指，域名、协议、端口均为相同。
 所谓的跨域，不同的域名、协议、端口皆为不同域
 一个域与另一个域名、协议或者端口不同的域的之间访问都叫跨域
-解决跨域的方法和方案：
-1：通过配置环境。
-2：第二种：jsonp 跨域
-1. jsonp 跨域就是利用 script 标签的跨域能力请求资源
-2. 浏览器的同源策略限制了 js 的跨域能力，但没有限制 link img iframe script 的跨域行为
-实现方式：
-1. 利用 js 创建一个 script 标签，把 json 的 url 赋给 script 的 scr 属性，
-2. 把这个 script 插入到页面里，让浏览器去跨域获取资源
-3. JS 先声明好回调函数，插入页面后会代为执行该函数，并且传入 json 对象为其参数。
-注意：
-1. jsonp 只针对 get 请求
-2. script 标签加载回来的资源会被当成 js 在全局执行
-3：CORS 跨域资源共享 - 后端代理
-它允许浏览器向跨源服务器，发出 XMLHttpRequest 请求，从而克服了 AJAX 只能同源使用的限制用户参与
-对于开发者来说，CORS 通信与同源的 AJAX 通信没有差别，代码完全一样
-实现 CORS 通信的关键是服务器，只要服务器实现了 CORS 接口，就可以跨源通信
-4：nginx 代理跨域
-通过 nginx 服务器转发跨域请求，达到跨域的目的
 
-```
+**解决跨域的方法和方案：**
 
-## 六大对象 (数组字符串方法) ctrl+单击打开链接
+- 配置本地开发环境（环境代理）
 
-```
-file:///C:/phpStudy/WWW/html5-2/practice/project/%E5%85%AD%E5%A4%A7%E5%AF%B9%E8%B1%A1.html
+  - **原理**：通过前端开发服务器（如 webpack-dev-server、Vite、create-react-app 等工具）配置 `proxy` 字段，将接口请求代理到后端服务器，实现“同源”效果，从而规避浏览器的同源策略限制。
+  - **特点**：仅适用于本地开发环境，生产环境不可用。
+  - **示例**（以 Vite 为例）：
 
-```
+    ```js
+    // vite.config.js
+    export default {
+      server: {
+        proxy: {
+          "/api": "http://backend-server.com",
+        },
+      },
+    };
+    ```
+
+---
+
+- JSONP 跨域
+
+  - **原理**：利用 `<script>` 标签不受同源策略限制的特点，通过动态创建 `<script>` 标签，加载携带参数的请求，服务器返回一段 JavaScript 代码并调用事先定义好的回调函数实现数据传递。
+  - **实现步骤**：
+    1. 前端声明一个全局回调函数。
+    2. 动态创建 `<script>` 标签，将请求地址（带回调函数名参数）赋值给 `src` 属性。
+    3. 插入页面，触发请求，服务端返回形如 `callback(data)` 的 JS 代码，自动执行。
+  - **注意事项**：
+    - 仅支持 GET 请求，无法处理 POST、PUT 等。
+    - 服务器需要支持 JSONP 格式的响应。
+    - 返回内容会作为 JS 脚本执行，有一定安全隐患。
+  - **示例**：
+
+    ```js
+    function handleResponse(data) {
+      console.log(data);
+    }
+    var script = document.createElement("script");
+    script.src = "http://example.com/api?callback=handleResponse";
+    document.body.appendChild(script);
+    ```
+
+---
+
+- CORS（跨域资源共享，Cross-Origin Resource Sharing）
+
+  - **原理**：服务器通过设置 `Access-Control-Allow-Origin` 等响应头，允许特定源的请求跨域访问资源。现代浏览器在发起跨域请求时会自动遵循 CORS 协议。
+  - **特点**：
+    - 支持多种 HTTP 方法（GET、POST、PUT、DELETE 等）。
+    - 对开发者而言，前端代码和同源 AJAX 通信基本一致。
+    - 需要后端服务器配合设置响应头。
+  - **常见配置**（Node.js Express 示例）：
+
+    ```js
+    app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*"); // 允许所有域名
+      res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+      res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+      next();
+    });
+    ```
+
+---
+
+- Nginx 反向代理跨域
+
+  - **原理**：通过 Nginx 服务器配置反向代理，将前端请求转发到目标后端服务器，实现跨域资源访问。前端与 Nginx 同源，Nginx 代前端发起请求。
+  - **特点**：
+    - 适用于生产环境，性能优良。
+    - 不改变前端和后端代码，仅需配置 Nginx。
+  - **示例配置**：
+
+    ```nginx
+    server {
+      listen 80;
+      server_name www.frontend.com;
+
+      location /api/ {
+        proxy_pass http://backend-server.com/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+      }
+    }
+    ```
+
+---
+
+- 其他常见的跨域解决方案
+
+  - **后端中间件代理**：如 Node.js 的 http-proxy-middleware，原理类似于 Nginx 代理。
+  - **WebSocket**：WebSocket 协议本身不受同源策略的限制，可以进行跨域通信。
+  - **window.name、postMessage 跨域**：适用于 iframe 或多窗口间通信。
+
+---
 
 ## 数组去重的方法
 
+- 利用 set 数据结构里面没有重复的项的特点定义一个新数组用扩展运算符后面接一个 newSet 外面包一个[]在赋值给一个新数组 return 出去
+
+```js
+function one(arr) {
+  let newarr = [...new Set(params)];
+  return newarr;
+}
 ```
-   const arr = [1, 2, 3, 3, 3, 4, 5, 5, 5, 6, 6, 6, 6, 7, 8, 9, 9];
-**1.利用 set 数据结构里面没有重复的项的特点定义一个新数组用扩展运算符后面接一个 newSet 外面包一个[]在赋值给一个新数组 return 出去**
-      function one(arr) {
-      let newarr = [...new Set(params)];
-      return newarr;
-      }
-**2.遍历数组 并且把每一项 push 到新数组中去 push 的时候做判断 如果新数组中没有这项就 push 用 indexOf(item)=== -1 做判断**
-      function two(params) {
-      let newarr = [];
-      params.forEach((item) => {
-      if (newarr.indexOf(item) === -1) {
+
+- 遍历数组 并且把每一项 push 到新数组中去 push 的时候做判断 如果新数组中没有这项就 push 用 indexOf(item)=== -1 做判断
+
+```js
+function two(params) {
+  let newarr = [];
+  params.forEach((item) => {
+    if (newarr.indexOf(item) === -1) {
       newarr.push(item);
-      }
-      });
-      return newarr;
-      }
-**3.利用两层 for 循环 第一层直接遍历 第二层从 i+1 开始遍历 就是吧数组中的一项和数组中的每一项做对比 如果有一样的 那么就截取掉**
-      function three(params) {
-      let arr = params;
-      for (let i = 0; i < arr.length; i++) {
-      for (let j = i + 1; j < arr.length; j++) {
+    }
+  });
+  return newarr;
+}
+```
+
+- 利用两层 for 循环 第一层直接遍历 第二层从 i+1 开始遍历 就是吧数组中的一项和数组中的每一项做对比 如果有一样的 那么就截取掉
+
+```js
+function three(params) {
+  let arr = params;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
       if (arr[j] === arr[i]) {
-      arr.splice(j, 1);
-      j--;
+        arr.splice(j, 1);
+        j--;
       }
-      }
-      }
+    }
+  }
 
-         return arr;
+  return arr;
+}
+```
 
-      }
-**4.利用 filter 筛选 筛选索引 如果 indexof(item)等于 index 原理是 indexOf 是从前往后找 找到了之后他就不找了 如果这时候做个比较 只有相等的时候满足条件就可以去重了**
-      function four(params) {
-      return params.filter((item, index) => {
-      return params.indexOf(item) === index;
-      });
-      }
-**5.两层 for 循环 吧数组中的一项和数组中的每一项做对比 重复的把 flag 赋值为 2 下面做个判断 当 flag 为 1 的时候才 push**
-      function five(item) {
-      var newarr = []; //去重后新的数组
-      for (var i = 0, len1 = arr.length; i < len1; i++) {
-      var flag = 1; //标记
-      //arr 的一项和所有的 newarr 里面的数组项进行比较
-      for (var j = 0, len2 = newarr.length; j < len2; j++) {
+- 利用 filter 筛选 筛选索引 如果 indexof(item)等于 index 原理是 indexOf 是从前往后找 找到了之后他就不找了 如果这时候做个比较 只有相等的时候满足条件就可以去重了
+
+```js
+function four(params) {
+  return params.filter((item, index) => {
+    return params.indexOf(item) === index;
+  });
+}
+```
+
+- 两层 for 循环 把数组中的一项和数组中的每一项做对比 重复的把 flag 赋值为 2 下面做个判断 当 flag 为 1 的时候才 push
+
+```js
+function five(item) {
+  var newarr = []; //去重后新的数组
+  for (var i = 0, len1 = arr.length; i < len1; i++) {
+    var flag = 1; //标记
+    //arr 的一项和所有的 newarr 里面的数组项进行比较
+    for (var j = 0, len2 = newarr.length; j < len2; j++) {
       if (arr[i] === newarr[j]) {
-      //满足条件，新数组里面存在。不需要的
-      flag = 2;
-      break;
+        //满足条件，新数组里面存在。不需要的
+        flag = 2;
+        break;
       }
-      }
-      //如果到这里 flag=1,不满足上面的 if 判断，新数组不存在，需要的
-      if (flag === 1) {
+    }
+    //如果到这里 flag=1,不满足上面的 if 判断，新数组不存在，需要的
+    if (flag === 1) {
       newarr.push(arr[i]);
-      }
-      }
-      return newarr;
-      }
-**对象数组去重原理第一层直接遍历 第二层从 i+1 开始遍历 就是吧数组中的一项的 key 和数组中的每一项的 key 做对比 如果有一样的 那么就截取掉这一项**
-      var arr2 = [
-      {
-      key: "01",
-      value: "乐乐",
-      },
-      {
-      key: "02",
-      value: "博博",
-      },
-      {
-      key: "03",
-      value: "淘淘",
-      },
-      {
-      key: "04",
-      value: "哈哈",
-      },
-      {
-      key: "01",
-      value: "乐乐 1",
-      },
-      {
-      key: "02",
-      value: "博博",
-      },
-      {
-      key: "03",
-      value: "淘淘",
-      },
-      {
-      key: "04",
-      value: "哈哈",
-      },
-      ];
-      function obj(item) {
-      for (let i = 0; i < item.length; i++) {
-      for (let j = i + 1; j < item.length; j++) {
-      if (item[j].key === item[i].key) {
-      item.splice(j, 1);
-      j--;
-      }
-      }
-      }
-      return item;
-      }
+    }
+  }
+  return newarr;
+}
+```
 
+- 对象数组去重原理第一层直接遍历 第二层从 i+1 开始遍历 就是吧把数组中的一项的 key 和数组中的每一项的 key 做对比 如果有一样的 那么就截取掉这一项
+
+```js
+function obj(item) {
+  for (let i = 0; i < item.length; i++) {
+    for (let j = i + 1; j < item.length; j++) {
+      if (item[j].key === item[i].key) {
+        item.splice(j, 1);
+        j--;
+      }
+    }
+  }
+  return item;
+}
 ```
 
 ## 类数组概念 怎么转换成真正的数组？
 
-```
-_也叫伪数组，在 js 中有一些对象它也拥有 length 属性，且拥有为非负整数的属性(索引)，但是它又不能调用数组的方法，这种对象被称为类数组对象_
+也叫伪数组，在 js 中有一些对象它也拥有 length 属性，且拥有为非负整数的属性(索引)，但是它又不能调用数组的方法，这种对象被称为类数组对象
+
+常见的伪数组
+
+- DOM 方法返回的 NodeList（比如 document.querySelectorAll() 的结果）
+- arguments 对象
 
 **类数组转换成真正的数组**
 
@@ -514,53 +549,39 @@ _也叫伪数组，在 js 中有一些对象它也拥有 length 属性，且拥�
 
 3. 遍历类数组 将取到的每一项值添加到新数组
 
-```
-
 ## js 数据类型检测
 
-```
-1.typeof 引用数据类型（如：Array）是不起作用的。
-2.instanceof 检测基本数据类型的话会返回 false 引用数据类型则会是 true 但是用 new 关键字 new 出来的基本数据类型是可以的
-3.constructor 声明了一个构造函数，并且把他的原型指向了其他类型的原型 这种情况下会失效
-4.Object.prototype.toString.call() - 最好的数据类/型检测方式
-
-```
+- typeof 引用数据类型（如：Array）是不起作用的。
+- instanceof 检测基本数据类型的话会返回 false 引用数据类型则会是 true 但是用 new 关键字 new 出来的基本数据类型是可以的
+- constructor 声明了一个构造函数，并且把他的原型指向了其他类型的原型 这种情况下会失效
+- Object.prototype.toString.call() - 最好的数据类/型检测方式
 
 ## this 指向哪里
 
-```
-1. 普通函数的 this 指向调用这个函数的对象，默认是 window
-2. 构造函数的 this 指向 new 出来的实例对象，而且优先级是最高的，不能被改变
-3. 箭头函数的 this 指向的是它外面的第一个不是箭头函数的函数的 this， 在定义时就确定了，不能被改变
-4. 事件处理函数的 this 指向事件对象
-
-```
+- 普通函数的 this 指向调用这个函数的对象，默认是 window
+- 构造函数的 this 指向 new 出来的实例对象，而且优先级是最高的，不能被改变
+- 箭头函数的 this 指向的是它外面的第一个不是箭头函数的函数的 this， 在定义时就确定了，不能被改变
+- 事件处理函数的 this 指向事件对象
 
 ## 如何改变 this 指向
 
-```
-1.利用 call,apply,bind 改变 this 的指向。
-2.利用变量将正确的 this 存储为变量。
-3.new 关键字改变 this 的指向。
-4.箭头函数
-
-```
+- 利用 call,apply,bind 改变 this 的指向。
+- 利用变量将正确的 this 存储为变量。
+- new 关键字改变 this 的指向。
+- 箭头函数
 
 ## call, apply, bind 区别
 
-```
 - call 和 apply 都是为了解决改变 this 的指向。作用都是相同的，只是传参的方式不同。
 - 除了第一个参数外，call 可以接收一个参数列表，apply 只接受一个参数数组。
 - bind 和其他两个方法作用也是一致的，只是该方法会返回一个函数。并且我们可以通过 bind 实现柯里化。
 
-```
-
 ## 常用的 git 命令
 
-```
 **git**
 git 是目前世界上最先进分布式的版本控制系统
-github 是一个仓库
+
+```bash
 **配置**
 
 - 仓库账号的用户名和邮箱
@@ -630,136 +651,467 @@ github 是一个仓库
 
 ## 垃圾回收机制
 
-```
 垃圾回收方式
-① 标记清除
-工作原理：是当变量进入环境时，将这个变量标记为“进入环境”。当变量离开环境时，则将其标记为“离开环境”。标记“离开环境”的就回收内存。
-② 引用计数
-工作原理：跟踪记录每个值被引用的次数。一旦没有引用，内存就直接释放了。
-内存管理
-什么时候触发垃圾回收？
-垃圾回收器周期性运行，如果分配的内存非常多，那么回收工作也会很艰巨，确定垃圾回收时间间隔就变成了一个值得思考的问题。
-1、合理的 GC 方案：(1)、遍历所有可访问的对象; (2)、回收已不可访问的对象。
-2、GC 缺陷： (1)、停止响应其他操作；
-3、GC 优化策略： (1)、分代回收（Generation GC）;(2)、增量 GC
 
-```
+- 标记清除
+  工作原理：是当变量进入环境时，将这个变量标记为“进入环境”。当变量离开环境时，则将其标记为“离开环境”。标记“离开环境”的就回收内存。
+- 引用计数
+  工作原理：跟踪记录每个值被引用的次数。一旦没有引用，内存就直接释放了。
+- 内存管理
+  什么时候触发垃圾回收？
+  垃圾回收器周期性运行，如果分配的内存非常多，那么回收工作也会很艰巨，确定垃圾回收时间间隔就变成了一个值得思考的问题。
+  - 合理的 GC 方案：(1)、遍历所有可访问的对象; (2)、回收已不可访问的对象。
+  - GC 缺陷： (1)、停止响应其他操作；
+  - GC 优化策略： (1)、分代回收（Generation GC）;(2)、增量 GC
 
 ## 深浅拷贝
 
+- 浅拷贝,拷贝一级，如果是对象里面还有对象,无法解决
+  - for… in… 循环
+  - Object.assgin() 缺点：非常消耗性能 比如一个对象中某一个数据改变 会导致整个数据的地址改变 消耗内存 所以有了 immutable
+  - ...扩展运算符
+- 深拷贝
+  - JSON.parse(JSON.stringify( )) 缺点：当对象的 value 是函数 或者 undefined 时会失效
+  - 用 for…in…+递归
+
+## 构造函数详解与总结
+
+**什么是构造函数？**
+
+构造函数（Constructor Function）是 JavaScript 中用于创建对象的一种特殊函数。它主要用于在实例化对象时，初始化对象的属性和方法。
+
+- 构造函数通常**首字母大写**，以示区别于普通函数。
+- 构造函数需要与 `new` 关键字一起使用。
+
+**构造函数的执行流程**
+
+当使用 `new` 关键字调用构造函数时，执行过程如下：
+
+1. 在内存中创建一个新的空对象。
+2. 将构造函数内部的 `this` 指向这个新对象。
+3. 执行构造函数内的代码（给新对象添加属性和方法）。
+4. 返回新对象（如果构造函数没有显式返回对象，则返回步骤 1 创建的对象）。
+
+**构造函数的示例**
+
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.sayHello = function () {
+    console.log("Hello, I am " + this.name);
+  };
+}
+
+const p1 = new Person("Alice", 18);
+p1.sayHello(); // 输出：Hello, I am Alice
 ```
-浅拷贝,拷贝一级，如果是对象里面还有对象,无法解决
-1.for… in… 循环
-2.Object.assgin() 缺点：非常消耗性能 比如一个对象中某一个数据改变 会导致整个数据的地址改变 消耗内存 所以有了 immutable
-3....扩展运算符
-深拷贝
-1.JSON.parse(JSON.stringify( )) 缺点：当对象的 value 是函数 或者 undefined 时会失效 2.用 for…in…+递归
 
-```
+**注意事项**
 
-## 什么是构造函数
+- 构造函数必须和 `new` 一起使用，否则 `this` 指向全局对象（在严格模式下为 undefined）。
+- 构造函数可以不用 `return` 返回值；如果返回的是非对象类型，仍然返回新对象本身；如果返回的是对象，则返回该对象。
+- 通过构造函数创建的多个对象实例，**各自拥有独立的属性和方法**。
 
-```
-构造函数是一种特殊的函数，用来在对象实例化时（new 关键字创建）初始化对象的成员变量。（也就是说用 new 关键字创建的）
-new 做了什么：
+**构造函数和普通函数的区别**
 
-- 1.在内存中创建一个空对象
-- 2.让 this 指向这个新对象
-- 3.执行构造函数里面的代码，给这个对象添加属性和方法
-- 4.返回这个新对象（构造函数不需要 return）
-  在 Java 语言中，构造函数具有以下特点：
-- 构造函数必须与类的名字相同，并且不能有返回值（返回值也不能为 void）。
-- 每个类可以有多个构造函数。当开发人员没有提供构造函数时，编译器在把源代码编译成字节码的过程中会提供一个没有参数默认的构造函数，但该构造函数不会执行任何代码。如果开发人员提供了构造函数，那么编译器就不会在创建默认的构造函数了。
-- 构造函数可以有 0 个、1 个或 1 个以上的参数。
-- 构造函数总是伴随着 new 操作一起调用，且不能由程序的编写者直接调用，必须要由系统调用。构造函数在对象实例化时会被自动调用，且只运行一次；而普通的方法是在程序执行到它时被调用，且可以被对象调用多次。
-- 构造函数的主要作用是完成对象的初始化工作。
-- 构造函数不能被继承，因此，它不能被覆盖，但是构造函数能够被重载，可以使用不同的参数个数或参数类型来定义多个构造函数。
-- 子类可以通过 super 关键字来显式地调用父类的构造函数，当父类没有提供无参数的构造函数时，子类的构造函数中必须显式地调用父类的构造函数。如果父类提供了无参数的构造函数，此时子类的构造函数就可以不显式地调用父类的构造函数，在这种情况下编译器会默认调用父类提供的无参数的构造函数。当有父类时，在实例化对象时会先执行父类的构造函数，然后执行子类的构造函数。
-- 当父类和子类都没有定义构造函数时，编译器会为父类生成一个默认的无参数的构造函数，给子类也生成一个默认的无参数的构造函数。此外，默认构造器的修饰符只跟当前类的修饰符有关（例如，如果一个类被定义为 public，那么它的构造函数也是 public）。
+| 区别      | 构造函数                | 普通函数           |
+| --------- | ----------------------- | ------------------ |
+| 命名      | 通常首字母大写          | 通常首字母小写     |
+| 调用方式  | 必须用 `new` 关键字调用 | 直接调用           |
+| this 指向 | 指向新创建的对象        | 由调用方式决定     |
+| 返回值    | 默认返回新对象          | 默认返回 undefined |
 
-```
+**总结**
+
+- 构造函数本质上就是一个普通函数，但用来创建对象实例。
+- 使用 `new` 关键字调用构造函数可以自动完成对象的创建和初始化。
+- 合理使用构造函数可以提高代码的复用性和可维护性，是 JS 面向对象编程的基础。
 
 ## 原型链
 
-```
-原型的概念
-每一个函数都有一个 prototype（构造器的原型），指向另一个对象。
-prototype 的所有属性和方法都会被构造函数的实例继承,我们可以把那些不变(公用)的属性和方法，直接定义在 prototype 对象属性上。
-prototype 里面的 this 依然指向实例对象。 构造函数里面 this 指向实例对象。
-原型链的概念
-实例对象与原型(prototype)之间的连接,依靠另外一个属性**proto**(内置属性)
-每个对象都有一个**proto**属性,原型链上的对象正是依靠这个属性连结在一起.
-对象可以通过.prototype 去获取原型相面的方法 原型可以
+**原型（prototype）的概念**
 
-```
+- **每一个函数都有一个 prototype 属性**
+
+  - 这个属性指向一个对象，称为“原型对象”。
+  - 当函数作为构造函数（即用 `new` 创建对象）时，新创建的对象会自动拥有对这个原型对象的引用。
+
+- **原型对象的作用**
+
+  - 所有定义在 prototype 上的属性和方法，都会被该构造函数的实例继承和共享。
+  - 适合将不变（公用）的属性和方法定义在 prototype 上，节省内存，提高复用性。
+
+- **this 的指向**
+
+  - 在构造函数内部，`this` 指向实例对象。
+  - 在原型对象内部，`this` 也指向调用该方法的实例对象。
+
+- **示例代码**
+
+  ```js
+  function Person(name) {
+    this.name = name;
+  }
+
+  Person.prototype.sayHello = function () {
+    console.log("Hello, I am " + this.name);
+  };
+
+  const p1 = new Person("Alice");
+  p1.sayHello(); // 输出：Hello, I am Alice
+  ```
+
+---
+
+**原型链的概念**
+
+- **什么是原型链？**
+
+  - 原型链是 JavaScript 实现继承的主要机制。
+  - 每个对象都有一个内部属性 `__proto__`（标准写法为 [[Prototype]]），指向它的原型对象。
+  - 多个对象通过 `__proto__` 属性串联在一起，形成链状结构，称为“原型链”。
+
+- **查找规则**
+
+  - 当访问一个对象的属性或方法时，如果对象本身没有，就会去它的原型对象（即 `__proto__` 指向的对象）查找。
+  - 如果原型对象也没有，再继续沿着它的 `__proto__` 查找，直到找到 `Object.prototype`，其 `__proto__` 为 `null`，原型链到此结束。
+
+- **原型链结构图**
+
+  ```
+  实例对象  ——>  构造函数.prototype  ——>  Object.prototype  ——>  null
+      |                |                     |
+      |__proto__       |__proto__            |__proto__
+  ```
+
+- **示例代码**
+
+  ```js
+  function Animal() {}
+  Animal.prototype.eat = function () {
+    console.log("eating");
+  };
+
+  function Dog() {}
+  Dog.prototype = new Animal();
+  Dog.prototype.bark = function () {
+    console.log("bark");
+  };
+
+  const dog = new Dog();
+  dog.bark(); // bark
+  dog.eat(); // eating
+  ```
+
+---
+
+**核心要点总结**
+
+- 每个函数都有 prototype 属性，每个对象（除 null）都有 **proto** 属性。
+- 构造函数的 prototype 上定义的方法和属性，会被所有实例共享。
+- 原型链让对象可以“继承”到上层原型对象的属性和方法。
+- 属性/方法的查找顺序：对象本身 → 原型对象 → 原型链上一层... → Object.prototype → null
 
 ## js 的几种模块规范
 
-```
-js 中现在比较成熟的有四种模块加载方案：
+**ES Module（ESM，ES6 模块规范）**
 
-1. CommonJS 方案，它通过 require 来引入模块，通过 module.exports 定义模块的输出接口。这种模块加载方案是服务器端的解决方案，它是以同步的方式来引入模块的，因为在服务端文件都存储在本地磁盘，所以读取非常快，所以以同步的方式加载没有问题。但如果是在浏览器端，由于模块的加载是使用网络请求，因此使用异步加载的方式更加合适。
-2. AMD 方案，这种方案采用异步加载的方式来加载模块，模块的加载不影响后面语句的执行，所有依赖这个模块的语句都定义在一个回调函数里，等到加载完成后再执行回调函数。require.js 实现了 AMD 规范。
-3. CMD 方案，这种方案和 AMD 方案都是为了解决异步模块加载的问题，sea.js 实现了 CMD 规范。它和 require.js 的区别在于模块定义时对依赖的处理不同和对依赖模块的执行时机处理不同。
-4. ES6 提出的方案，使用 import 和 export 的形式来导入导出模块。
-   总结：首先 COMMONJS 规范是最早的规范，适合于服务器端，Node.js 这个环境来实现这个规范，第二个规范就是 AMD 规范因为 COMMONJS 是适用于服务器端的是同步的规范，而前端追寻的是异步的规范，于是就有了 AMD 规范，它是一个异步的模块规范，Require.js 库实现了这个规范。第三个就是 CMD 规范，是通用的模块规范，sea.js 的库来实现这个规范
-   **_CommonJS 和 ES6 中的模块化的两者区别是？_**
+- **应用场景**：现代浏览器和 Node.js（支持 .mjs 或 "type": "module"）。
+- **核心思想**：JavaScript 官方标准的模块系统，静态分析，编译时确定依赖关系。
+- **特点**：
 
-- - CommonJS 支持动态导入，也就是 require(${path}/xx.js)，ES6 目前不支持，但是已有提案
-  - CommonJS 是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。而 ES6 是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响
-  - CommonJS 在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。但是 ES6 采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
-  - ES6 会编译成 require/exports 来执行的
+  - 使用 `export` 导出，`import` 导入。
+  - 支持异步和静态引入，最适合前端工程化。
+  - 代码示例：
 
-```
+    ```js
+    // a.js
+    export const foo = "bar";
+
+    // b.js
+    import { foo } from "./a.js";
+    console.log(foo); // 输出 'bar'
+    ```
+
+---
+
+**CommonJS**
+
+- **应用场景**：主要用于 Node.js 服务器端开发。
+- **核心思想**：每个文件就是一个模块，模块内部通过 `module.exports` 导出成员，通过 `require` 导入模块。
+- **特点**：
+
+  - 同步加载模块（适合服务器，文件都在本地）。
+  - 代码示例：
+
+    ```js
+    // a.js
+    module.exports = {
+      foo: "bar",
+    };
+
+    // b.js
+    const a = require("./a.js");
+    console.log(a.foo); // 输出 'bar'
+    ```
+
+---
+
+**AMD（Asynchronous Module Definition）**
+
+- **应用场景**：主要用于浏览器端，代表库有 RequireJS。
+- **核心思想**：异步加载模块，适合浏览器环境。
+- **特点**：
+
+  - 使用 `define` 定义模块，`require` 加载模块。
+  - 支持依赖前置，异步加载。
+  - 代码示例：
+
+    ```js
+    // 定义模块
+    define(["dep1", "dep2"], function (dep1, dep2) {
+      return {
+        foo: function () {},
+      };
+    });
+
+    // 使用模块
+    require(["moduleA"], function (moduleA) {
+      moduleA.foo();
+    });
+    ```
+
+---
+
+**CMD（Common Module Definition）**
+
+- **应用场景**：主要用于浏览器端，代表库有 SeaJS（国内较流行）。
+- **核心思想**：按需加载（延迟执行），依赖就近。
+- **特点**：
+  - 使用 `define` 定义模块，`require` 加载模块。
+  - 依赖可以写在使用的地方，延迟执行。
+  - 代码示例：
+    ```js
+    define(function (require, exports, module) {
+      var $ = require("jquery");
+      exports.foo = function () {};
+    });
+    ```
+
+---
+
+**总结**
+
+- **ESM**：ES6 官方标准，现代浏览器和 Node.js 推荐使用。
+- **CommonJS**：服务端 Node.js 标准，同步加载。
+- **AMD/CMD**：浏览器端异步加载，前者依赖前置，后者依赖就近。
+
+### CommonJS 和 ES6 模块的区别
+
+**加载方式**
+
+- **CommonJS**：同步加载模块，适用于服务器端（如 Node.js），因为本地文件读取速度快。
+- **ES6 Module**：静态分析，编译时加载，支持异步和静态引入，适合浏览器和现代前端工程
+
+**导入导出语法**
+
+- **CommonJS**
+
+  - 导出：`module.exports = ...` 或 `exports.xxx = ...`
+  - 导入：`const xxx = require('...')`
+
+- **ES6 Module**
+
+  - 导出：`export` 或 `export default`
+  - 导入：`import { xxx } from '...'` 或 `import xxx from '...'`
+
+**导出本质**
+
+- **CommonJS**：导出的是值的**拷贝**（require 时会执行一遍，被缓存；后续 require 拿到缓存的对象）。
+- **ES6 Module**：导出的是**引用**（export 的变量和 import 的变量实时绑定，动态更新）。
+
+**语法特性**
+
+- **CommonJS**
+
+  - 动态语法，可以在运行时任意位置调用 `require`。
+  - 导出可以是任意类型的数据（对象、函数、字符串等）。
+
+- **ES6 Module**
+  - 静态语法，`import` 和 `export` 必须写在顶层，不能放在逻辑块或函数内部。
+  - 支持静态分析和 Tree Shaking（按需打包）。
+
+**执行时机**
+
+- **CommonJS**：模块是**运行时加载**，require 时同步读取、立即执行一遍。
+- **ES6 Module**：模块是**编译时解析**，提前确定依赖关系，提升性能。
+
+**总结**
+
+| 对比点   | CommonJS               | ES6 Module     |
+| -------- | ---------------------- | -------------- |
+| 加载方式 | 同步                   | 静态、异步支持 |
+| 导入导出 | require/module.exports | import/export  |
+| 导出本质 | 值的拷贝               | 引用绑定       |
+| 执行时机 | 运行时                 | 编译时         |
+| this     | 指向 exports           | undefined      |
+| 兼容性   | Node.js（服务端）      | 浏览器+Node.js |
 
 ## 防抖节流
 
-```
-1. 函数的防抖
-   当事件被触发一段时间后再执行事件，如果在这段时间内事件又被触发，则重新计时。
-2. 函数的节流
-   函数节流（throttle）：指定时间间隔内，若事件被多次触发，只会执行一次.
+**函数的防抖（Debounce）**
 
-```
+- **定义**：当事件被触发后，等待一段指定时间再执行回调。如果在等待时间内事件再次被触发，则重新计时，只有最后一次触发后等待时间到了才执行。
+- **应用场景**：输入框实时搜索、窗口大小变化、滚动加载等频繁触发场景，减少无效调用。
+
+- **实现示例**：
+
+  ```js
+  function debounce(fn, delay) {
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
+
+  // 使用方式
+  window.addEventListener(
+    "resize",
+    debounce(function () {
+      console.log("窗口大小变化");
+    }, 500)
+  );
+  ```
+
+**函数节流（Throttle）**
+
+- **定义**：在指定的时间间隔内，不管事件被触发多少次，只会执行一次回调函数。
+- **应用场景**：页面滚动、按钮点击、窗口缩放等高频事件，控制函数的执行频率，提升性能。
+
+- **实现示例**：
+
+  ```js
+  function throttle(fn, interval) {
+    let lastTime = 0;
+    return function (...args) {
+      const now = Date.now();
+      if (now - lastTime > interval) {
+        fn.apply(this, args);
+        lastTime = now;
+      }
+    };
+  }
+
+  // 使用方式
+  window.addEventListener(
+    "scroll",
+    throttle(function () {
+      console.log("页面滚动");
+    }, 200)
+  );
+  ```
 
 ## js 实现继承的方式有哪些
 
-```
-1.构造函数继承 核心：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）
-2.原型链继承-----核心： 将父类的实例作为子类的原型\*\*
-3.组合（混合）继承----核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
-4.class 继承----核心：class 是 ES6 新增的语法 直接 class 创建一个类，使用 extends 来继承
-5.实例继承----核心：为父类实例添加新特性，作为子类实例返回
-6 拷贝继承-----核心：Object.assign()用于对象的合并，将源对象的所有可枚举属性，复制到目标对象。
-7.寄生组合继承----核心：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免的组合继承的缺点
-```
+- 构造函数继承 核心：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）
+- 原型链继承-----核心： 将父类的实例作为子类的原型\*\*
+- 组合（混合）继承----核心：通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用
+- class 继承----核心：class 是 ES6 新增的语法 直接 class 创建一个类，使用 extends 来继承
+- 实例继承----核心：为父类实例添加新特性，作为子类实例返回
+- 拷贝继承-----核心：Object.assign()用于对象的合并，将源对象的所有可枚举属性，复制到目标对象。
+- 寄生组合继承----核心：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免的组合继承的缺点
 
 ## 严格模式下有哪些限制（规则）
 
-```
-1.变量必须声明后再使用
-2.函数的参数不能有同名属性，否则报错
-3.不能使用 with 语句
-4.不能对只读属性赋值，否则报错
-5.不能使用前缀 0 表示八进制数，否则报错
-6.不能删除不可删除的属性，否则报错
-7.不能删除变量 delete prop，会报错，只能删除属性 delete global[prop]
-8.eval 不会在它的外层作用域引入变量
-9.eval 和 arguments 不能被重新赋值
-10.arguments 不会自动反映函数参数的变化
-11.不能使用 arguments.callee
-12.不能使用 arguments.caller
-13.禁止 this 指向全局对象
-14.不能使用 fn.caller 和 fn.arguments 获取函数调用的堆栈 15.增加了保留字（比如 protected、static 和 interface）
-```
+- 变量必须声明后再使用
+- 函数的参数不能有同名属性，否则报错
+- 不能使用 with 语句
+- 不能对只读属性赋值，否则报错
+- 不能使用前缀 0 表示八进制数，否则报错
+- 不能删除不可删除的属性，否则报错
+- 不能删除变量 delete prop，会报错，只能删除属性 delete global[prop]
+- eval 不会在它的外层作用域引入变量
+- eval 和 arguments 不能被重新赋值
+- arguments 不会自动反映函数参数的变化
+- 不能使用 arguments.callee
+- 不能使用 arguments.caller
+- 禁止 this 指向全局对象
+- 不能使用 fn.caller 和 fn.arguments 获取函数调用的堆栈
+- 增加了保留字（比如 protected、static 和 interface）
 
 ## 函数缓存的方法
 
+**基本思想**
+
+- 当函数被调用时，先检查传入的参数是否有对应的结果已被缓存。
+- 如果有，直接返回缓存的结果。
+- 如果没有，执行计算，把结果缓存起来，下次遇到相同参数直接取用。
+
+**常见实现方式**
+
+- 闭包实现
+
+  ```js
+  function memoize(fn) {
+    const cache = {};
+    return function (...args) {
+      const key = JSON.stringify(args);
+      if (cache[key]) {
+        return cache[key];
+      }
+      const result = fn.apply(this, args);
+      cache[key] = result;
+      return result;
+    };
+  }
+
+  // 示例：斐波那契数列
+  function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+  }
+
+  const memoFibonacci = memoize(fibonacci);
+  console.log(memoFibonacci(40)); // 比直接递归快得多
+  ```
+
+**Map 实现（更适合复杂参数）**
+
+```js
+function memoize(fn) {
+  const cache = new Map();
+  return function (...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
 ```
-高阶函数，
-闭包
-函数柯里化
-```
+
+**应用场景**
+
+- 递归函数（如斐波那契数列、阶乘等）
+- 重复计算但参数不变的复杂运算
+- 前端数据转换、过滤等纯函数操作
+
+**注意事项**
+
+- 适用于“纯函数”（相同参数总是返回相同结果，无副作用）
+- 参数复杂时需要设计好缓存 key，避免缓存污染或内存泄漏
+- 不适合缓存大量或不断变化的数据
+
+**相关扩展**
+
+- Lodash 等第三方库提供了 `_.memoize` 方法
+- ES6 WeakMap 可用于缓存对象参数，避免内存泄漏
 
 ## 内存泄漏是什么 内存泄露造成的原因
 
