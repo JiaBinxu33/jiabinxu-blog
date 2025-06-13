@@ -60,7 +60,7 @@ useEffect 返回 undefined。
 
 有些组件在页面上显示时，需要与网络、某些浏览器 API 或第三方库保持连接。这些系统不受 React 控制，因此它们被称为外部系统。
 
-要在组件的顶层调用 将你的组件连接到某个外部系统，，请调用 useEffect：
+要在组件的顶层调用 将你的组件连接到某个外部系统，请调用 useEffect：
 
 ```jsx
 import { useState, useEffect } from "react";
@@ -703,4 +703,4 @@ useEffect(() => {
 
 ### 我的 useEffect 做了一些视觉 useEffect，我在它运行前看到了闪烁
 
-如果你的 useEffect 必须阻止浏览器访问 绘画屏幕，，请将 useEffect 替换为 useLayoutEffect。请注意，绝大多数效果都不需要这样做。仅当在浏览器绘制之前运行效果至关重要时，你才需要它：例如，在用户看到之前测量和定位工具提示。
+如果你的 useEffect 必须阻止浏览器访问 绘画屏幕，请将 useEffect 替换为 useLayoutEffect。请注意，绝大多数效果都不需要这样做。仅当在浏览器绘制之前运行效果至关重要时，你才需要它：例如，在用户看到之前测量和定位工具提示。

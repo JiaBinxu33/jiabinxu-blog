@@ -44,6 +44,21 @@ module.exports = {
               { text: "useState", link: "/React/Hooks/useState/" },
               { text: "useEffect", link: "/React/Hooks/useEffect/" },
               { text: "useRef", link: "/React/Hooks/useRef/" },
+              { text: "useContext", link: "/React/Hooks/useContext/" },
+              { text: "useMemo", link: "/React/Hooks/useMemo/" },
+              { text: "useCallback", link: "/React/Hooks/useCallback/" },
+              {
+                text: "useMemoVSuseCallback",
+                link: "/React/Hooks/useMemoVSuseCallback/",
+              },
+              {
+                text: "useReducer",
+                link: "/React/Hooks/useReducer/",
+              },
+              {
+                text: "useSyncExternalStore",
+                link: "/React/Hooks/useSyncExternalStore/",
+              },
             ],
           },
           {
