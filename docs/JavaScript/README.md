@@ -664,12 +664,39 @@ git 是目前世界上最先进分布式的版本控制系统
 ## 深浅拷贝
 
 - 浅拷贝,拷贝一级，如果是对象里面还有对象,无法解决
-  - for… in… 循环
-  - Object.assgin() 缺点：非常消耗性能 比如一个对象中某一个数据改变 会导致整个数据的地址改变 消耗内存 所以有了 immutable
-  - ...扩展运算符
+  1. for… in… 循环
+  2. Object.assgin() 缺点：非常消耗性能 比如一个对象中某一个数据改变 会导致整个数据的地址改变 消耗内存 所以有了 immutable
+  3. ...扩展运算符
 - 深拷贝
-  - JSON.parse(JSON.stringify( )) 缺点：当对象的 value 是函数 或者 undefined 时会失效
-  - 用 for…in…+递归
+  1. JSON.parse(JSON.stringify( )) 缺点：当对象的 value 是函数 或者 undefined 时会失效
+  2. 用 for…in…+递归
+- 递归实现深拷贝代码
+  思路：
+
+1. 创建一个空对象 一个 if 条件判断一下这个传进来的是不是个对象
+2. 然后遍历对象 用一个 obj.hasOwnProperty(key)判断这个 key 是不是自身的属性
+3. 如果 obj[key]还是一个对象就递归调用这个函数 如果不是对象就把他赋值给新对象
+
+```JavaScript
+    function deepCopy(obj) {
+    let objArray = Array.isArray(obj) ? [] : {}; //定义空数组或者空对象
+    if (obj && typeof obj === "object") {
+    //判断是否是对象
+    for (key in obj) {
+        //遍历数组或者对象e
+        if (obj.hasOwnProperty(key)) {
+        //判断当前key是不是对象自身的属性。不包括原型链
+        if (obj[key] && typeof obj[key] === "object") {
+            objArray[key] = deepCopy(obj[key]);
+        } else {
+            objArray[key] = obj[key];
+        }
+        }
+    }
+    }
+    return objArray;
+}
+```
 
 ## 构造函数详解与总结
 

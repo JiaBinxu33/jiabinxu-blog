@@ -6,11 +6,22 @@ react 概念：用于构建用户界面的 JavaScript 库，提供了 UI 层面�
 
 react 有几个特征：虚拟 dom 树，jsx 语法，组件化，单向数据流
 
-- jsx：语法 1.只能有一个根节点；但是可以相互嵌套 2.换行或者多标签最好加括号,防止 js 自动分号不往后执行；
-- 虚拟 dom： 1.虚拟 DOM 是在 DOM 的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟 DOM，最后再批量同步到 DOM 中。 2.在 React 中，render 执行的结果得到的并不是真正的 DOM 节点，而仅仅是 JavaScript 对象，称之为虚拟 DOM。
-- 组件化： 1.每一个 React 文件都是一个组件，含视图、逻辑操作、数据 2.组件可以被嵌套到其他组件之中 3.注意组件声明需要首字母大写，如`<TodoList />`
-- 单向数据流 1.子组件对于父组件传递过来的数据是【只读】的 2.子组件不可直接修改父组件中的数据，只能通过调用父组件传递过来的方法，来间接修改父组件的数据，形成了单向清晰的数据流
-- 声明式编程 1.声明式编程表明想要实现什么目的，应该做什么，但是不指定具体怎么做。 2.声明式点一杯酒，只要告诉服务员：我要一杯酒即可；
+- jsx：语法
+  - 只能有一个根节点；但是可以相互嵌套
+  - 换行或者多标签最好加括号,防止 js 自动分号不往后执行；
+- 虚拟 dom：
+  - 虚拟 DOM 是在 DOM 的基础上建立了一个抽象层，对数据和状态所做的任何改动，都会被自动且高效的同步到虚拟 DOM，最后再批量同步到 DOM 中。
+  - 在 React 中，render 执行的结果得到的并不是真正的 DOM 节点，而仅仅是 JavaScript 对象，称之为虚拟 DOM。
+- 组件化：
+  - 每一个 React 文件都是一个组件，含视图、逻辑操作、数据
+  - 组件可以被嵌套到其他组件之中
+  - 注意组件声明需要首字母大写，如`<TodoList />`
+- 单向数据流
+  - 子组件对于父组件传递过来的数据是【只读】的
+  - 子组件不可直接修改父组件中的数据，只能通过调用父组件传递过来的方法，来间接修改父组件的数据，形成了单向清晰的数据流
+- 声明式编程
+  - 声明式编程表明想要实现什么目的，应该做什么，但是不指定具体怎么做。
+  - 声明式点一杯酒，只要告诉服务员：我要一杯酒即可；
 
 react 的优势：
 
@@ -74,10 +85,11 @@ class 创建的组件,有自己的私有数据(this.state)和生命周期
 
   1. 使用 setState 改变数据之前，先采用 es6 中 assgin 进行拷贝，但是 assgin 只深拷贝的数据的第一层，所以说不是最完美的解决办法。
   2. 使用 JSON.parse(JSON.stringfy())进行深拷贝，但是遇到数据为 undefined 和函数时就会错。
-  3. 使用 immutable.js 进行项目的搭建。immutable 中讲究数据的不可变性，每次对数据进行操作前，都会自动的对数据进行深拷贝，项目中数据采用 immutable 的方式，可以轻松解决问题，但是又多了一套 API 去学习
-     immutable.js
-     Immutable Data 就是一旦创建，就不能再被更改的数据。对 Immutable 对象的任何修改或添加删除操作都会返回一个新的 Immutable 对象
-     Immutable 实现的原理是 Persistent Data Structure（持久化数据结构），也就是使用旧数据创建新数据时，要保证旧数据同时可用且不变。同时为了避免 deepCopy 把所有节点都复制一遍带来的性能损耗，Immutable 使用了 Structural Sharing（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享
+
+  - 使用 immutable.js 进行项目的搭建。immutable 中讲究数据的不可变性，每次对数据进行操作前，都会自动的对数据进行深拷贝，项目中数据采用 immutable 的方式，可以轻松解决问题，但是又多了一套 API 去学习
+    immutable.js
+    Immutable Data 就是一旦创建，就不能再被更改的数据。对 Immutable 对象的任何修改或添加删除操作都会返回一个新的 Immutable 对象
+    Immutable 实现的原理是 Persistent Data Structure（持久化数据结构），也就是使用旧数据创建新数据时，要保证旧数据同时可用且不变。同时为了避免 deepCopy 把所有节点都复制一遍带来的性能损耗，Immutable 使用了 Structural Sharing（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享
 
   - _UNSAFE_componentWillUpdate() {}_
   - _componentWillReceiveProps_
@@ -89,161 +101,361 @@ class 创建的组件,有自己的私有数据(this.state)和生命周期
   _componentWillUnmount_
   清除定时器，断开 websocket，取消事件监听，卸载第三方插件
 
-## 深浅拷贝
+## React 组件通信方法
 
-- 浅拷贝,拷贝一级，如果是对象里面还有对象,无法解决
-  1. for… in… 循环
-  2. Object.assgin() 缺点：非常消耗性能 比如一个对象中某一个数据改变 会导致整个数据的地址改变 消耗内存 所以有了 immutable
-  3. ...扩展运算符
-- 深拷贝
-  1. JSON.parse(JSON.stringify( )) 缺点：当对象的 value 是函数 或者 undefined 时会失效
-  2. 用 for…in…+递归
-- 递归实现深拷贝代码
-  思路：
+在 React 中，组件是独立且可复用的。为了构建复杂的应用，组件之间需要有效地交换数据。以下是几种核心的组件通信方法。
 
-1. 创建一个空对象 一个 if 条件判断一下这个传进来的是不是个对象
-2. 然后遍历对象 用一个 obj.hasOwnProperty(key)判断这个 key 是不是自身的属性
-3. 如果 obj[key]还是一个对象就递归调用这个函数 如果不是对象就把他赋值给新对象
+### 1. 父组件向子组件通信 (Props)
 
-```JavaScript
-    function deepCopy(obj) {
-    let objArray = Array.isArray(obj) ? [] : {}; //定义空数组或者空对象
-    if (obj && typeof obj === "object") {
-    //判断是否是对象
-    for (key in obj) {
-        //遍历数组或者对象e
-        if (obj.hasOwnProperty(key)) {
-        //判断当前key是不是对象自身的属性。不包括原型链
-        if (obj[key] && typeof obj[key] === "object") {
-            objArray[key] = deepCopy(obj[key]);
-        } else {
-            objArray[key] = obj[key];
-        }
-        }
-    }
-    }
-    return objArray;
-}
-```
+这是最常见和最直接的通信方式。
 
-## 引入样式的三种方法
+- **核心思想**: 父组件通过 **props** 属性将数据单向传递给子组件。
+- **实现**:
 
-1. style
-   react 里面的 style 只允许写对象
-   外面的括号表示 jsx 的括号，里面的括号是对象的括号
-   单位是 px 的时候，单位是可以省略的
-2. className
-   引入外部 css 文件
-   react 里面所有的 class 都要改成 className
-3. 引入 classnames，用于条件性地加入类名
-   import classNames from "classnames/bind"; 引入 classNames
-   import styles from "./06-style2.css";引入 css
-   定义一个 cx
-   let cx = classNames.bind(styles);
-   定义一个 className 变量
-   let className = cx({
-   左边是类名，右边是条件
-   red: count === 1,
-   green: count === 2,
-   });
-   最后就可以在组件的标签上写 className = {className}
+  1.  **父组件**: 在调用子组件时，像传递 HTML 属性一样，将数据绑定到子组件的 props 上。
+  2.  **子组件**: 通过 `props` 对象接收数据。在函数组件中，`props` 是函数的第一个参数；在类组件中，通过 `this.props` 访问。
 
-## 组件通信有哪些方法？
+- **代码示例**:
 
-1. 父组件向子组件通信
+  ```jsx
+  // 父组件: ParentComponent.js
+  import React from "react";
+  import ChildComponent from "./ChildComponent";
 
-- 父组件通过向子组件传递 props，子组件得到 props 后进行相应的处理。
+  function ParentComponent() {
+    const dataToSend = "Hello from Parent!";
+    return <ChildComponent message={dataToSend} />;
+  }
 
-2. 子组件向父组件通信
+  // 子组件: ChildComponent.js
+  import React from "react";
 
-- 利用回调函数，实现子组件向父组件通信：父组件将一个函数作为 props 传递给子组件，子组件调用该回调函数.即可
+  function ChildComponent(props) {
+    return <h2>{props.message}</h2>; // "Hello from Parent!"
+  }
+  ```
 
-3. redux
-4. createContext
+### 2. 子组件向父组件通信 (回调函数)
 
-- createContext 用于依赖注入
-  context APi 是有响应式的
-  父组件的 Provider 和子组件的 Consumer 要来自于同一个对象
-  执行以后返回的是一个对象
-  const { Provider, Consumer } = createContext();
-  提供者 消费者
+子组件不能直接修改父组件的状态，因此需要借助回调函数来间接通信。
 
-5. useReducer 一个小型的仓库
-   reducer 函数的写法和 redux 一样 defaultState 也一样 state 不用写等于 defaultState 调用的时候引入 useuseReducer 有两个参数
-   第一个参数就是 reducer 函数 第二个是 defaultState 从 useReducer 中解构出 state 和 dispatch 调用就调用 state.count dispatch 中传入 type
-   const [state, dispatch] = useReducer(reducer, defaultState);
-   useReducer 里面没有中间键 不能写异步操作 如果要写异步可以写 useEffect 先请求数据 在吧请求到的数据放到仓库里面
+- **核心思想**: 父组件将一个**函数作为 props** 传递给子组件，子组件在需要时调用这个函数，从而将数据作为函数参数传递回父组件。
+- **实现**:
 
-6. useContext
-   context 是上下文的意思
-   useContext 的使用方法分三步走： - 使用 const x = createContext(null) 创建上下文，在创建时一般不设置初始值，因此为 null，一 般是在指定上下文作用域时初始化。 - 使用 <x.Provider value={}></x.Provider> 圈定上下文的作用域 - 在作用域中使用 const value = useContext(x) 使用上下文的数据
-   接收一个 context 对象(React.createContext 的返回值）并返回该 context 的当前值 6. 状态提升 - 就是将子组件的 state 提示到父组件，然后这个父组件的任何子组件就都能使用这个 state，从而达到多个组件之间共享 state 的目的。 - 子传父用自定义事件 - 父传子用自定义属性 - 使用 this.props.onGetCount 触发父组件事件 - bind 可以返回一个新函数，会将 bind 方法的第二个参数作为新函数的第一个参数，并且不会自执行
+  1.  **父组件**: 定义一个用于更新状态的函数，并将其传递给子组件。
+  2.  **子组件**: 通过 props 调用该函数，并将需要传递的数据作为参数传入。
 
-- 总结：
-  父组件向子组件通信：使用 props
-  子组件向父组件通信：使用 props 回调
-  跨级组件间通信：使用 context 对象，Provider 要写在所有的组件公共的父元素的外面，Provider 必要要有一个 value 属性，Consumer 用于做注入, 里面需要写函数, 接收一个参数是 value
-  利用状态管理工具：useReducer redux
-  非嵌套组件间通信：使用事件订阅，
-  原理就是：即一个发布者，一个或多个订阅者，引入 events,通过 emit 事件触发方法，发布订阅消息给订阅者,通过 emitter.addListener(事件名称,函数名)方法，进行事件监听(订阅)。
-  通过 emitter.removeListener(事件名称,函数名)方法 ，进行事件销毁(取消订阅)
+- **代码示例**:
 
-## 父子组件传参
+  ```jsx
+  // 父组件: ParentComponent.js
+  import React, { useState } from "react";
+  import ChildComponent from "./ChildComponent";
 
-父传子是用到自定义属性 在父组件中的子组件标签上写一个自定义属性 子组件通过 props 去获取数据 类组件是通过 this.props 函数组接收一个 props
+  function ParentComponent() {
+    const [messageFromChild, setMessageFromChild] = useState("");
 
-子传父的话就是用到了自定义事件 在父组件中的子组件标签上写一个自定义事件 在父组件通过 props 去触发子组件的事件
+    const handleChildData = (data) => {
+      setMessageFromChild(data);
+    };
 
-跨级通信就是通过 context 上下文，Context 的执行结果是一个对象 里面有个 Provide 和 Consumer 类似于 vue 中的依赖注入 在公共的父组件的最外层嵌套 Provide 标签并且加上一个 value 属性 这个 value 属性就是传递的数据 子组件呢需要在最外面套上 Consumer 标签 Consumer 里面写函数 可以也有一个形参去接收父组件传递的数据
+    return (
+      <div>
+        <p>Message from child: {messageFromChild}</p>
+        <ChildComponent onSendData={handleChildData} />
+      </div>
+    );
+  }
 
-当然比较复杂的全局组件通信肯定是要用到第三方状态管理工具的像
-redux 我之前的项目一般都是用 redux。
+  // 子组件: ChildComponent.js
+  import React from "react";
 
-## 设计模式 - 发布订阅模式 - 单例模式
+  function ChildComponent(props) {
+    const handleClick = () => {
+      props.onSendData("Hi, I'm the child!");
+    };
+    return <button onClick={handleClick}>Send Data to Parent</button>;
+  }
+  ```
 
-发布 — 订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
-单例模式
-单例模式就是一个实例在整个网页的生命周期里只创建一次，后续再调用实例创建函数的时候，返回的仍是之前创建的实例。在实际开发中应用十分广泛，例如页面中的登录框，显示消息的提示窗
+### 3. 跨级组件通信 (Context API)
 
-## 发布订阅的实现（基础版）
+当组件层级很深，通过 props 逐层传递数据会变得非常繁琐（即 "props drilling"），此时 Context 提供了一种更优雅的解决方案。
 
-具体实现场景思路是，有这么一个楼盘正在开发中，小明和小绿（订阅者）要买房，就先订阅了各自的心仪的房间平米数，开发商（发布者）会在楼盘开发完毕后将房间信息发布到对应的买家手机上（发布到对应的事件中）
+- **核心思想**: Context 提供了一个全局的“上下文”，允许父组件向其下任意层级的子组件直接传递数据，而无需手动逐层传递。
+- **核心 API**: `React.createContext`, `Provider`, `Consumer`, `useContext` Hook。
 
-```JavaScript
+- **实现步骤**:
 
-//定义发布者
-let houseObj = {};// 定义花名册  缓存列表// 如果list是一个数组的话，可读性差，后面取key值（相当于索引值）会进行深拷贝，深拷贝是非常消耗性能的。
-houseObj.list = {};// 增加订阅者
-houseObj.listen = function (key,fn) {  
-    (this.list[key] || (this.list[key] = [])).push(fn); // 订阅消息添加到数组里面  。      	   console.log(this.list);
-}// 遍历数组，定向将消息发布给订阅者
-houseObj.trigger = function () {    // 取出消息类型  
-let key = Array.prototype.shift.call(arguments); // 将arguments由类数组变成了数组，使他具有了数	组的方法，并使用shift取出了数组第一位。    
-// 取出对应回调函数的集合    let fns = this.list[key];  
-if (!fns || fns.length === 0) {
-            return;    
-}  
-for(let i = 0,fn;fn = fns[i++];){        
-    fn.apply(this,arguments); // arguments 是发布消息附带的参数；apply()是将指针从第一个参数转向第二个参数的作用。    }}
-/* 订阅 */
-// 小明的要求
-houseObj.listen('big',function (size) {    console.log('小明：' + size + '平米');})
-// 小绿的要求
-houseObj.listen('small',function (size) {    console.log('小绿：' + size + '平米');})//发布
-houseObj.trigger('big',100);houseObj.trigger('small',80);
+  1.  **创建 Context**: 使用 `const MyContext = React.createContext(defaultValue);` 创建一个 Context 对象。
+  2.  **提供 Context**: 在父组件或组件树的顶层，使用 `<MyContext.Provider value={data}>` 组件包裹所有需要访问该数据的子组件。`value` 属性就是要共享的数据。
+  3.  **消费 Context**:
+      - **`useContext` Hook (推荐)**: 在函数组件中，使用 `const value = useContext(MyContext);` 直接获取 `value`。这是最简洁现代的方式。
+      - **`Consumer` 组件**: 在类组件或旧版函数组件中，使用 `<MyContext.Consumer>{value => /* JSX based on value */}</MyContext.Consumer>`，通过渲染属性（render prop）的方式来获取数据。
 
-```
+- **代码示例 (使用 `useContext`)**:
+
+  ```jsx
+  // theme-context.js
+  import React, { createContext, useContext } from "react";
+
+  // 1. 创建 Context
+  const ThemeContext = createContext("light");
+
+  // App.js (提供者)
+  function App() {
+    const theme = "dark";
+    return (
+      <ThemeContext.Provider value={theme}>
+        <Toolbar />
+      </ThemeContext.Provider>
+    );
+  }
+
+  // Toolbar.js (中间组件)
+  function Toolbar() {
+    return <ThemedButton />;
+  }
+
+  // ThemedButton.js (消费者)
+  function ThemedButton() {
+    // 3. 使用 useContext 消费数据
+    const theme = useContext(ThemeContext);
+    return <button>Current theme is: {theme}</button>;
+  }
+  ```
+
+### 4. 状态管理库 (Redux / Zustand 等)
+
+对于大型、复杂应用，组件间的通信关系可能错综复杂。此时，使用专门的状态管理库可以提供一个集中式、可预测的状态容器。
+
+- **核心思想**: 将所有共享状态（state）存储在一个全局的 "Store" 中。任何组件都可以从 Store 中读取状态，并可以 "dispatch" 一个 "action" 来请求更新状态。状态的更新逻辑由 "reducer" 函数集中处理。
+- **代表库**:
+  - **Redux**: 经典的状态管理库，生态成熟，中间件丰富，遵循严格的单向数据流。
+  - **Zustand**: 一个更轻量、更现代的状态管理方案，API 简单，基于 Hooks，无需大量模板代码。
+
+### 5. 本地状态共享 (Hooks)
+
+React Hooks 提供了一些强大的工具，可以在组件内部或相关组件之间共享逻辑和状态。
+
+#### a. `useReducer`
+
+- **核心思想**: `useReducer` 是 `useState` 的替代方案。当状态逻辑比较复杂，或者下一个状态依赖于前一个状态时，`useReducer` 更为适用。它可以看作是单个组件内部的 "小型 Redux"。
+- **API**: `const [state, dispatch] = useReducer(reducer, initialState);`
+  - `reducer`: 一个函数 `(state, action) => newState`，根据 action 来计算新 state。
+  - `initialState`: 初始状态。
+  - `dispatch`: 一个函数，用于触发 action，例如 `dispatch({ type: 'increment' })`。
+- **注意**: `useReducer` 本身不处理异步操作（如 API 请求）。通常需要配合 `useEffect` 来处理副作用，例如在 `useEffect` 中获取数据，然后调用 `dispatch` 将数据存入 state。
+
+#### b. 状态提升 (Lifting State Up)
+
+- **核心思想**: 当多个子组件需要共享和操作同一个状态时，应将这个状态提升到它们最近的共同父组件中进行管理。然后，父组件通过 props 将状态和更新状态的函数分发给需要的子组件。
+- **本质**: 这并不是一种新的技术，而是 **Props** 和 **回调函数** 模式的结合与实践，是 React 设计的核心原则之一。
+
+### 6. 非嵌套组件通信 (发布-订阅模式)
+
+对于两个没有任何层级关系的组件，可以使用全局事件总线（Event Bus）来实现通信。
+
+- **核心思想**: 创建一个中央事件管理器。一个组件（发布者）可以发布（`emit`）一个事件，其他任何组件（订阅者）只要订阅（`listen` 或 `on`）了该事件，就能收到通知并执行相应的回调。
+- **实现**:
+
+  1.  引入一个事件库，如 `events` 或 `pubsub-js`。
+  2.  创建一个事件发射器实例。
+  3.  在组件 A 中，使用 `emitter.emit('eventName', data)` 来发布事件。
+  4.  在组件 B 的 `useEffect` 中，使用 `emitter.on('eventName', callback)` 来订阅事件。
+  5.  **关键**: 在组件 B 卸载时，必须在 `useEffect` 的返回函数中调用 `emitter.off('eventName', callback)` 来取消订阅，以防止内存泄漏。
+
+- **代码示例**:
+
+  ```jsx
+  // event-bus.js
+  import { EventEmitter } from "events";
+  export const emitter = new EventEmitter();
+
+  // ComponentA.js (发布者)
+  import { emitter } from "./event-bus";
+  function ComponentA() {
+    const handleClick = () => {
+      emitter.emit("message", "Hello from Component A!");
+    };
+    return <button onClick={handleClick}>Send Global Message</button>;
+  }
+
+  // ComponentB.js (订阅者)
+  import React, { useState, useEffect } from "react";
+  import { emitter } from "./event-bus";
+  function ComponentB() {
+    const [message, setMessage] = useState("");
+    useEffect(() => {
+      const handleMessage = (msg) => setMessage(msg);
+      emitter.on("message", handleMessage);
+
+      // 组件卸载时取消订阅
+      return () => {
+        emitter.off("message", handleMessage);
+      };
+    }, []); // 空依赖数组确保只在挂载和卸载时执行
+
+    return <p>Received message: {message}</p>;
+  }
+  ```
+
+---
+
+### **总结**
+
+| 通信场景              | 推荐方法                        | 核心                                    |
+| :-------------------- | :------------------------------ | :-------------------------------------- |
+| **父 -> 子**          | **Props**                       | 最基础、最直接的数据传递。              |
+| **子 -> 父**          | **回调函数** (通过 Props 传递)  | 子组件调用父组件的函数。                |
+| **兄弟组件**          | **状态提升**                    | 将共享状态放到共同的父组件中管理。      |
+| **跨多层级组件**      | **Context API** (`useContext`)  | 避免 Props 逐层钻取，实现全局数据共享。 |
+| **复杂应用/全局状态** | **状态管理库** (Redux, Zustand) | 集中式、可预测的全局状态管理方案。      |
+| **任意非嵌套组件**    | **发布-订阅模式** (Event Bus)   | 解耦组件，通过全局事件中心通信。        |
 
 ## 事件处理
 
-- this 指向问题
-  1．在事件内联的地方 bind(this)不推荐，占内存，bind 都会产生新函数
-  2．在 constructor 里面 this.xxx = this.xxx.bind(this);推荐的写法，可以将每次产生的新函数用变量存起来,不会占用太多内存 3. 使用箭头函数
-  - 事件传参问题
-    1．内联地使用 bind onclick={this.fn.bind(this, item.id)}不推荐的
-    2．内联地使用箭头函数 onclick={() => this.fn(item.id)}
-  3. 函数柯里化(闭包)
-  - 函数柯里化传参：1.事件的括号里面传的值，一般写在外面，2.event 对象一般是在里面的
+### 1. 事件命名和绑定
+
+- 事件名采用驼峰命名法（如 `onClick`、`onChange`）。
+- 事件处理函数通常传递为函数引用，而不是字符串。
+
+```jsx
+// 正确
+<button onClick={handleClick}>Click Me</button>
+
+// 错误
+<button onClick="handleClick()">Click Me</button>
+```
+
+---
+
+### 2. 阻止默认行为和事件冒泡
+
+React 事件对象是合成事件（SyntheticEvent），提供与原生 DOM 事件一致的接口。
+
+```jsx
+function handleSubmit(e) {
+  e.preventDefault(); // 阻止默认提交
+  e.stopPropagation(); // 阻止事件冒泡
+}
+<form onSubmit={handleSubmit}>...</form>;
+```
+
+---
+
+### 3. 向事件处理函数传递参数
+
+可以使用箭头函数或 bind 方法：
+
+```jsx
+<button onClick={() => handleClick(id)}>Delete</button>
+<button onClick={handleClick.bind(this, id)}>Delete</button>
+```
+
+---
+
+### 4. 事件对象
+
+事件处理函数的第一个参数为合成事件对象（SyntheticEvent），具有和原生事件类似的属性。
+
+```jsx
+function handleChange(event) {
+  console.log(event.target.value);
+}
+<input onChange={handleChange} />;
+```
+
+---
+
+### 5. this 指向
+
+- 使用 class 组件时，事件处理函数需要绑定 this，或使用箭头函数自动绑定。
+- 函数组件中无需关心 this。
+
+```jsx
+// class 组件
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() { ... }
+  render() {
+    return <button onClick={this.handleClick}>Click</button>
+  }
+}
+```
+
+---
+
+### 6. 事件池机制
+
+- React 17 及以下，合成事件对象会被回收（事件池），异步访问事件属性时需调用 `event.persist()`。
+- React 17 以上已取消事件池机制，但为兼容旧代码，可继续调用 `event.persist()`。
+
+```jsx
+function handleClick(e) {
+  e.persist(); // 防止事件对象被回收
+  setTimeout(() => {
+    console.log(e.type);
+  }, 1000);
+}
+```
+
+---
+
+### 7. 常用事件类型
+
+| 事件类型     | 说明           |
+| ------------ | -------------- |
+| onClick      | 点击事件       |
+| onChange     | 输入、选择改变 |
+| onSubmit     | 表单提交       |
+| onMouseEnter | 鼠标进入       |
+| onMouseLeave | 鼠标离开       |
+| onKeyDown    | 键盘按下       |
+| onFocus      | 获得焦点       |
+| onBlur       | 失去焦点       |
+
+---
+
+### 8. 事件冒泡与捕获
+
+- React 默认事件是冒泡阶段。
+- 支持捕获事件，写法如 `onClickCapture`。
+
+```jsx
+<div onClickCapture={() => console.log("捕获阶段")}></div>
+```
+
+---
+
+### 9. 事件委托
+
+- React 事件委托到根节点（如 `document`），提升性能。
+- 组件卸载时会自动移除监听，无需手动清理。
+
+---
+
+### 10. 组合使用
+
+可结合 state、props、Context 等配合事件实现复杂交互。
+
+```jsx
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
+```
+
+### 总结
+
+- 使用合成事件，跨平台兼容。
+- 事件名写法和原生不同。
+- 事件处理参数、this 绑定需注意。
+- 事件池影响异步操作。
+- 支持事件捕获与冒泡、事件委托无需手动管理。
 
 ## 受控组件与非受控组件
 

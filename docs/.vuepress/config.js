@@ -59,6 +59,10 @@ module.exports = {
                 text: "useSyncExternalStore",
                 link: "/React/Hooks/useSyncExternalStore/",
               },
+              {
+                text: "useActionState",
+                link: "/React/Hooks/useActionState/",
+              },
             ],
           },
           {
