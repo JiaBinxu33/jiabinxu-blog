@@ -7,7 +7,7 @@ Next.js 是一个 React 框架，它允许你使用 React 框架建立超强的�
 
 它具有混合静态和服务器渲染、TypeScript 支持、智能捆绑、路由预取等功能，无需额外配置。
 
-### 环境准备
+**环境准备**
 
 - Node.js 18+
 - npm/yarn/pnpm（推荐使用 pnpm）
@@ -1059,19 +1059,39 @@ type User = z.infer<typeof UserSchema>;
    - `priority`：优先加载图片（如首屏大图）。
    - `placeholder`：占位类型，常用 `"blur"` 实现模糊占位。
    - `blurDataURL`：自定义模糊图片的 url，可用小图或 base64。
+   - `lodaer`: 图片加载器，可自定义图片加载方式。
 
-   **示例代码：**
+     - 自定义 loader 后，图片不会再走 Next.js 内置的图片优化（即不会经过 /\_next/image 路径），而是直接用你生成的 URL。
+     - 仅当你有自定义图片服务需求时才需要自定义 loader，普通项目建议使用 Next.js 默认优化。
 
-   ```jsx
-   <Image
-     src="/images/example.jpg"
-     alt="示例图片"
-     width={500}
-     height={300}
-     placeholder="blur"
-     blurDataURL="/images/blur.jpg"
-   />
-   ```
+     ```tsx
+     import Image from "next/image";
+
+     const customLoad = ({ src }) => src;
+
+     const MyImage = (props) => {
+       return <Image {...props} loader={customLoad} />;
+     };
+
+     MyImage.displayName = "Image";
+
+     export default MyImage;
+     ```
+
+   - `displayName`: 用于在 React DevTools 中显示组件名称。
+
+**示例代码：**
+
+```jsx
+<Image
+  src="/images/example.jpg"
+  alt="示例图片"
+  width={500}
+  height={300}
+  placeholder="blur"
+  blurDataURL="/images/blur.jpg"
+/>
+```
 
 3. 远程图片用法
 
@@ -1213,3 +1233,318 @@ import { useRouter } from "next/navigation";
 #### 总结
 
 Ant Design 中关于静态方法无法消费 Context 的警告，源于全局静态调用与 React 组件树上下文之间的隔离。使用 `<App />` 组件包裹应用并在具体组件中通过 `App.useApp()` Hook 获取 `modal`, `message`, `notification` 实例，是 antd v5+ 官方推荐的、确保这些全局提示/弹窗能正确继承上下文（尤其是动态主题）的**标准解决方案**。忽略此模式会导致 UI 样式不一致，并可能引发未来的维护和兼容性风险。
+
+## Next.js + Auth.js 权限控制与登录流程全解
+
+**整体流程与核心原理**
+
+在 Next.js 应用中结合 Auth.js（NextAuth），你可以通过配置 `auth.config.ts`、`auth.ts` 及 `middleware.ts`，实现灵活的页面访问控制。整个流程核心包括：
+
+- **路由列表分组**：哪些页面是公开的，哪些需要登录，哪些是认证页面。
+- **中间件拦截**：所有页面请求都会被 middleware.ts 拦截，再决定是否放行或重定向。
+- **权限判断与角色控制**：通过解密的 JWT（Session Token）携带用户身份与角色，灵活配置权限。
+- **登录流程体验优化**：自动带上 callbackUrl，登录成功后回到原目标页。
+
+---
+
+**auth.config.ts 路由权限配置**
+
+**目标需求**：未登录用户只能访问页面 A、B，不能访问 C、D、E、F。登录后可访问所有页面。
+
+- 实现思路：
+
+  1. **分组路由列表**
+
+  - `publicRoutes`: 未登录可访问（如 `/public-page-a`, `/public-page-b`）
+  - `protectedRoutes`: 登录才能访问（如 `/dashboard`, `/products`, `/orders`，使用前缀匹配可覆盖子页面）
+  - `authRoutes`: 登录页面本身（如 `/login`），已登录用户访问时应重定向到主页
+
+  2. **配置 callbacks.authorized**  
+     逻辑顺序如下：
+
+  - 若访问受保护路由，未登录则拦截
+  - 若访问登录页，已登录则重定向到主页
+  - 其他页面默认放行
+
+  ```typescript
+  // auth.config.ts
+  import type { NextAuthConfig } from "next-auth";
+
+  const publicRoutes = ["/public-page-a", "/public-page-b"];
+  const protectedRoutes = ["/dashboard", "/products", "/orders"];
+  const authRoutes = ["/login"];
+
+  export const authConfig = {
+    pages: { signIn: "/login" },
+    callbacks: {
+      authorized({ auth, request: { nextUrl } }) {
+        const isLoggedIn = !!auth?.user;
+        const { pathname } = nextUrl;
+
+        // 受保护路由
+        const isOnProtectedRoute = protectedRoutes.some((route) =>
+          pathname.startsWith(route)
+        );
+        if (isOnProtectedRoute) return isLoggedIn;
+
+        // 登录页面
+        const isOnAuthRoute = authRoutes.some((route) =>
+          pathname.startsWith(route)
+        );
+        if (isOnAuthRoute) {
+          if (isLoggedIn) {
+            // 已登录访问登录页，重定向到 dashboard
+            return Response.redirect(new URL("/dashboard", nextUrl));
+          }
+          return true;
+        }
+
+        // 其他（如 publicRoutes），默认放行
+        return true;
+      },
+    },
+  } satisfies NextAuthConfig;
+  ```
+
+---
+
+**middleware.ts 中间件机制详解**
+
+- middleware.ts 是什么？如何被执行？
+
+  - 它是 Next.js 的“中央保安”，拦截所有页面请求，决定是否放行或重定向
+  - 通过“名字和位置约定”自动生效：只要在根目录或 `src/` 下有 middleware.ts (或 .js/.mjs)，Next.js 自动识别
+  - 运行在 Edge Runtime，速度快且离用户近
+
+- 典型代码结构与注释说明：
+
+  ```typescript
+  // middleware.ts
+  import NextAuth from "next-auth";
+  import { authConfig } from "./auth.config";
+
+  // 初始化 Auth.js 并导出中间件
+  export default NextAuth(authConfig).auth;
+
+  // 配置 matcher 只拦截实际页面请求，静态资源、API 路由等不拦截
+  export const config = {
+    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$|favicon.ico).*)"],
+  };
+  ```
+
+- `matcher` 优化性能，只针对实际页面做权限校验
+
+---
+
+**providers 配置详解**
+
+- providers 决定了你支持哪些登录方式。分为两大类：
+
+  1. OAuth Provider（如 Google、GitHub）
+
+  - 只需配置 `clientId`/`clientSecret`
+  - 用户跳转至第三方授权页面，授权后回调到你站点
+  - 适合无自定义用户体系的场景
+
+  ```typescript
+  import Google from "next-auth/providers/google";
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ];
+  ```
+
+  2. Credentials Provider（账号密码登录）
+
+  - 需自定义 authorize 逻辑（如查库、比对密码）
+  - 适合有自定义用户表/权限设计的场景
+
+  ```typescript
+  import Credentials from "next-auth/providers/credentials";
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        // 验证逻辑（查库、比对密码）
+        // 返回 user 对象则登录成功，否则失败
+      },
+    }),
+  ];
+  ```
+
+- 最佳实践：
+  所有需要用到 Node.js 模块（如数据库、bcrypt）的 provider 配置都放在 `auth.ts`，避免 Edge Runtime 报错。
+
+---
+
+**auth.ts 实例代码逐行详解**
+
+```typescript
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { authConfig } from "./auth.config";
+import { z } from "zod";
+import type { User } from "@/app/lib/definitions";
+import bcrypt from "bcrypt";
+import postgres from "postgres";
+
+// 建立数据库连接
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+
+// 查找用户辅助函数
+async function getUser(email: string): Promise<User | undefined> {
+  const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`;
+  return user[0];
+}
+
+export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        // 1. 检查格式
+        const parsed = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(6),
+          })
+          .safeParse(credentials);
+
+        if (parsed.success) {
+          const { email, password } = parsed.data;
+          // 2. 查库
+          const user = await getUser(email);
+          if (!user) return null;
+          // 3. 密码比对
+          const match = await bcrypt.compare(password, user.password);
+          if (match) return user;
+        }
+        // 4. 验证失败
+        console.log("Invalid credentials");
+        return null;
+      },
+    }),
+  ],
+});
+```
+
+- **zod**：前端/后端通用的数据校验
+- **bcrypt**：密码哈希与比对，保障安全
+- **getUser**：数据库查找用户
+- **authorize**：整个自定义登录核心
+
+---
+
+**登录表单 callbackUrl 流程解释**
+
+**callbackUrl 用于：登录后自动回到原目标页**
+
+- 完整流程
+
+  1. **用户访问受保护页面**（如 `/dashboard/invoices`），未登录被中间件拦截
+  2. **中间件重定向到登录页**，自动带上 `?callbackUrl=/dashboard/invoices`
+  3. **登录表单组件**用 `useSearchParams().get('callbackUrl')` 读取参数，写入 `<input type="hidden" name="redirectTo" value={callbackUrl} />`
+  4. **表单提交**时，`redirectTo` 字段随表单一起 POST 到后端 Server Action
+  5. **Server Action（authenticate）** 读取 `redirectTo`，登录后自动 `redirect(redirectTo)`
+  6. **用户被送回最初想访问的页面**
+
+- 代码片段
+
+  ```tsx
+  // LoginForm.tsx (核心片段)
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  <input type="hidden" name="redirectTo" value={callbackUrl} />;
+  ```
+
+  ```typescript
+  // authenticate Server Action
+  export async function authenticate(_, formData: FormData) {
+    await signIn("credentials", formData); // 登录
+    const redirectTo = formData.get("redirectTo") || "/dashboard";
+    redirect(redirectTo); // 跳转回原页面
+  }
+  ```
+
+---
+
+**auth 对象的来源与权限配置**
+
+- auth 对象来源
+
+  1. **用户登录**时，`authorize` 返回 user 对象
+  2. **user 数据被写入 JWT**（callbacks.jwt），JWT 存在 Cookie
+  3. **后续请求**中，middleware 解密 JWT 得到 auth 对象，传递给 authorized 回调
+
+- 配置角色权限的完整流程
+
+  1. **数据库 user 表**增加 role 字段（如 `admin`/`user`）
+  2. **authorize 返回的 user**包含 role
+  3. **callbacks.jwt** 把 role 写进 token
+  4. **middleware 调用 authorized** 时，auth.user 里就有 role，可用来判断权限
+
+- 示例：仅管理员能访问 /admin，下例中只有 role 为 admin 才能访问 /admin 页面：
+
+  ```typescript
+  // auth.config.ts
+  export const authConfig = {
+    callbacks: {
+      authorized({ auth, request: { nextUrl } }) {
+        const isLoggedIn = !!auth?.user;
+        const pathname = nextUrl.pathname;
+
+        if (pathname.startsWith("/admin")) {
+          // 只有 admin 角色放行
+          return isLoggedIn && auth.user?.role === "admin";
+        }
+
+        // 其他保护逻辑...
+        return isLoggedIn;
+      },
+    },
+    // providers...
+  };
+  ```
+
+- 类型扩展：
+
+  为 TypeScript 类型推断更智能，增加 auth.d.ts：
+
+  ```typescript
+  // auth.d.ts
+  import "next-auth";
+
+  declare module "next-auth" {
+    interface Session {
+      user: { role: "admin" | "user" } & DefaultSession["user"];
+    }
+    interface User {
+      role: "admin" | "user";
+    }
+  }
+  declare module "next-auth/jwt" {
+    interface JWT {
+      role: "admin" | "user";
+    }
+  }
+  ```
+
+---
+
+- 总结
+
+  - **auth.config.ts** 管理页面访问规则，逻辑清晰
+  - **middleware.ts** 自动拦截请求，执行权限判断
+  - **providers** 决定登录方式，强烈建议放在 auth.ts
+  - **auth.ts** 实现自定义登录逻辑，安全查库与比对密码
+  - **callbackUrl** 串起“原目标页-登录页-成功后跳转”的完整用户体验
+  - **auth 对象** 来源于 JWT，权限信息可随用户登录流程动态传递和校验
+
+---
+
+> **参考链接**
+>
+> - [Auth.js 官方文档](https://authjs.dev/getting-started/)
+> - [Next.js Middleware 官方文档](https://nextjs.org/docs/app/building-your-application/routing/middleware)
+> - [Vercel Next.js Dashboard Example](https://github.com/vercel/nextjs-dashboard)
