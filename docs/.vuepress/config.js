@@ -1,5 +1,3 @@
-const autoprefixer = require("autoprefixer");
-
 module.exports = {
   theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
@@ -21,13 +19,6 @@ module.exports = {
       },
     ],
   ],
-  postcss: {
-    plugins: [
-      autoprefixer,
-      // 我们在这里故意不加入 cssnano，以此来禁用它。
-      // 这将阻止所有 CSS 压缩行为，从而绕过那个报错的工具。
-    ],
-  },
   // 多语言配置
   locales: {
     "/": {
