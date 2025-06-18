@@ -2,7 +2,23 @@ module.exports = {
   theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
   base: "/jiabinxu-blog/",
-  head: [["link", { rel: "icon", href: "/R-C.png" }]],
+  head: [
+    ["link", { rel: "icon", href: "/R-C.png" }],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css",
+      },
+    ],
+
+    [
+      "script",
+      {
+        src: "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js",
+      },
+    ],
+  ],
   // 多语言配置
   locales: {
     "/": {
