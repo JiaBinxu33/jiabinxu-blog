@@ -8,6 +8,7 @@
   "private": false,
   "devDependencies": {
     "@vuepress/theme-blog": "^2.3.3",
+    "autoprefixer": "^9.8.8",
     "vuepress": "^1.9.10",
     "vuepress-plugin-auto-sidebar": "^2.3.2"
   },

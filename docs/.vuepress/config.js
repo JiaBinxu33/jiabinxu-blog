@@ -1,3 +1,5 @@
+const autoprefixer = require("autoprefixer");
+
 module.exports = {
   theme: "@vuepress/theme-default",
   description: "前端开发知识体系",
