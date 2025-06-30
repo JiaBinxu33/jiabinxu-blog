@@ -1643,3 +1643,27 @@ export const { auth, signIn, signOut } = NextAuth({
 > - [Auth.js 官方文档](https://authjs.dev/getting-started/)
 > - [Next.js Middleware 官方文档](https://nextjs.org/docs/app/building-your-application/routing/middleware)
 > - [Vercel Next.js Dashboard Example](https://github.com/vercel/nextjs-dashboard)
+
+## 遇到报错 Warning: [antd: compatible] antd v5 support React is 16 ~ 18. see https://u.ant.design/v5-for-19 for compatible.
+
+- 警告信息解析
+  这个警告信息明确指出了 Ant Design v5 官方支持的 React 版本范围是 16.x 到 18.x，而你的项目正在使用的 React 版本可能是 19.x 或更高。这种不兼容性导致 Ant Design 的一些功能（如波浪效果、Modal、Notification、Message 的静态方法）可能无法正常工作。
+
+- 原因分析
+  Ant Design v5 在设计时，是基于 React 16.x 到 18.x 的 API 规范进行开发的。当 React 19 调整了 react-dom 的导出方法时，Ant Design v5 无法直接使用 ReactDOM.render 方法，从而引发了兼容性问题。
+
+- 解决方案
+  针对这个问题，推荐使用 Ant Design 官方提供的兼容性包或使用 unstableSetRender 方法(不推荐)。
+
+- 使用兼容性包解决
+  安装兼容性包：
+
+```bash
+pnpm add @ant-design/v5-patch-for-react-19 --save
+```
+
+在项目入口导入
+
+```bash
+import '@ant-design/v5-patch-for-react-19';
+```
