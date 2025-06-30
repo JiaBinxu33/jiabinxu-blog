@@ -185,6 +185,8 @@ Success! Created my-app at E:\xxx\my-app
 
 ## 为项目添加可使用@引入
 
+通常情况可在创建项目时加入，如果未集成，可以手动加入配置
+
 - 修改 next.config.mjs
 
   ```
@@ -305,8 +307,6 @@ Next.js 提供了多种灵活的渲染策略，以满足不同应用场景，优
 
 参考：
 
-参考：
-
 - [Getting Started: Partial Prerendering - Next.js 官方文档](https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering)
 - [Next.js Rendering Strategies and how they affect core web vitals](https://nextjs.org/docs/app/building-your-application/rendering)
 
@@ -331,6 +331,101 @@ Next.js 提供了多种灵活的渲染策略，以满足不同应用场景，优
 - [next js 13 Dynamic rendering instead of Static rendering (StackOverflow)](https://stackoverflow.com/questions/77368815/next-js-13-dynamic-rendering-instead-of-static-rendering)
 
 ---
+
+## 我有一些页面不需要用到根布局怎么办？
+
+通常情况下，我们创建页面有一套骨架，大部分页面可以在此之上通用，但是有一些“特立独行”的页面，比如登录页，详情页等等他们并不需要用到根布局 也就是 layout ，这时我们可以使用 nextjs 提供的路由组 (Route Groups) ,最好是在创建项目时就考虑拆分路由组，以免二次修改。
+
+---
+
+1. 什么是路由组？
+   定义：路由组是一个特殊的文件夹，其名称被圆括号 () 包裹。
+
+核心规则：路由组的文件夹名会被路由系统忽略，不会出现在最终的 URL 路径中。
+
+示例：
+文件路径 `app/(marketing)/about/page.tsx` 在浏览器中对应的 URL 是 `/about`，而不是 `/marketing/about`。
+
+2. 为什么要使用路由组？（两大核心用途）
+   路由组的主要价值在于组织和管理路由，它提供了两种非常实用的能力：
+
+- 用途一：创建多套独立的、互不嵌套的布局
+  这是路由组最强大的功能。通常情况下，子目录的 layout.tsx 会嵌套在父目录的 layout.tsx 中。路由组可以让你打破这种嵌套关系，创建平行的布局系统。
+
+场景：您的应用需要一个带侧边栏和播放器的“主应用布局”，同时还需要一个只有简单背景的“登录/注册布局”。
+
+解决方案：
+
+将主应用页面（如 dashboard, music）放入一个路由组，例如 (main)，并在这个组里创建复杂的 layout.tsx。
+
+将登录/注册页面放入另一个路由组，例如 (auth)，并在这个组里创建极简的 layout.tsx。
+
+在最顶层的 app/layout.tsx 只保留最基础的 `<html>` 和`<body>`。
+
+文件结构示例：
+
+```
+src/app/
+├── (main)/ # 主应用组
+│ ├── music/
+│ │ └── page.tsx # URL: /music
+│ └── layout.tsx # ✅ 带侧边栏和播放器的复杂布局
+│
+├── (auth)/ # 身份验证组
+│ ├── login/
+│ │ └── page.tsx # URL: /login
+│ └── layout.tsx # ✅ 只有居中卡片的极简布局
+│
+└── layout.tsx # //真正的根布局，只包含<html>和<body>
+```
+
+结果：
+
+访问 /music 时，应用的是 (main)/layout.tsx。
+
+访问 /login 时，应用的是 (auth)/layout.tsx。
+
+这两套布局是平级的，(auth) 布局不会被嵌套在 (main) 布局中，完美实现了 UI 隔离。
+
+- 用途二：组织项目文件，保持路由整洁
+  有时您只想在文件系统里将相关的页面归类，但又不希望为它们创建一套新的布局。
+
+  场景：您的应用有很多营销相关的页面，如 /about, /contact, /pricing。您希望把它们放在一个文件夹里，但它们都应该使用全局的根布局。
+
+  解决方案：
+  创建一个路由组 (marketing)，将这些页面放进去，但不要在这个组里创建 layout.tsx 文件。
+
+  文件结构示例：
+
+  ```
+  src/app/
+  ├── (marketing)/ # 仅用于组织文件的路由组
+  │ ├── about/
+  │ │ └── page.tsx # URL: /about
+  │ ├── contact/
+  │ │ └── page.tsx # URL: /contact
+  │ └── pricing/
+  │ └── page.tsx # URL: /pricing
+  │
+  └── layout.tsx # 全局根布局
+  ```
+
+  结果：
+
+  访问 /about, /contact, /pricing 时，因为 (marketing) 文件夹内没有自己的 layout.tsx，Next.js 会向上查找，并最终使用最外层的 app/layout.tsx。
+
+  这样既保持了文件结构的整洁，又没有引入不必要的布局层级。
+
+3. 关键点总结
+   路由组通过文件夹名加括号 () 来创建。
+
+它的核心特性是不影响最终的 URL 结构。
+
+最大的作用是创建并行的、隔离的布局系统，用于处理像应用主界面和登录页这种完全不同的 UI。
+
+当一个路由组内不包含 layout.tsx 文件时，它就只起到组织文件的作用，其内部页面会沿用父级的布局。
+
+它是组织复杂 Next.js 项目、实现高级布局模式的官方标准方法。
 
 ## Next.js Server Component (直接数据库)
 
