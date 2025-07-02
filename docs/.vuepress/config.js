@@ -86,6 +86,7 @@ module.exports = {
             items: [
               { text: "nextjs", link: "/project/nextjs/" },
               { text: "前端部署", link: "/project/deploy/" },
+              { text: "大文件上传", link: "/project/fileUpload/" },
             ],
           },
           // { text: "External", link: "https://google.com" },
