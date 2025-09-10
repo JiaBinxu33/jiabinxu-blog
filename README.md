@@ -11,9 +11,13 @@
   - 前端工程化实践
   - 算法与数据结构
   - 常见面试问题总结
-- **特色专栏**：
-  - 「源码探秘」系列 - 深入解析主流库的实现原理
-  - 「性能优化手记」 - 实战性能调优案例
+  - 实战项目与技术笔记
+
+---
+
+## 🌐 在线访问
+
+[博客主页](https://jiabinxu33.github.io/jiabinxu-blog/)
 
 ---
 
@@ -107,11 +111,3 @@ pnpm deploy
 - **切换包管理器时请清理 node_modules 和 lock 文件，避免依赖冲突。**
 
 ---
-
-## 🌐 在线访问
-
-[博客主页](https://jiabinxu33.github.io/jiabinxu-blog/)
-
----
-
-如需进一步补充（如 Next.js 相关、部署到 Vercel/GitHub Pages、CI/CD 等），可继续完善。

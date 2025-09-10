@@ -12,7 +12,7 @@ features: []
     class="hero-title">
     技术成长之路
     </p>
-  <p class="hero-tagline">一个前端开发者的 React 笔记	记录、分享、成长，构建我的前端知识体系.</p>
+  <p class="hero-tagline">一个前端开发者的笔记，记录、分享、成长.</p>
   <RouterLink to="/Html+Css/" class="hero-button">
           快速开始 →
    </RouterLink>

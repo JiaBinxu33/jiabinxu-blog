@@ -87,6 +87,7 @@ module.exports = {
               { text: "nextjs", link: "/project/nextjs/" },
               { text: "前端部署", link: "/project/deploy/" },
               { text: "大文件上传", link: "/project/fileUpload/" },
+              { text: "macOS指南", link: "/project/macOS_Guide/" },
             ],
           },
           // { text: "External", link: "https://google.com" },
