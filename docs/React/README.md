@@ -1307,3 +1307,132 @@ key 值发生改变后会执行哪些生命周期函数
 3.componentWillMount（可以不说）
 4.render
 5.componentDidMount
+
+## React 中的闭包陷阱（Closure Trap）
+
+### 1. 什么是闭包陷阱？
+
+在 React 的函数式组件中，**闭包陷阱**常发生在 `useEffect`、`useCallback` 等 Hooks 中。其本质是：组件中的函数（尤其是在 effect 或回调中）形成了一个闭包，捕获并持有了**旧的（过时的）state 或 props 值**。
+
+- 核心原因
+
+  - React 的函数组件每次渲染都是一次独立的“快照”。
+  - 组件内部的所有变量（state, props）和函数，都是该次渲染“快照”的一部分。
+  - 如果某个函数是在某次渲染中创建的，它就会“记住”当时的 state 和 props。
+  - 如果这个函数在后续渲染中没有被更新，它“记住”的就永远是旧的值。
+
+---
+
+### 2. 经典陷阱案例：setInterval 计数器
+
+- 错误示例
+
+  ```javascript
+  import React, { useState, useEffect } from "react";
+
+  function IntervalCounter() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        // 这里形成了闭包，count 永远是初始值
+        console.log(`正在更新 count... 闭包中捕获的 count 值是 ${count}`);
+        setCount(count + 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }, []); // 依赖数组为空，仅组件挂载时运行一次
+
+    return <h1>{count}</h1>;
+  }
+  ```
+
+- 问题分析
+
+  - 初始渲染：`count` 为 0，`useEffect` 执行，`setInterval` 的回调函数被创建。
+  - 闭包形成：`setInterval` 的回调函数“记住”了初始渲染时的 `count`，这个值永远是 0。
+  - 后续行为：
+    1. 1 秒后，定时器触发，执行 `setCount(0 + 1)`，`count` 变为 1。
+    2. 2 秒后，定时器再次触发，但回调函数闭包里的 `count` 依旧是 0，再次 `setCount(0 + 1)`。
+  - **最终结果**：`count` 的值只会在 0 和 1 之间来回变化，无法持续递增。
+
+---
+
+### 3. 如何避免闭包陷阱？
+
+- 方法一：正确使用依赖数组
+
+```javascript
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setCount(count + 1);
+  }, 1000);
+  return () => clearInterval(intervalId);
+}, [count]); // 把 count 加入依赖数组
+```
+
+- 原理：`count` 每次改变，`useEffect` 会重新执行，旧定时器被清除，创建新定时器，捕获到最新的 `count`。
+- 缺点：对于 `setInterval` 这类场景，频繁清除/创建定时器有性能开销，可能导致计时不准，通常**不推荐**。
+
+---
+
+- 方法二：使用函数式更新（推荐）
+
+```javascript
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setCount((prevCount) => prevCount + 1); // 函数式更新
+  }, 1000);
+  return () => clearInterval(intervalId);
+}, []); // 依赖数组为空
+```
+
+- 原理：`setCount` 传入函数，React 会确保 `prevCount` 永远是**最新的状态值**。
+- 优点：无须依赖外部闭包的变量，写法简洁，性能好，是最佳实践。
+
+---
+
+- 方法三：使用 useRef 保存最新值
+
+适用于需要在异步回调中**读取最新 state 或 props**的场景。
+
+```javascript
+import React, { useState, useEffect, useRef } from "react";
+
+function IntervalCounterWithRef() {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(count);
+
+  // 同步 ref 的值
+  useEffect(() => {
+    countRef.current = count;
+  }, [count]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount(countRef.current + 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
+- 原理：`ref` 对象在组件整个生命周期中不变。闭包捕获的是 `countRef` 这个稳定对象，通过 `.current` 总能读取到最新的 `count`。
+- 优点：适用于任何需要异步回调中获取最新 state/props 的场景，通用性强。
+
+---
+
+### 4. 总结
+
+- **闭包陷阱**是 React 函数组件开发中常见的陷阱，尤其在 `useEffect`、`setInterval`、异步回调等场景中。
+- 推荐优先使用**函数式更新**解决闭包陷阱。
+- 更复杂的场景下，可以通过 `useRef` 解决对最新 state/props 的读取问题。
+
+---
+
+### 5. 参考
+
+- [React 官方文档 - Using the State Hook](https://react.dev/reference/react/useState)
+- [深入理解 React Hooks 的闭包陷阱](https://juejin.cn/post/6844904186715285512)

@@ -272,19 +272,21 @@ class Ob {
 下面用一个具体的例子，详细说明现代浏览器事件循环的执行过程：
 
 ```javascript
-console.log('script start');
+console.log("script start");
 
 setTimeout(() => {
-  console.log('timeout');
+  console.log("timeout");
 }, 0);
 
-Promise.resolve().then(() => {
-  console.log('microtask1');
-}).then(() => {
-  console.log('microtask2');
-});
+Promise.resolve()
+  .then(() => {
+    console.log("microtask1");
+  })
+  .then(() => {
+    console.log("microtask2");
+  });
 
-console.log('script end');
+console.log("script end");
 ```
 
 执行流程及输出分析：
@@ -703,6 +705,96 @@ git 是目前世界上最先进分布式的版本控制系统
   git push
 
 ```
+
+## Git 克隆速度慢的解决办法及科学上网代理配置
+
+在中国大陆等地区，使用 `git clone` 从 GitHub 等国外仓库拉取代码时，常常会遇到速度较慢、甚至连接超时的问题。如果没有使用全局加速器（如全局 VPN），可以通过配置 Git 的代理端口，快速实现“科学上网”，显著提升 Git 操作速度。
+
+---
+
+### 1. 问题现象
+
+- `git clone`、`git fetch`、`git pull` 等指令速度极慢，甚至失败。
+- 原因：国内网络对 GitHub 等国外源访问受限，速度被大幅降低。
+- 解决思路：为 Git 单独配置代理端口，让其流量通过本地加速器的 HTTP(S) 代理端口转发。
+
+---
+
+### 2. 解决办法：为 Git 配置代理
+
+#### 2.1 选择合适的本地代理端口
+
+- 常见的科学上网工具（如 Clash、V2RayN、Surfboard 等）都支持本地 HTTP(S) 代理，端口号一般为 `7890`、`7897`、`1080` 等（以实际工具配置为准）。
+- 例如 Clash 默认 HTTP 代理端口为 `7890`，部分工具自定义端口为 `7897`。
+
+#### 2.2 全局配置 Git 代理
+
+可以直接在命令行设置：
+
+```bash
+git config --global http.proxy http://127.0.0.1:7897
+git config --global https.proxy http://127.0.0.1:7897
+```
+
+- 这样配置后，所有 Git 操作都会通过本地的 7897 端口进行 HTTP/HTTPS 请求，实现加速。
+
+#### 2.3 取消 Git 代理
+
+```bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+---
+
+### 3. 快速开启/关闭 Git 代理（推荐 alias）
+
+为了方便日常切换，可以将开启和关闭代理的操作写成 shell alias：
+
+```bash
+# 快速开启 Git 科学上网代理
+alias proxy_on="git config --global http.proxy http://127.0.0.1:7897 && git config --global https.proxy http://127.0.0.1:7897 && echo 'Git proxy has been turned ON.'"
+
+# 快速关闭 Git 科学上网代理
+alias proxy_off="git config --global --unset http.proxy && git config --global --unset https.proxy && echo 'Git proxy has been turned OFF.'"
+```
+
+> **提示**：可以将上述 alias 写入 `~/.bashrc`、`~/.zshrc` 等 shell 配置文件中，重开终端即可生效。
+>
+> - 之后只需运行 `proxy_on` 即可开启代理，`proxy_off` 关闭代理。
+
+---
+
+### 4. 检查 Git 代理状态
+
+可以通过以下命令查看当前 git 的代理配置：
+
+```bash
+git config --global --get http.proxy
+git config --global --get https.proxy
+```
+
+如果返回为空，则说明当前未配置代理。
+
+---
+
+### 5. 其他说明
+
+- 该方法仅影响 Git 命令（不影响其它终端流量）。
+- 记得本地代理工具必须已启动并监听对应端口，否则配置后 Git 会连接失败。
+- 若使用 SSH 协议（如 `git@github.com:xxx`），本配置**无效**，建议改用 HTTPS 协议（如 `https://github.com/xxx`）克隆仓库。
+- 若需临时代理（只对单条命令生效），可用如下方式：
+  ```bash
+  git -c http.proxy=http://127.0.0.1:7897 -c https.proxy=http://127.0.0.1:7897 clone https://github.com/xxx/xxx.git
+  ```
+
+---
+
+### 6. 参考资料
+
+- [Git 官方文档：git-config](https://git-scm.com/docs/git-config)
+- [Clash 使用说明](https://docs.cfw.lbyczf.com/contents/proxy.html)
+- [提高 GitHub 访问速度的几种方法](https://juejin.cn/post/6844904186715285512)
 
 ## 垃圾回收机制
 
