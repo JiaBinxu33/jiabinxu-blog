@@ -18,6 +18,13 @@ module.exports = {
         src: "https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js",
       },
     ],
+    [
+      'meta',
+      {
+        name: 'algolia-site-verification',
+        content: '16D4131E15F69665'
+      }
+    ]
   ],
   // 多语言配置
   locales: {
