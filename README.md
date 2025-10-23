@@ -71,12 +71,10 @@ npm run dev
 
 ```bash
 # 打包
-pnpm build
-# 或 yarn build / npm run build
+yarn build
 
 # 部署到远程（如有部署脚本）
-pnpm deploy
-# 或 yarn deploy / npm run deploy
+yarn deploy
 ```
 
 ---

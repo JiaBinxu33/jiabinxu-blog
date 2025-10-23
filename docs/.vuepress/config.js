@@ -19,12 +19,12 @@ module.exports = {
       },
     ],
     [
-      'meta',
+      "meta",
       {
-        name: 'algolia-site-verification',
-        content: '16D4131E15F69665'
-      }
-    ]
+        name: "algolia-site-verification",
+        content: "16D4131E15F69665",
+      },
+    ],
   ],
   // 多语言配置
   locales: {
@@ -42,6 +42,8 @@ module.exports = {
   },
   themeConfig: {
     logo: "/R-C.png",
+    // search: false,
+
     locales: {
       "/": {
         nav: [
@@ -95,6 +97,27 @@ module.exports = {
               { text: "前端部署", link: "/project/deploy/" },
               { text: "大文件上传", link: "/project/fileUpload/" },
               { text: "macOS指南", link: "/project/macOS_Guide/" },
+              { text: "Next.js国际化方案", link: "/project/nextjs-i18n/" },
+              {
+                text: "Next.js双token无感刷新",
+                link: "/project/nextjs-auth-refresh/",
+              },
+              {
+                text: "Next.js目录深入解读",
+                link: "/project/nextjs-dir/",
+              },
+              {
+                text: "flutter环境配置",
+                link: "/project/flutter-config/",
+              },
+              {
+                text: "flutter",
+                link: "/project/flutter/",
+              },
+              {
+                text: "Chrome调试工具",
+                link: "/project/chrome-dev-tools/",
+              },
             ],
           },
           // { text: "External", link: "https://google.com" },
@@ -149,4 +172,17 @@ module.exports = {
       },
     },
   },
+  // plugins: [
+  //   [
+  //     "@vuepress/plugin-docsearch",
+  //     {
+  //       // 关键配置：替换成您从 Algolia 邮件中收到的信息
+  //       apiKey: "YOUR_API_KEY", // 替换为您的 apiKey
+  //       indexName: "YOUR_INDEX_NAME", // 替换为您的 indexName
+
+  //       // （可选）自定义配置
+  //       placeholder: "搜索全站内容...", // 搜索框的占位符
+  //     },
+  //   ],
+  // ],
 };
