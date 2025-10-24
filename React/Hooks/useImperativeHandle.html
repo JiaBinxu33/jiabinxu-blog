@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>useImperativeHandle | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.a6595e30.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.ec81c2a4.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.c5fdad7d.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.34d20650.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/41.e84b982a.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.90fb1753.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.b39679df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.8187523c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.0bc8e462.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.ccfaad73.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.cec46538.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.380c784d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.bfab453a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.6516dd9c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.52e99ec1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.33ab9282.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.20d5488c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.da345bbd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.306efef7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.257df29b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.8f6a39a4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.b9965851.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.da12a983.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.94ca7cf0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.629923f3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.eb4c3c24.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.189b8eea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.309f3546.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.8ebea494.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.e9872d14.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.13bfd9fb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.d36e48f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.44ec783e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.e5568ed9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.04437602.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.05896a6c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.77566d25.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.771b0795.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.4f5d6672.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.80005314.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.13eb153e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.81101b31.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1111d26e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.4e36f15a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.426d3a06.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.0cddb7d0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.3b97796b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.ca777a9f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.8d56997f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.53a63991.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.c37f8662.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.85309368.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.e90aa37c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.37829d64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.42652f54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.9a0bab4a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.605d1390.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.c655efdc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.f71f155e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.fe87e7ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.3e9861fb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.987510dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.a6595e30.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/常见面试手写题/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/JavaScript核心对象/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>useImperativeHandle</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#基本用法" class="sidebar-link">基本用法</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#典型场景" class="sidebar-link">典型场景</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#基本示例" class="sidebar-link">基本示例</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#参数与返回值" class="sidebar-link">参数与返回值</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#注意事项" class="sidebar-link">注意事项</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#实用场景举例" class="sidebar-link">实用场景举例</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useImperativeHandle.html#总结" class="sidebar-link">总结</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="useimperativehandle"><a href="#useimperativehandle" class="header-anchor">#</a> useImperativeHandle</h1> <p><code>useImperativeHandle</code> 是 React 提供的一个高级 Hook，常与 <code>forwardRef</code> 配合使用，用于<strong>自定义暴露给父组件的 ref 实例值</strong>。它允许你控制父组件通过 ref 能访问到哪些属性或方法，而不是将整个子组件实例或 DOM 暴露出去。</p> <hr> <h2 id="基本用法"><a href="#基本用法" class="header-anchor">#</a> 基本用法</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">useImperativeHandle</span><span class="token punctuation">(</span>ref<span class="token punctuation">,</span> createHandle<span class="token punctuation">,</span> <span class="token punctuation">[</span>deps<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li><strong>ref</strong>：父组件传递进来的 ref 对象（通常由 <code>forwardRef</code> 提供）。</li> <li><strong>createHandle</strong>：返回暴露给父组件的对象（包含你希望父组件访问的方法或属性）。</li> <li><strong>deps</strong>（可选）：依赖项数组，只有依赖变化时才会重新生成 handle 对象。</li></ul> <hr> <h2 id="典型场景"><a href="#典型场景" class="header-anchor">#</a> 典型场景</h2> <ul><li>需要让父组件通过 ref 访问子组件的某些方法（如表单校验、强制聚焦、重置状态等）。</li> <li>不希望直接暴露子组件内部的所有内容，只暴露指定接口，保证封装性。</li></ul> <hr> <h2 id="基本示例"><a href="#基本示例" class="header-anchor">#</a> 基本示例</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useRef<span class="token punctuation">,</span> useImperativeHandle<span class="token punctuation">,</span> forwardRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> MyInput <span class="token operator">=</span> <span class="token function">forwardRef</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> ref</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useImperativeHandle</span><span class="token punctuation">(</span>ref<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function-variable function">focus</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">getValue</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>input ref<span class="token operator">=</span><span class="token punctuation">{</span>inputRef<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Parent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">handleFocus</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 调用子组件暴露的 focus 方法</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">handleGetValue</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span>inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>MyInput ref<span class="token operator">=</span><span class="token punctuation">{</span>inputRef<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>handleFocus<span class="token punctuation">}</span><span class="token operator">&gt;</span>聚焦输入框<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>handleGetValue<span class="token punctuation">}</span><span class="token operator">&gt;</span>获取输入值<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="参数与返回值"><a href="#参数与返回值" class="header-anchor">#</a> 参数与返回值</h2> <ul><li><strong>ref</strong>：由 <code>forwardRef</code> 传递进来的 ref 引用。</li> <li><strong>createHandle</strong>：返回一个对象，这个对象的属性/方法会被父组件通过 ref 访问到。</li> <li><strong>deps</strong>：依赖数组，handle 只有在依赖变化时才会重新生成（一般与 useMemo 类似）。</li></ul> <hr> <h2 id="注意事项"><a href="#注意事项" class="header-anchor">#</a> 注意事项</h2> <ol><li><p><strong>必须配合 forwardRef 使用</strong><br>
+子组件必须用 <code>forwardRef</code> 包裹，否则无法接收到 ref 参数。</p></li> <li><p><strong>不要直接暴露 DOM 或内部全部内容</strong><br>
+通过 useImperativeHandle，只暴露需要的接口，保证组件内部封装性。</p></li> <li><p><strong>依赖项传递</strong><br>
+如果暴露的内容依赖于组件的 state 或 props，记得把相关变量加到 deps 中。</p></li> <li><p><strong>仅用于需要场景</strong><br>
+大多数情况下，推荐用 props 向下传递行为和数据。只有在必须让父组件主动调用子组件方法时才使用。</p></li></ol> <hr> <h2 id="实用场景举例"><a href="#实用场景举例" class="header-anchor">#</a> 实用场景举例</h2> <ul><li>表单组件：父组件可以通过 ref 调用子组件的校验、重置等方法。</li> <li>自定义输入组件：父组件调用 focus、blur、select 等方法。</li> <li>控制动画：父组件通过 ref 启动或停止子组件动画。</li></ul> <hr> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <ul><li><code>useImperativeHandle</code> 用于定制暴露给父组件的 ref 接口，保证封装和安全。</li> <li>必须与 <code>forwardRef</code> 配合使用。</li> <li>只暴露必要的方法或属性，避免破坏组件的封装性。</li> <li>使用时关注依赖项，保持暴露接口的正确性。</li></ul> <blockquote><p>推荐只在确实需要让父组件“主动”操作子组件时使用，平时多用 props 传递数据和行为。</p></blockquote></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.ec81c2a4.js" defer></script><script src="/jiabinxu-blog/assets/js/3.c5fdad7d.js" defer></script><script src="/jiabinxu-blog/assets/js/2.34d20650.js" defer></script><script src="/jiabinxu-blog/assets/js/41.e84b982a.js" defer></script>
+  </body>
+</html>
