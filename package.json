@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "vuepress dev docs --temp .temp",
-    "docs:build": "vuepress build docs",
+    "docs:build": "vuepress build docs --no-cache",
     "deploy": "yarn docs:build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@github.com:Jiabinxu33/jiabinxu-blog.git master:blog_pages"
   },
   "dependencies": {

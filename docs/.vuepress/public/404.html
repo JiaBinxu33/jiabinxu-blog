@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      // 将 404 页面的路径信息传递给 index.html
+      // 使用 sessionStorage 来避免 URL 过长或包含特殊字符的问题
+      sessionStorage.redirect =
+        location.pathname + location.search + location.hash;
+
+      // 重定向回项目的根路径 (index.html 所在的位置)
+      // 注意：这里的 base 路径需要和你的 config.js 中的 base 匹配
+      location.replace("/jiabinxu-blog/");
+    </script>
+  </head>
+  <body>
+    Redirecting... If you are not redirected automatically, follow this
+    <a id="redirect-link" href="/jiabinxu-blog/">link</a>.
+    <script>
+      // 更新链接的 href (可选，增强用户体验)
+      document.getElementById("redirect-link").href = "/jiabinxu-blog/";
+    </script>
+  </body>
+</html>

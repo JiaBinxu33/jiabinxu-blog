@@ -22,7 +22,7 @@ module.exports = {
       "meta",
       {
         name: "algolia-site-verification",
-        content: "16D4131E15F69665",
+        content: "8AB7B96237F774B9",
       },
     ],
   ],
@@ -42,7 +42,7 @@ module.exports = {
   },
   themeConfig: {
     logo: "/R-C.png",
-    // search: false,
+    search: false,
 
     locales: {
       "/": {
@@ -172,17 +172,31 @@ module.exports = {
       },
     },
   },
-  // plugins: [
-  //   [
-  //     "@vuepress/plugin-docsearch",
-  //     {
-  //       // 关键配置：替换成您从 Algolia 邮件中收到的信息
-  //       apiKey: "YOUR_API_KEY", // 替换为您的 apiKey
-  //       indexName: "YOUR_INDEX_NAME", // 替换为您的 indexName
-
-  //       // （可选）自定义配置
-  //       placeholder: "搜索全站内容...", // 搜索框的占位符
-  //     },
-  //   ],
-  // ],
+  plugins: [
+    [
+      "@vuepress/plugin-docsearch",
+      // {
+      //   container: "#docsearch",
+      //   appId: "GDICLQFDP2",
+      //   indexName: "贾滨旭的技术博客爬虫",
+      //   apiKey: "653110dc59a7094c6e08d0a3fe0e8efd",
+      //   // askAi: "YOUR_ALGOLIA_ASSISTANT_ID",
+      //   // （可选）自定义配置
+      //   placeholder: "搜索全站内容...", // 搜索框的占位符
+      // },
+      {
+        container: "#docsearch",
+        appId: "GDICLQFDP2",
+        indexName: "jiabinxu_blog", // TODO: Replace with your DocSearch index name
+        apiKey: "653110dc59a7094c6e08d0a3fe0e8efd",
+        // askAi: 'YOUR_ALGOLIA_ASSISTANT_ID', // TODO: Replace with your Algolia Assistant ID
+      },
+    ],
+  ],
 };
+
+// Application ID
+// GDICLQFDP2
+
+// Search API Key
+// 653110dc59a7094c6e08d0a3fe0e8efd
