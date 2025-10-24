@@ -6,6 +6,7 @@
       aria-label="Search"
       :class="{ focused: focused }"
       :placeholder="placeholder"
+      :style="searchInputStyle"
       autocomplete="off"
       spellcheck="false"
       @input="performSearch"
@@ -88,6 +89,11 @@ export default {
   computed: {
     showSuggestions() {
       return this.focused && (this.suggestions.length > 0 || this.searchQuery);
+    },
+    searchInputStyle() {
+      return {
+        "background-image": `url(${this.$withBase("/search.svg")})`,
+      };
     },
   },
 
@@ -331,7 +337,9 @@ $highlight-color = $accentColor
     padding 0 0.5rem 0 2rem
     outline none
     transition all .2s ease
-    background #fff url("/search.svg") 0.6rem 0.5rem no-repeat
+    background-color #fff
+    background-position 0.6rem 0.5rem
+    background-repeat no-repeat
     background-size 1rem
     &:focus
       cursor auto
