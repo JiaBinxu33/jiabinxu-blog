@@ -41,9 +41,8 @@ module.exports = {
     // },
   },
   themeConfig: {
-    logo: "/R-C.png",
     search: false,
-
+    logo: "/R-C.png",
     locales: {
       "/": {
         nav: [
@@ -172,31 +171,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    [
-      "@vuepress/plugin-docsearch",
-      // {
-      //   container: "#docsearch",
-      //   appId: "GDICLQFDP2",
-      //   indexName: "贾滨旭的技术博客爬虫",
-      //   apiKey: "653110dc59a7094c6e08d0a3fe0e8efd",
-      //   // askAi: "YOUR_ALGOLIA_ASSISTANT_ID",
-      //   // （可选）自定义配置
-      //   placeholder: "搜索全站内容...", // 搜索框的占位符
-      // },
-      {
-        container: "#docsearch",
-        appId: "GDICLQFDP2",
-        indexName: "jiabinxu_blog", // TODO: Replace with your DocSearch index name
-        apiKey: "653110dc59a7094c6e08d0a3fe0e8efd",
-        // askAi: 'YOUR_ALGOLIA_ASSISTANT_ID', // TODO: Replace with your Algolia Assistant ID
-      },
-    ],
-  ],
+  plugins: [[require("./plugins/generate-search-index")]],
 };
-
-// Application ID
-// GDICLQFDP2
-
-// Search API Key
-// 653110dc59a7094c6e08d0a3fe0e8efd

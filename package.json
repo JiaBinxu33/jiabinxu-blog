@@ -17,6 +17,7 @@
     "deploy": "yarn docs:build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@github.com:Jiabinxu33/jiabinxu-blog.git master:blog_pages"
   },
   "dependencies": {
+    "minisearch": "^7.2.0",
     "particles.js": "^2.0.0",
     "tsparticles": "^1.43.1"
   }

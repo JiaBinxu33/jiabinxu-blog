@@ -528,7 +528,7 @@ http 请求流程
 
 ---
 
-## `null` 和 `undefined` 区别
+## null 和 undefined 区别
 
 `null` 和 `undefined` 都表示“空值”，但在 JavaScript 中，它们代表了两种不同的“空”状态。
 
