@@ -62,7 +62,10 @@ function escapeRegExp(string) {
 /**
  * 注册 Vue 路由钩子
  */
-export default ({ router }) => {
+export default ({ router, isServer }) => {
+  if (isServer) {
+    return;
+  }
   router.afterEach((to, from) => {
     // 稍作延迟, 确保 VuePress 已完成页面渲染
     setTimeout(() => {
