@@ -43,6 +43,7 @@ module.exports = (options, context) => ({
       if (page.path === "/404.html" || !page.title) {
         continue;
       }
+
       const pageTitle = page.title;
 
       // (v7) 1. 统一清理逻辑
@@ -79,6 +80,7 @@ module.exports = (options, context) => ({
         if (firstHeaderStartIndex > 0) {
           // (v7) 警告: 这里的索引可能不准, 因为清理后长度变了
           // 但引言的重要性低于内容, 暂时接受这个 trade-off
+          // originalStrippedContent
           const introText = originalStrippedContent
             .substring(0, firstHeaderStartIndex)
             .trim();
