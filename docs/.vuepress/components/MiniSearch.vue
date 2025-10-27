@@ -83,6 +83,7 @@ export default {
       focusIndex: 0,
       placeholder: "搜索...",
       alignRight: false,
+      CJK_REGEX: /[\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF]/,
     };
   },
 
@@ -124,13 +125,94 @@ export default {
         console.warn("[SearchBox Debug] 索引为空, MiniSearch 无法初始化.");
         return;
       }
+      // --- (这是新增的代码) ---
+      // 1. 定义一个正则表达式来匹配 CJK (中日韩) 字符
+      const CJK_REGEX = this.CJK_REGEX;
+      const SEPARATOR_REGEX =
+        /[,\.!?();:"'\[\]{}。\uff0c\uff1a\uff08\uff09\u3001\u3002\u300a\u300b\u201c\u201d\u2018\u2019-]/g;
+
+      const WHITESPACE_REGEX = /[\s\r\n]/g;
+
+      const tokenize = (text) => {
+        if (!text) return [];
+        const terms = [];
+        let currentTerm = "";
+        let currentTermIsCJK = false;
+
+        const pushCurrentTerm = () => {
+          if (currentTerm.length === 0) return;
+
+          const termToPush = currentTermIsCJK
+            ? currentTerm.replace(WHITESPACE_REGEX, "")
+            : currentTerm;
+
+          if (termToPush.length === 0) {
+            currentTerm = "";
+            return;
+          }
+
+          if (currentTermIsCJK) {
+            if (termToPush.length === 1) {
+              terms.push(termToPush);
+            } else {
+              for (let i = 0; i < termToPush.length - 1; i++) {
+                const bigram = termToPush.substring(i, i + 2);
+                terms.push(bigram);
+              }
+            }
+          } else {
+            terms.push(termToPush.toLowerCase());
+          }
+          currentTerm = "";
+        };
+
+        text.split("").forEach((char) => {
+          const isCJK = CJK_REGEX.test(char);
+          const isSeparator = SEPARATOR_REGEX.test(char); // (现在 - 会是 true)
+          const isWhitespace = WHITESPACE_REGEX.test(char);
+
+          if (isSeparator) {
+            // 遇到 - 或 , 等硬标点, 立即结算
+            pushCurrentTerm();
+            currentTermIsCJK = false;
+          } else if (isWhitespace) {
+            // 遇到空格
+            if (currentTerm.length > 0 && !currentTermIsCJK) {
+              // 英文词条, 结算
+              pushCurrentTerm();
+              currentTermIsCJK = false;
+            } else if (currentTermIsCJK) {
+              // CJK 词条, 暂时保留空格
+              currentTerm += char;
+            }
+            // (如果 currentTerm 为空, 则忽略空格)
+          } else if (isCJK) {
+            if (currentTerm.length > 0 && !currentTermIsCJK) {
+              pushCurrentTerm(); // 推入上一个英文词条
+            }
+            currentTerm += char;
+            currentTermIsCJK = true;
+          } else {
+            // 英文/数字
+            if (currentTerm.length > 0 && currentTermIsCJK) {
+              pushCurrentTerm(); // 推入上一个 CJK 词条
+            }
+            currentTerm += char;
+            currentTermIsCJK = false;
+          }
+        });
+
+        pushCurrentTerm();
+        return terms;
+      };
       this.miniSearch = new MiniSearch({
         fields: ["pageTitle", "headerTitle", "text"],
         storeFields: ["path", "pageTitle", "headerTitle", "text"],
+        tokenize: tokenize,
         searchOptions: {
           boost: { pageTitle: 3, headerTitle: 2, text: 1 },
-          prefix: true,
-          fuzzy: 0.2,
+          prefix: false, // 默认禁用前缀搜索
+          fuzzy: false, // 默认禁用模糊搜索
         },
       });
 
@@ -145,9 +227,21 @@ export default {
       }
 
       try {
-        const searchResults = this.miniSearch.search(this.searchQuery, {
+        const searchOptions = {
           highlight: true,
-        });
+          combineWith: "AND", // 对所有搜索都使用 'AND'
+        };
+
+        if (!this.CJK_REGEX.test(this.searchQuery)) {
+          // *只有*在搜索纯英文时, 才开启 fuzzy 和 prefix
+          searchOptions.fuzzy = 0.2;
+          searchOptions.prefix = true;
+        }
+
+        const searchResults = this.miniSearch.search(
+          this.searchQuery,
+          searchOptions
+        );
         this.suggestions = this.groupAndHighlightResults(
           searchResults,
           this.searchQuery
@@ -253,7 +347,11 @@ export default {
       if (!this.showSuggestions) return;
       const suggestion = this.suggestions[i];
       if (suggestion && suggestion.type === "result") {
-        this.$router.push(suggestion.path);
+        // 在跳转时, 把当前的 searchQuery 作为 URL query 参数传过去
+        this.$router.push({
+          path: suggestion.path, // 路径 (例如 /React/Hooks.html#useCallback)
+          query: { search_query: this.searchQuery }, // URL 参数 (例如 ?search_query=fiber)
+        });
         this.closeDropdown();
       }
     },

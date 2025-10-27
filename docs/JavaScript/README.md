@@ -183,7 +183,7 @@ class Ob {
 - let 关键字
 
   - 块作用域，声明的变量绑定在这个区域里面。
-  - 不存在变量提升(暂时性死区：先声明再使用)。
+  - 不存在变量提升(暂时性死区：使用 let 或 const 声明的变量，在代码执行到该声明语句之前，都处于一个无法被访问的“暂时性死区”，强行使用会引发 ReferenceError)。
   - 相同的作用域内不能重复声明(熟悉报错:Identifier 'a' has already been declared)
 
 - var 关键字
@@ -673,7 +673,7 @@ function obj(item) {
 常见的伪数组
 
 - DOM 方法返回的 NodeList（比如 document.querySelectorAll() 的结果）
-- arguments 对象
+- arguments 对象：让你在函数内部能访问到所有传递进来的参数，无论函数定义时声明了多少个形式参数。
 
 **类数组转换成真正的数组**
 

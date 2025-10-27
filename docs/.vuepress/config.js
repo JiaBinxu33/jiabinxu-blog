@@ -51,10 +51,10 @@ module.exports = {
             text: "JavaScript",
             items: [
               { text: "JavaScript", link: "/JavaScript/" },
-              { text: "常见面试手写题", link: "/JavaScript/常见面试手写题/" },
+              { text: "常见面试手写题", link: "/JavaScript/handwriting-code/" },
               {
                 text: "JavaScript核心对象",
-                link: "/JavaScript/JavaScript核心对象/",
+                link: "/JavaScript/javascript-core-objects/",
               },
             ],
           },

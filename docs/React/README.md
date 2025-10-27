@@ -920,9 +920,12 @@ export default withPortal;
 - lazy 方法要和 Suspense 组件一起使用
 - Suspense 组件需要有一个 fallback 属性，里面写组件，当这个要引得组件还没有引来得时候渲染
 - suspense 要放在要做懒加载的组件外面
-  例：<Suspense fallback={<div>loading...</div>}>
-  {this.state.isShow && <Child />}
-  </Suspense>
+  例：
+  ```
+    <Suspense fallback={<div>loading...</div>}>
+    {this.state.isShow && <Child />}
+    </Suspense>
+  ```
 
 ### 自定义标签代替 a 标签跳转
 

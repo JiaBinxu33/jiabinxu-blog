@@ -59,3 +59,31 @@ html, body, .theme-container.no-sidebar .navbar
 @media (max-width: 719px)
   .hero-title
     font-size: 2.5rem
+
+
+@keyframes highlight-fade-out {
+  0% {
+    background-color: yellow; // 开始时是鲜艳的黄色
+    color: black;
+  }
+  80% {
+    background-color: yellow; // 保持黄色一段时间
+    color: black;
+  }
+  100% {
+    background-color: transparent; // 结束时变为透明
+    color: inherit; // 恢复原始文本颜色
+  }
+}
+
+span.search-highlight
+  background-color: transparent; // 默认透明
+  color: inherit; // 默认颜色
+  border-radius: 3px;
+  // 动画: 
+  // - 动画名: highlight-fade-out
+  // - 持续时间: 3s
+  // - 延迟: 1s (让用户有 1 秒时间看到高亮)
+  // - 次数: 1
+  // - 保持结束状态: forwards (保持透明)
+  animation: highlight-fade-out 3s ease-in 1s 1 forwards;
