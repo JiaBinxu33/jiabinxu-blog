@@ -1455,7 +1455,7 @@ mobx 和 redux 的区别主要分为以下几个方面
 ### 工作机制对比
 
 - **Redux：** Redux 通过 dispatch 派发一个不可变的 action 动作，通过 reducer 接收，让 reducer 产生一个新的 State，View 订阅 store 的变化并且进行更新
-- **MobX：**Mobx 通过 Observable 将 state 标记为可观察的，然后通过 action 直接修改 state 的属性，mobx 会自动的更新视图
+- **MobX：** Mobx 通过 Observable 将 state 标记为可观察的，然后通过 action 直接修改 state 的属性，mobx 会自动的更新视图。
 
 #### 1. 状态更新
 
@@ -1485,6 +1485,61 @@ mobx 和 redux 的区别主要分为以下几个方面
 - **MobX：** **嵌套 (Nested)**
   - 可以随意使用嵌套的对象和数组。
   - 数据被包装成“可观察”对象，不是普通对象。
+
+### 内部原理对比
+
+#### MobX 原理
+
+- 依赖追踪
+
+当一个被 observer 包裹的 React 组件在执行 render 时，MobX 会“监视”这个过程。它会精确地记录下这个 render 函数读取了哪些可观察（Observable）的属性。
+
+比如，我的组件只用到了 store.user.name，MobX 就会记下：“OK，这个组件依赖 store.user.name”。它并不会关心 store.user.age 或其他数据。
+
+- 触发反应
+
+当我的代码通过 action 去修改（写入）这个 store.user.name 时，MobX 就会立即启动“反应”。
+
+它会去查看它在第一步中记录的依赖列表，然后找到所有订阅了 store.user.name 的组件，并通知它们：“你依赖的数据变了，请重新渲染”。
+
+- 总结
+
+MobX 的高效就来自于这种精细化的订阅。它不像 Context 那样，value 一变就通知所有组件。MobX 能精确到**“哪个组件”依赖了“哪个属性”**，实现了最小范围的更新，所以性能非常好，也不需要我们手动去写 useMemo 优化
+
+#### Redux 原理
+
+1. Action 派发与 Reducer
+   当我想更新状态时（比如点击按钮），我不能像 MobX 那样直接修改 store，我必须 dispatch（派发）一个 Action。这个 Action 是一个普通的 JavaScript 对象，比如 { type: 'SET_USER_NAME', payload: 'B' }。
+
+   Redux 的 Store 接收到这个 Action 后，会把它和当前完整的 State 一起，传递给我预先定义好的 Reducer 函数。
+
+   Reducer 是一个纯函数。它拿到旧的 State 和 Action，绝不会修改旧 State，而是会返回一个全新的 State 对象（这就是“不可变性”）。
+
+2. 状态订阅与 useSelector
+
+   Redux 的 Store 本身并不知道“哪个组件”依赖了“哪个属性”。
+
+   在 React 中，我们使用 react-redux 的 useSelector 钩子来显式地“订阅” store 中的数据。
+
+   比如，我的组件写了 const name = useSelector(state => state.user.name)。
+
+   react-redux 会立即执行这个 selector 函数拿到 name，并且“记住”这个组件和它上次返回的值。
+
+3. 更新机制：广播与浅比较
+
+   当 Reducer 返回了全新的 State 对象后，Store 会**“广播”一个通知，告诉所有**通过 useSelector 订阅了的组件 State 改变了
+
+   react-redux 收到通知后，会在每一个订阅的组件里，重新运行它的 selector 函数（state => state.user.name），拿到新 state 下的值。
+
+   然后，它会用浅比较（===），对比“这次拿到的新值”和“它上次记住的旧值”。
+
+   只有当这个值真的发生了变化时，react-redux 才会触发这个组件重新渲染。如果值没变（比如我更新的是 age，但这个组件只订阅了 name），组件就不会更新。
+
+- 总结：
+
+  MobX 的高效来自于**“精细化的自动追踪”**，它知道哪个属性变了，就只更新对应的组件。
+
+  Redux 的高效则来自于**“不可变性 + 浅比较”**。它先把更新“广播”给所有订阅者，然后由 react-redux 在组件层级通过 useSelector 进行快速的浅比较，来决定是否需要重新渲染。
 
 ### 设计哲学
 

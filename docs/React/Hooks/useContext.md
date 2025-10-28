@@ -35,6 +35,24 @@ function MyComponent() {
 
 ---
 
+## useContext 的一些问题
+
+1. 性能问题
+
+当 Context 的 value 对象发生变化时，所有订阅（useContext）了这个 Context 的组件都会强制重新渲染。
+
+这在实际中很麻烦。比如我的 value 里有 { user, score } 两个状态。如果我只是更新了 user，一个只用到了 score 的组件也会被迫重新渲染。
+
+为了解决这个问题，我就必须手动添加大量的 React.memo 和 useMemo，，这让组件变得很臃肿，而且容易出错。
+
+2. 开发体验问题：Provider 嵌套
+
+Context 的第二个问题是代码组织。
+
+为了避免上面说的性能问题，一种常见的做法是把状态拆分成多个小 Context，比如 UserContext、ThemeContext、ScoreContext。
+
+但这会导致“Provider 嵌套地狱”，在应用根部会有一层又一层的 Provider 包裹，代码非常不直观，也不好维护。
+
 ## 参数与返回值
 
 - **参数：**  
