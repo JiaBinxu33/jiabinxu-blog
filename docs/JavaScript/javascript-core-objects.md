@@ -289,6 +289,53 @@
 - 返回值：字符位置或 `-1`
 - 示例：`'hello'.search('l')` 返回 `2`
 
+### JSON 字符串
+
+**概念**：在现代 Web 开发中，JSON 是数据交换的主要格式。简单来说，JSON 字符串（JSON String）就是一个符合 JSON 格式规范的普通字符串。
+
+#### 1. `JSON.stringify()`：对象 → 字符串
+
+**作用**：将 JavaScript 对象或值（数组、数字等）**序列化**（打包）为一个 JSON 字符串。
+**用途**：发送数据到服务器，或存储在 `localStorage`。
+
+**示例**：
+
+```javascript
+const user = { name: "Alice", age: 30 };
+
+// 转换 (序列化)
+const jsonString = JSON.stringify(user);
+
+console.log(jsonString);
+// 输出: "{\"name\":\"Alice\",\"age\":30}"
+```
+
+#### 2. `JSON.parse()`：字符串 → 对象
+
+**作用**：将一个**严格的** JSON 格式字符串**解析**（解包）为 JavaScript 对象或值。 **用途**：处理从服务器或 `localStorage` 读取到的数据。
+
+**示例**：
+
+```JavaScript
+const jsonString = '{"name":"Alice","age":30}';
+
+// 解析
+const user = JSON.parse(jsonString);
+
+console.log(user);
+// 输出: { name: 'Alice', age: 30 }
+console.log(user.name); // "Alice"
+```
+
+---
+
+### 关键区别
+
+- `stringify` (打包): **JS 对象 -> 字符串**
+- `parse` (解包): **字符串 -> JS 对象**
+
+**注意**：`JSON.parse()` 要求字符串格式非常严格（例如，键和字符串值必须使用**双引号**）。
+
 ### 数组和字符串共有的方法
 
 #### indexOf()/lastIndexOf():查找字符串的索引位置，没有找到返回-1

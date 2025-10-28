@@ -1439,3 +1439,83 @@ function IntervalCounterWithRef() {
 
 - [React 官方文档 - Using the State Hook](https://react.dev/reference/react/useState)
 - [深入理解 React Hooks 的闭包陷阱](https://juejin.cn/post/6844904186715285512)
+
+## redux 和 mobx 的区别
+
+mobx 和 redux 的区别主要分为以下几个方面
+
+- **Redux：** **单一数据源 (Single Source of Truth)**
+  - 整个应用的 state 被存储在一个单一的、巨大的 JavaScript 对象中（Store）。
+  - 这个 state 对象是**只读的 (Immutable)**。
+- **MobX：** **分散的、可观察的数据 (Observable State)**
+
+  - 允许有多个独立的 Store 来管理不同模块的 state。
+  - State 是**可变的 (Mutable)**，但这些变化是被“监视”的。
+
+### 工作机制对比
+
+- **Redux：** Redux 通过 dispatch 派发一个不可变的 action 动作，通过 reducer 接收，让 reducer 产生一个新的 State，View 订阅 store 的变化并且进行更新
+- **MobX：**Mobx 通过 Observable 将 state 标记为可观察的，然后通过 action 直接修改 state 的属性，mobx 会自动的更新视图
+
+#### 1. 状态更新
+
+- **Redux：** **严格且明确**
+
+  1. **Action：** 必须派发（dispatch）一个“动作”（Action），这是一个描述“发生了什么”的普通对象。
+  2. **Reducer：** 编写纯函数（Reducer）来接收旧的 state 和 Action。
+  3. **New State：** Reducer 返回一个**全新的** state 对象，而不是修改旧的。
+  4. **View：** 视图（如 React 组件）订阅 Store 的变化并更新。
+
+  - **特点：** 流程非常清晰、可预测、可回溯。
+
+- **MobX：** **隐式且自动**
+
+  1. **Observable：** 将 state 标记为“可观察的”。
+  2. **Action：** （可选但推荐）在一个标记为“action”的函数中，**直接修改** state 属性。
+  3. **Reaction：** 视图（如 React 组件）被标记为“观察者”（Observer）。
+  4. **Auto-Update：** 当被观察的 state 变化时，MobX 会自动且精确地更新“观察”了该 state 的视图。
+
+  - **特点：** 非常自动、代码量少、“魔法”。
+
+#### 2. 数据处理
+
+- **Redux：** **规范化 (Normalized)**
+  - 倾向于将 state 组织得像数据库一样，避免数据嵌套，使用 ID 进行关联。
+  - 数据是普通的 JS 对象或数组。
+- **MobX：** **嵌套 (Nested)**
+  - 可以随意使用嵌套的对象和数组。
+  - 数据被包装成“可观察”对象，不是普通对象。
+
+### 设计哲学
+
+- **Redux：** **追求可预测性 (Predictability)**
+  - 借鉴了函数式编程（FP）思想。
+  - 核心是“事件溯源”，所有 state 变化都有清晰的记录（Actions），非常利于调试大型、复杂的应用（例如时间旅行调试）。
+- **MobX：** **追求简洁和效率 (Simplicity & Efficiency)**
+  - 借鉴了面向对象（OOP）和响应式编程（RP）思想。
+  - 核心是让状态管理尽可能“透明”，开发者像操作普通 JS 对象一样操作 state，MobX 负责在背后处理更新。
+
+### 缺点
+
+- **Redux：**
+  - **样板代码 (Boilerplate)：** 最大的问题。为了改一个简单数据，需要写 Action Type、Action Creator、Reducer case，流程很长。
+  - **学习曲线：** 需要理解纯函数、Immutability、中间件（Middleware）等概念。
+  - **性能：** 默认情况下，任何 dispatch 都会通知所有订阅者，可能需要手动优化（如使用 `reselect`）。
+- **MobX：**
+  - **“魔法” (Magic)：** 自动更新很爽，但也意味着出错时很难排查“为什么更新了”或“为什么没更新”。
+  - **调试：** 不如 Redux 的“Action 日志”清晰，虽然也有工具，但可追溯性较差。
+  - **规范：** 因为太灵活，团队成员可能用不同的方式修改 state，导致代码风格混乱（需要用 `action` 来约束）。
+
+---
+
+### 总结对比表
+
+| **特性**         | **Redux**                               | **MobX**                          |
+| ---------------- | --------------------------------------- | --------------------------------- |
+| **核心范式**     | 函数式编程 (FP)                         | 响应式编程 (OOP/RP)               |
+| **State 结构**   | 单一 Store，普通对象                    | 多个 Store，可观察对象            |
+| **State 可变性** | **不可变 (Immutable)**                  | **可变 (Mutable)**                |
+| **更新方式**     | **明确的** (Dispatch Action -> Reducer) | **隐式的** (直接修改被观察的属性) |
+| **样板代码**     | 多                                      | 少                                |
+| **调试**         | 极强（时间旅行）                        | 较弱（依赖追踪）                  |
+| **学习曲线**     | 较陡                                    | 较平                              |
