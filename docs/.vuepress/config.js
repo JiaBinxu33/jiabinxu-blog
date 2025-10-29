@@ -96,6 +96,7 @@ module.exports = {
               { text: "前端部署", link: "/project/deploy/" },
               { text: "大文件上传", link: "/project/fileUpload/" },
               { text: "macOS指南", link: "/project/macOS_Guide/" },
+              { text: "常用库", link: "/project/popular-libraries/" },
               { text: "Next.js国际化方案", link: "/project/nextjs-i18n/" },
               {
                 text: "Next.js双token无感刷新",
