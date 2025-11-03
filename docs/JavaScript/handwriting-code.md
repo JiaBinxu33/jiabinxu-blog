@@ -73,6 +73,29 @@ function fn(arr, currentPath = "") {
   }
 ```
 
+## 数组扁平化（不用扩展运算符和 flat）
+
+简单的递归思想，如果当前项是数组就把当前的数组传入 flat 中递归调用直到不是数组的时候才 push 当前项到结果中
+
+```javascript
+const arr = [
+  [1, 2],
+  [3, [4, 5]],
+];
+const my_flat = (arr) => {
+  let res = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      res.push(...my_flat(item));
+    } else {
+      res.push(item);
+    }
+  });
+  return res;
+};
+console.log(my_flat(arr));
+```
+
 ## 常见函数原理
 
 ### call()函数的实现
@@ -153,13 +176,16 @@ Function.prototype.myCall = function(context,...args){
 
 ```
 
-### 实现一个简单的Promise
-思考:首先要手写一个promise就需要思考原生的promise执行的过程是什么样的？
--  Promise 三个状态，pending ，fulfilled(resolve)，reject
-  只能从pending>fulfilled
-  只能从pending>reject
+### 实现一个简单的 Promise
+
+思考:首先要手写一个 promise 就需要思考原生的 promise 执行的过程是什么样的？
+
+- Promise 三个状态，pending ，fulfilled(resolve)，reject
+  只能从 pending>fulfilled
+  只能从 pending>reject
   并且状态一单改变就会凝固不能再被改变
-我们先来看看原生promise的使用
+  我们先来看看原生 promise 的使用
+
 ```JavaScript
 let p = new Promise((resolve,reject)=>{
   resolve(result)
@@ -168,10 +194,12 @@ p.then((result)=>{
   console.log("result")
 })
 ```
-- 在promise类中 我们可以看到，他接受一个参数，在promiseA+范式中 我们把它称作executor(执行器),executor的执行是同步的，
-我们还需要准备resolve和reject方法，以及他的三个状态，并添加判断只有是pending状态的时候才可以去改变状态
-创建出执行队列以便异步操作使用
-注意：这里使用#state,# 的作用的是防止从外部直接修改类内部的状态
+
+- 在 promise 类中 我们可以看到，他接受一个参数，在 promiseA+范式中 我们把它称作 executor(执行器),executor 的执行是同步的，
+  我们还需要准备 resolve 和 reject 方法，以及他的三个状态，并添加判断只有是 pending 状态的时候才可以去改变状态
+  创建出执行队列以便异步操作使用
+  注意：这里使用#state,# 的作用的是防止从外部直接修改类内部的状态
+
 ```JavaScript
 // Promise 的三种状态常量
 const PENDING = 'pending';    // 等待状态
@@ -195,7 +223,7 @@ class MyPromise {
       if (this.#state === PENDING) {
         this.#state = FULFILLED; // 转换状态
         this.#value = value;     // 保存值
-        
+
         // 执行所有成功回调
         this.#onFulfilledCallbacks.forEach(cb => cb());
         this.#onFulfilledCallbacks = []; // 清空队列
@@ -208,7 +236,7 @@ class MyPromise {
       if (this.#state === PENDING) {
         this.#state = REJECTED; // 转换状态
         this.#reason = reason;  // 保存原因
-        
+
         // 执行所有失败回调
         this.#onRejectedCallbacks.forEach(cb => cb());
         this.#onRejectedCallbacks = []; // 清空队列
@@ -225,19 +253,22 @@ class MyPromise {
   }
 }
 ```
+
 此时实现了最基本的 Promise 骨架，但缺少：
+
 - then 方法实现
 - 链式调用支持
 - 异步处理能力
-我们来一个一个解决他们，首先我们来为类添加一个then方法
-在我们使用的时候可能只会使用到他的第一个参数，也就是获取成功的结果，
-但是其实在A+范式中他是有两个参数onFulfilled, onRejected
+  我们来一个一个解决他们，首先我们来为类添加一个 then 方法
+  在我们使用的时候可能只会使用到他的第一个参数，也就是获取成功的结果，
+  但是其实在 A+范式中他是有两个参数 onFulfilled, onRejected
+
 ```JavaScript
 class MyPromise {
   #state = PENDING;  // 私有状态字段
   #value = null;     // 成功值
   #reason = null;    // 失败原因
-  
+
   constructor(executor) {
     const resolve = (value) => {
       if (this.#state === PENDING) {
@@ -245,14 +276,14 @@ class MyPromise {
         this.#value = value;
       }
     };
-    
+
     const reject = (reason) => {
       if (this.#state === PENDING) {
         this.#state = REJECTED;
         this.#reason = reason;
       }
     };
-    
+
     try {
       executor(resolve, reject);
     } catch (error) {
@@ -276,9 +307,11 @@ class MyPromise {
   }
 }
 ```
+
 异步的处理
-异步处理的核心：添加成功/失败队列，当触发then/catch(目前还没有添加catch方法)的时候
-先把要执行的onFulfilled, onRejected函数添加到队列当中，只有触发了resolve方法在取出存储的方法并执行
+异步处理的核心：添加成功/失败队列，当触发 then/catch(目前还没有添加 catch 方法)的时候
+先把要执行的 onFulfilled, onRejected 函数添加到队列当中，只有触发了 resolve 方法在取出存储的方法并执行
+
 ```JavaScript
 then(onFulfilled, onRejected) {
   // ...参数校验同上...
@@ -290,7 +323,7 @@ then(onFulfilled, onRejected) {
         onFulfilled(this.#value);
       });
     });
-    
+
     this.#onRejectedCallbacks.push(() => {
       setTimeout(() => {
         onRejected(this.#reason);
@@ -299,10 +332,10 @@ then(onFulfilled, onRejected) {
   }
 }
 ```
-现在我们为类添加了一个基础的then，我们又会发现新的问题
-没有返回新的 Promise，无法链式调用
-解决：链式调用的核心处理思想就是return一个新的promise
 
+现在我们为类添加了一个基础的 then，我们又会发现新的问题
+没有返回新的 Promise，无法链式调用
+解决：链式调用的核心处理思想就是 return 一个新的 promise
 
 ```JavaScript
 then(onFulfilled, onRejected) {
@@ -334,7 +367,9 @@ then(onFulfilled, onRejected) {
   return promise2;
 }
 ```
-这个时候，我们需要去解析判断一下传进来的x，而不是直接传进去，他有可能是promise对象，我们来添加一个解析promise的函数
+
+这个时候，我们需要去解析判断一下传进来的 x，而不是直接传进去，他有可能是 promise 对象，我们来添加一个解析 promise 的函数
+
 ```JavaScript
  /**
  * 用于判断return类型是promise还是普通值
@@ -359,7 +394,9 @@ then(onFulfilled, onRejected) {
  }
 }
 ```
-判断过后我们来整合一下现在的then方法
+
+判断过后我们来整合一下现在的 then 方法
+
 ```JavaScript
     then = function (onFulfilled, onRejected) {
         // 参数校验
@@ -390,7 +427,8 @@ then(onFulfilled, onRejected) {
       return deepPromise;
     };
 ```
-到这里就实现了一个简单的promise，其中还缺乏了很多校验和静态方法，只作为理解promise使用。
+
+到这里就实现了一个简单的 promise，其中还缺乏了很多校验和静态方法，只作为理解 promise 使用。
 
 ## leetCode 系列
 
