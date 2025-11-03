@@ -47,6 +47,41 @@ JSX 是 React 的核心组成部分，它使用 XML 标记的方式去直接声�
 函数组件不能扩展其他方法
 class 创建的组件,有自己的私有数据(this.state)和生命周期
 
+## React 合成事件原理
+
+1. **全局事件委托 (Event Delegation)：**
+   - React **不会**为你写的**每一个** `onClick` 都去 DOM 元素上调用 `addEventListener`。
+   - 相反，它在**整个应用的根节点**（在 React 17 之前是 `document`，在 React 17+ 是你 `createRoot` 的那个 DOM 节点）上只监听**一次**所有它支持的事件（如 `click`, `change`）。
+2. **事件派发：**
+   - 当一个原生 DOM 事件（例如一个按钮的 'click'）冒泡到这个“根节点”时，React 的总监听器会捕获它。
+   - React 查看这个原生事件的 `target`，然后找出是**哪个 React 组件**触发了它。
+3. **创建包装器：**
+   - React **获取**这个“原生事件对象”，然后把它**包装**成一个“合成事件对象”。
+   - 这个合成对象上挂载了 React 抹平差异后的 API（如 `e.preventDefault()`）。
+4. **调用回调：**
+   - React 将这个“合成事件” `e` 传递给你在 JSX 中定义的 `onClick` 回调函数。
+   - **访问原生事件：** 如果你确实需要访问未被包装的“原生”事件对象，可以使用 `e.nativeEvent`。
+
+### 关键点 / 陷阱
+
+1. 事件池 (Event Pooling) - 已废除
+
+   - **React 16 及更早：**
+     - **机制：** 为了极致的性能，React 会“池化”事件对象。当你的 `onClick` 回调函数执行完毕后，React 会**立刻“回收”**这个 `e` 对象，并将其所有属性设置为 `null`。
+     - **陷阱：** 这导致你**无法**在**异步**操作（如 `setTimeout` 或 `Promise`）中访问 `e.target`。
+     - **旧版解决：** 必须手动调用 `e.persist()` 来“脱离”事件池。
+   - **React 17 及以后：**
+     - **变更：** React **完全移除了事件池**。
+     - **效果：** `e` 对象在你的回调函数执行后**不再**被回收。你现在可以安全地在 `setTimeout` 等异步代码中访问 `e.target`，**不再需要**调用 `e.persist()`。
+
+2. 委托根节点 (Delegation Root)
+
+   - **React 16 及更早：**
+     - React 总是将所有事件委托到 `document` 级别。
+   - **React 17 及以后：**
+     - React 将事件委托到你调用 `ReactDOM.createRoot()` 的**应用根 DOM 节点**上。
+     - **好处：** 这使得在一个页面中“渐进式升级”或“嵌套”多个 React 应用版本成为可能，而不会互相干扰事件系统。
+
 ## MVC 和 MVVM 的区别
 
 - MVC 和 MVVM 都是常见的软件架构思想
