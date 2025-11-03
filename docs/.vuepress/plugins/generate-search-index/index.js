@@ -8,8 +8,8 @@ function findHeaderIndex(content, header, lastIndex) {
 
   // 1. (v7) 清理 header.title (与 v7 逻辑保持一致)
   const cleanedTitle = header.title
-    .replace(/[\s\u00A0]+/g, " ") // 清理空格
     .replace(/[`/():.：<>]/g, "") // (v7) 移除标点
+    .replace(/[\s\u00A0]+/g, " ") // 清理空格
     .trim()
     .toLowerCase(); // (v9) 确保转为小写
 

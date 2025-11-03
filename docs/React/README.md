@@ -42,10 +42,73 @@ JSX 是 React 的核心组成部分，它使用 XML 标记的方式去直接声�
 
 ## 函数组件和 class 组件区别
 
-函数组件纯函数，输入 props，输出 jsx
-函数组件没有实例，没有生命周期，没有 state
-函数组件不能扩展其他方法
-class 创建的组件,有自己的私有数据(this.state)和生命周期
+- 工作机制与语法对比
+
+1. 状态 (State) 管理
+
+   - **类组件：**
+     - 状态必须是一个**单一的 this.state 对象**。
+     - 必须在 `constructor` 中初始化 `this.state = {}`。
+     - 更新状态**必须**调用 `this.setState()`。
+     - `this.setState()` 会**异步**地“合并”(merge) 你传入的对象到旧 state 中。
+   - **函数组件：**
+     - **没有 this**。
+     - 使用 `useState` Hook 来管理状态。
+     - **没有限制：** 你可以多次调用 `useState` 来定义多个、独立的 state 变量（数字、字符串、对象等）。
+     - 更新状态是调用 `setCount()` 这样的“替换”函数。它**不会**自动合并对象。
+
+2. 生命周期与副作用
+
+   - **类组件：**
+     - 使用**特定的生命周期方法**（`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`）。
+     - 逻辑被“割裂”：例如，一个“订阅”的逻辑，它的“建立”代码在 `componentDidMount` 中，而“清理”代码在 `componentWillUnmount` 中。
+   - **函数组件：**
+     - 使用 `useEffect` Hook 来处理所有“副作用”（包括挂载、更新、卸载）。
+     - **逻辑集中：** `useEffect` 将“建立”和“清理”逻辑**组织在一起**（清理函数从 effect 中返回）。
+     - `useEffect` 通过一个“依赖项数组”来精确控制何时重新执行，而不是像 `componentDidUpdate` 那样在每次更新时都执行。
+
+3. this 关键字
+
+   - **类组件：**
+     - **高度依赖 this**。
+     - `this` 是复杂性的主要来源。在 `render` 中访问 state 和 props 必须用 `this.state` 和 `this.props`。
+     - 在事件处理函数（如 `onClick`）中，`this` 会丢失上下文，**必须**手动进行“`this` 绑定”（例如在 `constructor` 中或使用箭头函数）。
+   - **函数组件：**
+     - **完全没有 this 关键字**。
+     - Props 作为函数参数传入，State 变量直接在函数作用域中访问。极大降低了心智负担。
+
+### 为什么转向函数组件？
+
+- **过去：** 类组件是“容器组件”（负责逻辑和 state），函数组件是“展示组件”（负责 UI）。
+- **现在：** React 团队**推荐**使用函数组件 + Hooks 来编写所有新代码。
+
+  - **更简洁：** 代码量更少，没有 `class` 和 `this` 的样板代码。
+  - **易于复用：** Hooks 最大的胜利是**“自定义 Hooks” (Custom Hooks)**。它允许你将“状态逻辑”从组件中提取出来，变成一个可复用的函数。这比类组件的“高阶组件 (HOC)”或“Render Props”模式简单得多。
+  - **易于维护：** `useEffect` 按“逻辑功能”组织代码，而不是按“生命周期”割裂代码。
+
+- 关键点 / 陷阱
+
+  - **类组件的陷阱：**
+    - `this` 绑定的混乱。
+    - `setState` 的异步性：在 `setState` 后立刻读取 `this.state` 会读到旧值。
+  - **函数组件的陷阱：**
+    - **Hooks 规则：** 必须在函数顶层调用 Hooks，不能在循环、条件或嵌套函数中调用。
+    - **useEffect 依赖项：** 最大的陷阱。忘记在依赖项数组中声明所有用到的 state 或 props，会导致“陈旧闭包”（Stale Closure）问题——Effect 使用了过期的值。
+    - **心智模型：** 函数组件的 `render` 更像是在“快照”：每次 state 变化，函数**重新执行**，所有变量（包括 state）都是全新的。
+
+---
+
+- 总结对比表
+
+  | **特性**        | **类组件 (Class Component)**                 | **函数组件 (Function Component)** |
+  | --------------- | -------------------------------------------- | --------------------------------- |
+  | **形态**        | ES6 Class (继承 `React.Component`)           | 普通 JavaScript 函数              |
+  | **状态管理**    | `this.state` (单一对象) / `this.setState()`  | `useState()` (多个独立变量)       |
+  | **生命周期**    | `componentDidMount`, `componentDidUpdate` 等 | `useEffect()`                     |
+  | **this 关键字** | **必须使用**，且需要处理绑定问题             | **完全没有 this**                 |
+  | **逻辑复用**    | 高阶组件 (HOC), Render Props (复杂)          | **自定义 Hooks** (简单)           |
+  | **代码量**      | 较多（样板代码）                             | **非常简洁**                      |
+  | **官方推荐**    | 遗留 (Legacy)                                | **现代标准** (Preferred)          |
 
 ## React 合成事件原理
 
@@ -62,7 +125,7 @@ class 创建的组件,有自己的私有数据(this.state)和生命周期
    - React 将这个“合成事件” `e` 传递给你在 JSX 中定义的 `onClick` 回调函数。
    - **访问原生事件：** 如果你确实需要访问未被包装的“原生”事件对象，可以使用 `e.nativeEvent`。
 
-### 关键点 / 陷阱
+### 注意
 
 1. 事件池 (Event Pooling) - 已废除
 
