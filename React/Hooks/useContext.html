@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>useContext | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/39.86e08cd4.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.164a4f16.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.5bc0d409.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.82b75b59.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>useContext</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#基本用法" class="sidebar-link">基本用法</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#主要用途" class="sidebar-link">主要用途</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#usecontext-的缺陷-问题" class="sidebar-link">useContext 的缺陷/问题</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#工作机制" class="sidebar-link">工作机制：</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#缺陷的后果" class="sidebar-link">缺陷的后果</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#开发体验问题-provider-嵌套" class="sidebar-link">开发体验问题：Provider 嵌套</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#解决办法" class="sidebar-link">解决办法</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#参数与返回值" class="sidebar-link">参数与返回值</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#注意事项" class="sidebar-link">注意事项</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#实战用法" class="sidebar-link">实战用法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_1-深层组件数据传递" class="sidebar-link">1. 深层组件数据传递</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_2-动态更新-context" class="sidebar-link">2. 动态更新 context</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_3-指定默认值" class="sidebar-link">3. 指定默认值</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_4-覆盖部分树的-context" class="sidebar-link">4. 覆盖部分树的 context</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_5-传递对象和函数、优化性能" class="sidebar-link">5. 传递对象和函数、优化性能</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#常见问题与排查" class="sidebar-link">常见问题与排查</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_1-取不到-provider-传递的值" class="sidebar-link">1. 取不到 Provider 传递的值？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useContext.html#_2-总是拿到-undefined-或默认值" class="sidebar-link">2. 总是拿到 undefined 或默认值？</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useContext.html#总结" class="sidebar-link">总结</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="usecontext"><a href="#usecontext" class="header-anchor">#</a> useContext</h1> <p><code>useContext</code> 是 React 提供的一个 Hook，用于在函数组件中直接读取和订阅 context 上下文数据。它极大地方便了组件间深层数据传递，避免了层层 props 传递。</p> <hr> <h2 id="基本用法"><a href="#基本用法" class="header-anchor">#</a> 基本用法</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> value <span class="token operator">=</span> <span class="token function">useContext</span><span class="token punctuation">(</span>SomeContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li><code>SomeContext</code> 是你通过 <code>createContext</code> 创建的 context 对象。</li></ul> <p><strong>示例：</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useContext <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> theme <span class="token operator">=</span> <span class="token function">useContext</span><span class="token punctuation">(</span>ThemeContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...可以直接用 theme 变量</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="主要用途"><a href="#主要用途" class="header-anchor">#</a> 主要用途</h2> <ol><li><strong>向组件树深层传递数据</strong>，比如主题、用户信息等。</li> <li><strong>通过 context 实现数据的动态更新</strong>。</li> <li><strong>为 context 指定默认值，作为后备方案</strong>。</li> <li><strong>可以覆盖组件树某一部分的 context</strong>，实现局部配置。</li> <li><strong>在传递对象和函数时优化重新渲染，提升性能</strong>。</li></ol> <hr> <h2 id="usecontext-的缺陷-问题"><a href="#usecontext-的缺陷-问题" class="header-anchor">#</a> useContext 的缺陷/问题</h2> <p><code>useContext</code> 最大的性能缺陷是它的“订阅”机制过于“粗糙”</p> <ul><li>当你的组件调用 <code>useContext(MyContext)</code> 时，它订阅的<strong>不是</strong> <code>value</code> 对象里的某个特定属性（比如 <code>username</code>）。</li> <li>它订阅的是<strong>整个 value 对象</strong>的<strong>引用</strong>本身。</li></ul> <h3 id="工作机制"><a href="#工作机制" class="header-anchor">#</a> 工作机制：</h3> <ol><li><strong>它依赖“引用相等性”</strong>：<code>useContext</code> 判断是否要“通知”订阅者的唯一依据，是 <code>Provider</code> 的 <code>value</code> 对象的<strong>内存地址</strong>是否发生了变化 ( <code>===</code> 比较)。</li> <li><strong>Provider 很容易创建新引用</strong>：当 <code>Provider</code> 的父组件重新渲染时（比如因为 <code>value</code> 里的 <em>任何一个</em> 属性变了），它几乎总会创建一个<strong>新的 value 对象</strong>。</li> <li><strong>它缺乏“选择器” (Selector)</strong>：React <strong>不知道</strong>你的组件只关心 <code>value</code> 里的 <code>username</code>。它只知道你订阅了整个 <code>value</code>。</li></ol> <h3 id="缺陷的后果"><a href="#缺陷的后果" class="header-anchor">#</a> 缺陷的后果</h3> <p>这导致了不必要渲染。</p> <ul><li><strong>场景：</strong> 假设 <code>value</code> 对象是 <code>{ user, theme }</code>。</li> <li><strong>组件 A</strong>：只用了 <code>user</code>。</li> <li><strong>组件 B</strong>：只用了 <code>theme</code>。</li> <li><strong>操作：</strong> 组件 B 改变了 <code>theme</code>。</li> <li><strong>结果：</strong> <ol><li><code>Provider</code> 创建了一个新的 <code>value</code> 对象引用。</li> <li>React 发现 <code>value</code> 引用变了，于是**“广播”通知所有订阅者**。</li> <li>组件 B（用 <code>theme</code> 的）重新渲染。<strong>（这是必要的）</strong></li> <li>组件 A（只用 <code>user</code> 的）也被<strong>强制重新渲染</strong>。<strong>（这就是不必要的）</strong></li></ol></li></ul> <h3 id="开发体验问题-provider-嵌套"><a href="#开发体验问题-provider-嵌套" class="header-anchor">#</a> 开发体验问题：Provider 嵌套</h3> <p>Context 的第二个问题是代码组织。</p> <p>为了避免上面说的性能问题，一种常见的做法是把状态拆分成多个小 Context，比如 UserContext、ThemeContext、ScoreContext。</p> <p>但这会导致“Provider 嵌套地狱”，在应用根部会有一层又一层的 Provider 包裹，代码非常不直观，也不好维护。</p> <h3 id="解决办法"><a href="#解决办法" class="header-anchor">#</a> 解决办法</h3> <p>引入状态管理/状态下沉 (State Colocation)</p> <p>状态下沉这个策略的核心是：<strong>不要“污染”全局</strong>。</p> <p>我们不应该默认把所有的 <code>Context Provider</code> 都挂在应用的根节点（比如 <code>App</code> 组件）。而是应该让 <code>Provider</code> <strong>尽可能地“靠近”那些真正需要</strong>它的组件。</p> <ol><li><strong>寻找“最低公共祖先”</strong> <ul><li>我们需要分析：这个 <code>Context</code>（比如 <code>ThemeContext</code>）到底被哪些组件消费了？</li> <li>假设，我们发现只有 <code>Header</code> 和 <code>Sidebar</code> 这两个组件分支需要“主题”状态，而页面的 <code>MainContent</code> (主内容区) 完全不需要。</li> <li>那么，<code>Header</code> 和 <code>Sidebar</code> 的“最低公共祖先”可能就是 <code>App</code> 下的某个 <code>Layout</code> 组件，而不是 <code>App</code> 本身。</li></ul></li> <li><strong>将 Provider 下沉</strong> <ul><li>我们就把 <code>ThemeContext.Provider</code> 从 <code>App</code> 根部“拿下来”。</li> <li>把它“下沉”到那个 <code>Layout</code> 组件的 <code>render</code> 方法里，让它<strong>只</strong>包裹 <code>Header</code> 和 <code>Sidebar</code> 组件。</li></ul></li></ol> <h2 id="参数与返回值"><a href="#参数与返回值" class="header-anchor">#</a> 参数与返回值</h2> <ul><li><p><strong>参数：</strong><br> <code>SomeContext</code> —— 你通过 <code>createContext</code> 创建的 context 对象。本身不包含数据，只代表一种可传递的信息类型。</p></li> <li><p><strong>返回值：</strong><br> <code>useContext</code> 返回离当前组件最近的 Provider 提供的 <code>value</code>。如果上层没有 Provider，则返回创建 context 时设置的默认值（<code>createContext(defaultValue)</code> 的那个值）。</p> <p><strong>注意：</strong><br>
+context 的值发生变化时，React 会自动重新渲染所有使用了该 context 的组件。</p></li></ul> <hr> <h2 id="注意事项"><a href="#注意事项" class="header-anchor">#</a> 注意事项</h2> <ul><li><code>useContext()</code> 只会向上查找<strong>调用它的组件</strong>外层最近的 Provider，<strong>不会受本组件内部 Provider 影响</strong>。</li> <li>只要 Provider 的 value 发生变化，所有下层用到该 context 的组件都会重新渲染，且 React 使用 <code>Object.is</code> 比较新旧值。</li> <li>要保证传递 context 的对象和读取 context 的对象是<strong>完全相同的引用</strong>，否则会导致 context 取值失效。这点在使用 monorepo 或符号链接开发时需特别注意。</li></ul> <hr> <h2 id="实战用法"><a href="#实战用法" class="header-anchor">#</a> 实战用法</h2> <h3 id="_1-深层组件数据传递"><a href="#_1-深层组件数据传递" class="header-anchor">#</a> 1. 深层组件数据传递</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> createContext<span class="token punctuation">,</span> useContext <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> ThemeContext <span class="token operator">=</span> <span class="token function">createContext</span><span class="token punctuation">(</span><span class="token string">&quot;light&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Button</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> theme <span class="token operator">=</span> <span class="token function">useContext</span><span class="token punctuation">(</span>ThemeContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>button className<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">button-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>theme<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><span class="token operator">&gt;</span>按钮<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ThemeContext.Provider 提供 value</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ThemeContext<span class="token punctuation">.</span>Provider value<span class="token operator">=</span><span class="token string">&quot;dark&quot;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>Button <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ThemeContext<span class="token punctuation">.</span>Provider<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>只要 Button 组件在 Provider 内部，无论嵌套多深，都能直接拿到 <code>value</code>。</li></ul> <hr> <h3 id="_2-动态更新-context"><a href="#_2-动态更新-context" class="header-anchor">#</a> 2. 动态更新 context</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> createContext<span class="token punctuation">,</span> useContext<span class="token punctuation">,</span> useState <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> ThemeContext <span class="token operator">=</span> <span class="token function">createContext</span><span class="token punctuation">(</span><span class="token string">&quot;light&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>theme<span class="token punctuation">,</span> setTheme<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">&quot;light&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>ThemeContext<span class="token punctuation">.</span>Provider value<span class="token operator">=</span><span class="token punctuation">{</span>theme<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>Form <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">setTheme</span><span class="token punctuation">(</span>theme <span class="token operator">===</span> <span class="token string">&quot;light&quot;</span> <span class="token operator">?</span> <span class="token string">&quot;dark&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;light&quot;</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>
+        切换主题
+      <span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>ThemeContext<span class="token punctuation">.</span>Provider<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">Form</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> theme <span class="token operator">=</span> <span class="token function">useContext</span><span class="token punctuation">(</span>ThemeContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token punctuation">{</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">form-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>theme<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span><span class="token operator">&gt;</span>表单内容<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>Provider 的 value 可以是 state，更新 state 会自动刷新下层所有依赖该 context 的组件。</li></ul> <hr> <h3 id="_3-指定默认值"><a href="#_3-指定默认值" class="header-anchor">#</a> 3. 指定默认值</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> ThemeContext <span class="token operator">=</span> <span class="token function">createContext</span><span class="token punctuation">(</span><span class="token string">&quot;light&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>如果组件树中没有 Provider，<code>useContext(ThemeContext)</code> 返回的就是 <code>'light'</code>。</li> <li>默认值不会变，只有在 Provider 缺失时才生效。</li></ul> <hr> <h3 id="_4-覆盖部分树的-context"><a href="#_4-覆盖部分树的-context" class="header-anchor">#</a> 4. 覆盖部分树的 context</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token operator">&lt;</span>ThemeContext<span class="token punctuation">.</span>Provider value<span class="token operator">=</span><span class="token string">&quot;dark&quot;</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>Button <span class="token operator">/</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* 这里的按钮是 dark */</span><span class="token punctuation">}</span>
+  <span class="token operator">&lt;</span>ThemeContext<span class="token punctuation">.</span>Provider value<span class="token operator">=</span><span class="token string">&quot;light&quot;</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>Footer <span class="token operator">/</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span><span class="token comment">/* 这里的 Footer 及其子组件是 light */</span><span class="token punctuation">}</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>ThemeContext<span class="token punctuation">.</span>Provider<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>ThemeContext<span class="token punctuation">.</span>Provider<span class="token operator">&gt;</span>
+</code></pre></div><ul><li>多层 Provider 可以实现局部覆盖。</li></ul> <hr> <h3 id="_5-传递对象和函数、优化性能"><a href="#_5-传递对象和函数、优化性能" class="header-anchor">#</a> 5. 传递对象和函数、优化性能</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useCallback<span class="token punctuation">,</span> useMemo<span class="token punctuation">,</span> useState<span class="token punctuation">,</span> createContext <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> AuthContext <span class="token operator">=</span> <span class="token function">createContext</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyApp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>currentUser<span class="token punctuation">,</span> setCurrentUser<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 用 useCallback 保证 login 函数引用稳定</span>
+  <span class="token keyword">const</span> login <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 登录逻辑...</span>
+    <span class="token function">setCurrentUser</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 用 useMemo 保证 context value 对象引用稳定</span>
+  <span class="token keyword">const</span> contextValue <span class="token operator">=</span> <span class="token function">useMemo</span><span class="token punctuation">(</span>
+    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+      currentUser<span class="token punctuation">,</span>
+      login<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>currentUser<span class="token punctuation">,</span> login<span class="token punctuation">]</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>AuthContext<span class="token punctuation">.</span>Provider value<span class="token operator">=</span><span class="token punctuation">{</span>contextValue<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>Page <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>AuthContext<span class="token punctuation">.</span>Provider<span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>这样可以减少 context 变化导致的无效重渲染。</li></ul> <hr> <h2 id="常见问题与排查"><a href="#常见问题与排查" class="header-anchor">#</a> 常见问题与排查</h2> <h3 id="_1-取不到-provider-传递的值"><a href="#_1-取不到-provider-传递的值" class="header-anchor">#</a> 1. 取不到 Provider 传递的值？</h3> <ul><li>检查 useContext 调用的组件是否确实被对应 Provider 包裹。</li> <li>确认 Provider 和 useContext 用的是<strong>同一个 context 对象</strong>（不能 import 两次或路径不同）。</li> <li>检查是否写漏了 Provider 的 <code>value</code> 属性，或属性名写错。</li></ul> <h3 id="_2-总是拿到-undefined-或默认值"><a href="#_2-总是拿到-undefined-或默认值" class="header-anchor">#</a> 2. 总是拿到 undefined 或默认值？</h3> <ul><li><p>Provider 写法错误，如：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ThemeContext</span></span><span class="token punctuation">&gt;</span></span><span class="token plain-text">...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ThemeContext</span></span><span class="token punctuation">&gt;</span></span> <span class="token comment">// 错误！缺少 value</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ThemeContext</span></span> <span class="token attr-name">theme</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>theme<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token plain-text">...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ThemeContext</span></span><span class="token punctuation">&gt;</span></span> <span class="token comment">// 错误！应为 value={theme}</span>
+</code></pre></div><p>正确写法应为：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ThemeContext.Provider</span></span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>theme<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token plain-text">...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ThemeContext.Provider</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre></div></li> <li><p>如果 Provider 的 value 是 <code>undefined</code>，下层会收到 undefined 而不是默认值。</p></li> <li><p>只有<strong>组件树上没有任何 Provider 时</strong>，才会用默认值。</p></li></ul> <hr> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <ul><li><code>useContext</code> 让你在任何函数组件中方便地读取 context 数据。</li> <li>搭配 Provider 可实现全局或局部数据共享、跨层通信。</li> <li>动态 value 结合 state 实现响应式全局数据。</li> <li>复杂对象建议用 useMemo/useCallback 优化。</li> <li>遇到问题多检查 Provider 包裹、value 设置和 context 对象引用。</li></ul> <hr></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/39.86e08cd4.js" defer></script>
+  </body>
+</html>

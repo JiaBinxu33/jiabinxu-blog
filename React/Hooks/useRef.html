@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>useRef | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/46.82b75b59.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.86e08cd4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.164a4f16.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.5bc0d409.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>useRef</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/React/Hooks/useRef.html#参考" class="sidebar-link">参考</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useRef.html#useref-initialvalue" class="sidebar-link">useRef(initialValue)</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useRef.html#使用" class="sidebar-link">使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useRef.html#用-ref-引用一个值" class="sidebar-link">用 ref 引用一个值</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useRef.html#通过-ref-操作-dom" class="sidebar-link">通过 ref 操作 DOM</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useRef.html#避免重复创建-ref-的内容" class="sidebar-link">避免重复创建 ref 的内容</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useRef.html#疑难解答" class="sidebar-link">疑难解答</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useRef.html#无法获取自定义组件的-ref" class="sidebar-link">无法获取自定义组件的 ref</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="useref"><a href="#useref" class="header-anchor">#</a> useRef</h1> <p>useRef 是一个 React Hook，它能帮助引用一个不需要渲染的值。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">const</span> ref <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span>initialValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="参考"><a href="#参考" class="header-anchor">#</a> 参考</h2> <p>在组件顶层调用 useRef 以声明一个 ref。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> intervalRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+</code></pre></div><p><a href="#%E7%94%A8-ref-%E5%BC%95%E7%94%A8%E4%B8%80%E4%B8%AA%E5%80%BC">请参考下方案例</a></p> <h3 id="useref-initialvalue"><a href="#useref-initialvalue" class="header-anchor">#</a> useRef(initialValue)</h3> <h4 id="参数"><a href="#参数" class="header-anchor">#</a> 参数</h4> <p>initialValue：ref 对象的 current 属性的初始值。可以是任意类型的值。这个参数在首次渲染后被忽略。</p> <h4 id="返回值"><a href="#返回值" class="header-anchor">#</a> 返回值</h4> <p>useRef 返回一个只有一个属性的对象:</p> <ul><li>current：初始值为传递的 initialValue。之后可以将其设置为其他值。如果将 ref 对象作为一个 JSX 节点的 ref 属性传递给 React，ref 将作为 current 属性。
+在后续的渲染中，useRef 将返回同一个对象。</li></ul> <h4 id="注意"><a href="#注意" class="header-anchor">#</a> 注意</h4> <ul><li>可以修改 ref.current 属性。与 state 不同，它是可变的。然而，如果它持有一个用于渲染的对象（例如 state 的一部分），那么就不应该修改这个对象。</li> <li>改变 ref.current 属性时，React 不会重新渲染组件。React 不知道它何时会发生改变，因为 ref 是一个普通的 JavaScript 对象。</li> <li>除了 初始化 外不要在渲染期间写入或者读取 ref.current，否则会使组件行为变得不可预测。</li> <li>在严格模式下，React 将会 调用两次组件方法，这是为了 帮助发现意外问题。但这只是开发模式下的行为，不会影响生产模式。每个 ref 对象都将会创建两次，但是其中一个版本将被丢弃。如果使用的是组件纯函数（也应当如此），那么这不会影响其行为。</li></ul> <h2 id="使用"><a href="#使用" class="header-anchor">#</a> 使用</h2> <h3 id="用-ref-引用一个值"><a href="#用-ref-引用一个值" class="header-anchor">#</a> 用 ref 引用一个值</h3> <p>在组件顶层调用 useRef 声明一个或多个 ref。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Stopwatch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> intervalRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ...</span>
+</code></pre></div><p>useRef 返回一个具有单个 current 属性 的 ref 对象，并初始化为你提供的 初始值。</p> <p>在后续的渲染中，useRef 将返回相同的对象。你可以改变它的 current 属性来存储信息，并在之后读取它。这会让人联想到 state，但是有一个重要的区别。</p> <p>**改变 ref 不会触发重新渲染。**这意味着 ref 是存储一些不影响组件视图输出信息的完美选择。例如，如果需要存储一个 interval ID 并在以后检索它，那么可以将它存储在 ref 中。只需要手动改变它的 current 属性 即可修改 ref 的值：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">handleStartClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> intervalId <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  intervalRef<span class="token punctuation">.</span>current <span class="token operator">=</span> intervalId<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在之后，从 ref 中读取
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setInterval" target="_blank">interval ID</a>便可以 清除定时器：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">handleStopClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> intervalId <span class="token operator">=</span> intervalRef<span class="token punctuation">.</span>current<span class="token punctuation">;</span>
+  <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>使用 ref 可以确保：</p> <ul><li>可以在重新渲染之间 存储信息（普通对象存储的值每次渲染都会重置）。</li> <li>改变它 不会触发重新渲染（状态变量会触发重新渲染）。</li> <li>对于组件的每个副本而言，这些信息都是本地的（外部变量则是共享的）。
+改变 ref 不会触发重新渲染，所以 ref 不适合用于存储期望显示在屏幕上的信息。如有需要，使用 state 代替。
+<a href="https://zh-hans.react.dev/learn/referencing-values-with-refs#differences-between-refs-and-state" target="_blank">阅读更多关于 在 useRef 和 useState 之间选择 的信息。</a></li></ul> <h4 id="注意-2"><a href="#注意-2" class="header-anchor">#</a> 注意</h4> <p>不要在渲染期间写入或者读取 ref.current。</p> <p>React 期望组件主体 表现得像一个纯函数：</p> <p>如果输入的（props、state 与 上下文）都是一样的，那么就应该返回一样的 JSX。
+以不同的顺序或用不同的参数调用它，不应该影响其他调用的结果。
+在 渲染期间 读取或写入 ref 会破坏这些预期行为。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+  <span class="token comment">// 🚩 不要在渲染期间写入 ref</span>
+  myRef<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+  <span class="token comment">// 🚩 不要在渲染期间读取 ref</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>myOtherRef<span class="token punctuation">.</span>current<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>可以在 事件处理程序或者 Effect 中读取和写入 ref。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ✅ 可以在 Effect 中读取和写入 ref</span>
+    myRef<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+  <span class="token keyword">function</span> <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ✅ 可以在事件处理程序中读取和写入 ref</span>
+    <span class="token function">doSomething</span><span class="token punctuation">(</span>myOtherRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如果不得不在渲染期间读取 或者写入，那么应该 使用 state 代替。</p> <p>当打破这些规则时，组件可能仍然可以工作，但是我们<strong>为 React 添加的大多数新功能将依赖于这些预期行为</strong>。阅读
+<a href="https://zh-hans.react.dev/learn/keeping-components-pure#where-you-_can_-cause-side-effects" target="_blank">保持组件纯粹</a>以了解更多信息。</p> <h3 id="通过-ref-操作-dom"><a href="#通过-ref-操作-dom" class="header-anchor">#</a> 通过 ref 操作 DOM</h3> <p>使用 ref 操作 DOM 是非常常见的行为。React 内置了对它的支持。</p> <p>首先，声明一个 初始值 为 null 的 ref 对象</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+</code></pre></div><p>然后将 ref 对象作为 ref 属性传递给想要操作的 DOM 节点的 JSX：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token comment">// ...</span>
+<span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>inputRef<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+</code></pre></div><p>当 React 创建 DOM 节点并将其渲染到屏幕时，React 将会把 DOM 节点设置为 ref 对象的 current 属性。现在可以借助 ref 对象访问 input 的 DOM 节点，并且可以调用类似于 focus() 的方法：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>当节点从屏幕上移除时，React 将把 current 属性设置回 null。</p> <h4 id="案例"><a href="#案例" class="header-anchor">#</a> 案例</h4> <p>有时你可能想让父组件在组件中操纵 DOM。例如，假设正在编写一个 MyInput 组件，但希望父组件能够聚焦 input（不过父组件无法访问）。此时可以在父组件中创建一个 ref 并作为 prop 传递给子组件。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyInput</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> ref <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>ref<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">Form</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    inputRef<span class="token punctuation">.</span>current<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">MyInput</span></span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>inputRef<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>handleClick<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token plain-text">聚焦输入框</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="避免重复创建-ref-的内容"><a href="#避免重复创建-ref-的内容" class="header-anchor">#</a> 避免重复创建 ref 的内容</h3> <p>React 会保存 ref 初始值，并在后续的渲染中忽略它。</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">Video</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> playerRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">VideoPlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+</code></pre></div><p>虽然 new VideoPlayer() 的结果只会在首次渲染时使用，但是依然在每次渲染时都在调用这个方法。如果是创建昂贵的对象，这可能是一种浪费。</p> <p>为了解决这个问题，你可以像这样初始化 ref：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">Video</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> playerRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>playerRef<span class="token punctuation">.</span>current <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    playerRef<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VideoPlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// ...</span>
+</code></pre></div><p>通常情况下，在渲染过程中写入或读取 ref.current 是不允许的。然而，在这种情况下是可以的，因为结果总是一样的，而且条件只在初始化时执行，所以是完全可预测的。</p> <h2 id="疑难解答"><a href="#疑难解答" class="header-anchor">#</a> 疑难解答</h2> <h3 id="无法获取自定义组件的-ref"><a href="#无法获取自定义组件的-ref" class="header-anchor">#</a> 无法获取自定义组件的 ref</h3> <p>如果尝试像这样传递 ref 到自定义组件：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">const</span> inputRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">MyInput</span></span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>inputRef<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+</code></pre></div><p>你可能会在控制台中得到这样的错误：</p> <div class="language- extra-class"><pre class="language-text"><code>Console
+TypeError: Cannot read properties of null
+</code></pre></div><p>默认情况下，自定义组件不会暴露它们内部 DOM 节点的 ref。</p> <p>为了解决这个问题，首先，找到想获得 ref 的组件：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">MyInput</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> value<span class="token punctuation">,</span> onChange <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span> <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onChange<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后在组件的 props 参数中提取 ref，并将它作为参数传递给相关的 内置组件。如下所示：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">MyInput</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> value<span class="token punctuation">,</span> onChange<span class="token punctuation">,</span> ref <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>value<span class="token punctuation">}</span></span> <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onChange<span class="token punctuation">}</span></span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>ref<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> MyInput<span class="token punctuation">;</span>
+</code></pre></div><p>最后，父级组件就可以得到它的 ref。</p> <p>阅读 <a href="https://zh-hans.react.dev/learn/manipulating-the-dom-with-refs#accessing-another-components-dom-nodes" target="_blank">访问另一个组件的 DOM 节点</a>以了解更多信息。</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/46.82b75b59.js" defer></script>
+  </body>
+</html>

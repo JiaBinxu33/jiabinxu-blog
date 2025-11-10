@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>useOptimistic | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/44.164a4f16.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.86e08cd4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.5bc0d409.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.82b75b59.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>useOptimistic</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#_1-它是什么" class="sidebar-link">1. 它是什么？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#_2-为什么需要它" class="sidebar-link">2. 为什么需要它？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#_3-hook-签名与详解" class="sidebar-link">3. Hook 签名与详解</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#参数-1-realstate-例如-realmessages-安全网" class="sidebar-link">参数 1：realState (例如：realMessages) - “安全网”</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#参数-2-updatefn-currentstate-optimisticvalue-更新配方" class="sidebar-link">参数 2：updateFn(currentState, optimisticValue) - “更新配方”</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#_4-返回值详解" class="sidebar-link">4. 返回值详解</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#返回值-1-optimisticstate-例如-optimisticmessages-展示状态" class="sidebar-link">返回值 1：optimisticState (例如：optimisticMessages) - “展示状态”</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#返回值-2-addoptimistic-例如-addoptimisticmessage-触发器" class="sidebar-link">返回值 2：addOptimistic (例如：addOptimisticMessage) - “触发器”</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useOptimistic.html#_5-总结-完整的工作流程" class="sidebar-link">5. 总结：完整的工作流程</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="useoptimistic"><a href="#useoptimistic" class="header-anchor">#</a> useOptimistic</h1> <h2 id="_1-它是什么"><a href="#_1-它是什么" class="header-anchor">#</a> 1. 它是什么？</h2> <p><code>useOptimistic</code> 是一个 React19 新加入的 Hooks，它允许您在执行<strong>异步</strong>操作（如网络请求）时，<strong>立即</strong>向用户展示一个“乐观”的 UI 状态。</p> <p>它<strong>乐观地假设您的操作一定会成功</strong>，从而在“等待”的 2 秒钟内，让 UI 感觉“零延迟”。</p> <h2 id="_2-为什么需要它"><a href="#_2-为什么需要它" class="header-anchor">#</a> 2. 为什么需要它？</h2> <p>这是为了解决 UI 的<strong>滞后感</strong>。</p> <ul><li><p><strong>没有乐观更新（“悲观”模式）：</strong></p> <ol><li>用户点击“发送”按钮。</li> <li>UI 显示“加载中...”</li> <li>等待 2 秒...</li> <li>服务器返回成功。</li> <li>UI 才显示“发送成功”。</li></ol> <ul><li><strong>体验：</strong> 缓慢，卡顿。</li></ul></li> <li><p><strong>使用乐观更新</strong></p> <ol><li>用户点击“发送”按钮。</li> <li>UI <strong>立即</strong>显示“发送成功”的状态（这是“假”的乐观状态）。</li> <li><strong>同时</strong>，网络请求在后台<strong>悄悄</strong>开始。</li> <li>等待 2 秒...</li> <li>服务器返回成功。UI 保持不变（因为我们猜对了）。</li></ol> <ul><li><strong>体验：</strong> 极度流畅，操作得到了“即时反馈”。</li></ul></li></ul> <p><code>useOptimistic</code> 的作用，就是<strong>用一个 Hook 来自动管理这个“猜”和“猜错后回滚”的复杂逻辑</strong>。</p> <hr> <h2 id="_3-hook-签名与详解"><a href="#_3-hook-签名与详解" class="header-anchor">#</a> 3. Hook 签名与详解</h2> <p>这是 <code>useOptimistic</code> 的标准用法：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>const [optimisticState, addOptimistic] = useOptimistic(
+  realState,    // 参数 1: &quot;真实状态&quot; (安全网)
+  updateFn      // 参数 2: &quot;更新配方&quot; (说明书)
+);
+</code></pre></div><p>现在，我们来详细分解您问的每一个部分。</p> <h3 id="参数-1-realstate-例如-realmessages-安全网"><a href="#参数-1-realstate-例如-realmessages-安全网" class="header-anchor">#</a> 参数 1：<code>realState</code> (例如：<code>realMessages</code>) - “安全网”</h3> <ul><li><strong>它是什么？</strong> 这是您的**“事实来源” (Source of Truth)<strong>。它通常是您从 useState 或 useReducer 中获得的</strong>“真实”**状态。它代表了 100% 已被服务器“确认”的数据。</li> <li><strong>它的用法 (关键！)：</strong> <code>useOptimistic</code> 会在<strong>两个</strong>时刻<strong>自动</strong>使用它：
+<ol><li><strong>作为“回滚”的目标 (如果失败)：</strong> 这是 <code>useOptimistic</code> 最神奇的地方。如果您的异步 <code>action</code> <strong>失败</strong>了（比如 <code>throw new Error()</code>），React 会<strong>自动</strong>捕获这个失败，然后<strong>立即</strong>把 <code>optimisticState</code> <strong>“回滚”</strong> 到 <code>realState</code> 的状态。</li> <li><strong>作为“提交”的基础 (如果成功)：</strong> 当您的 <code>action</code> <strong>成功</strong>后，您会（在 <code>try</code> 块中）调用 <code>setRealMessages(...)</code> 来更新这个“真实状态”。当 <code>useOptimistic</code> 侦测到 <code>realState</code> 发生变化时，它就知道“乐观的更新‘转正’了”，它会自动用这个新的“真实”状态来替换掉“乐观”状态。</li></ol></li></ul> <h3 id="参数-2-updatefn-currentstate-optimisticvalue-更新配方"><a href="#参数-2-updatefn-currentstate-optimisticvalue-更新配方" class="header-anchor">#</a> 参数 2：<code>updateFn(currentState, optimisticValue)</code> - “更新配方”</h3> <ul><li><p><strong>它是什么？</strong> 它是一个<strong>函数</strong>，您用来定义 <code>addOptimistic</code> (返回值) 具体应该怎么做的，调用 <code>addOptimistic(newValue)</code> 时
+React 会<strong>立即</strong>执行这个函数</p> <ol><li><strong>currentState</strong> (由 React 传入)：这是**“当前”<strong>的状态。这可能是 realState（如果是第一次乐观更新），也可能是</strong>上一个**乐观状态（如果您连续快速地添加了多条消息）。</li> <li><strong>optimisticValue</strong> (由 React 传入)：这就是您调用 <code>addOptimistic( ... )</code> 时<strong>传入的那个值</strong>。</li></ol> <p>您<strong>必须</strong>在这个函数中<strong>返回</strong>您希望 UI <strong>立即</strong>展示的**“新乐观状态”**。</p></li></ul> <hr> <h2 id="_4-返回值详解"><a href="#_4-返回值详解" class="header-anchor">#</a> 4. 返回值详解</h2> <h3 id="返回值-1-optimisticstate-例如-optimisticmessages-展示状态"><a href="#返回值-1-optimisticstate-例如-optimisticmessages-展示状态" class="header-anchor">#</a> 返回值 1：<code>optimisticState</code> (例如：<code>optimisticMessages</code>) - “展示状态”</h3> <ul><li><strong>它是什么？</strong> 这是一个**“混合”<strong>状态。它</strong>不是**真实状态。</li> <li><strong>它的用法：</strong> 您<strong>必须</strong>在您的 UI 渲染（比如 <code>.map()</code>）中使用<strong>这个</strong>变量，<strong>而不是</strong> <code>realState</code>。
+<ul><li>在“和平时期”（没有正在进行的 <code>action</code>），<code>optimisticState</code> 的值<strong>等于</strong> <code>realState</code>。</li> <li>在“等待时期”（您调用了 <code>addOptimistic</code> 之后），<code>optimisticState</code> 的值会**“领先”**于 <code>realState</code>，它会包含您“乐观”添加的那些假数据。</li></ul></li></ul> <h3 id="返回值-2-addoptimistic-例如-addoptimisticmessage-触发器"><a href="#返回值-2-addoptimistic-例如-addoptimisticmessage-触发器" class="header-anchor">#</a> 返回值 2：<code>addOptimistic</code> (例如：<code>addOptimisticMessage</code>) - “触发器”</h3> <ul><li><p><strong>它是什么？</strong> 这是一个**“触发乐观更新”**的函数。</p></li> <li><p><strong>它的用法：</strong> 您<strong>必须</strong>在您的异步 <code>action</code> <strong>开始之前</strong>（<code>await</code> 之前）调用它。</p> <p><strong>例：</strong> <code>addOptimisticMessage(&quot;Hello&quot;)</code> 当您调用它时，React 内部会：</p> <ol><li>找到您的“配方”（<code>updateFn</code>）。</li> <li>执行它：<code>updateFn(currentState, &quot;Hello&quot;)</code>。</li> <li>拿到您返回的“新乐观列表”。</li> <li><strong>立即</strong>将 <code>optimisticState</code> 更新为这个“新乐观列表”。</li> <li><strong>立即</strong>触发 UI 重新渲染。</li></ol></li></ul> <hr> <h2 id="_5-总结-完整的工作流程"><a href="#_5-总结-完整的工作流程" class="header-anchor">#</a> 5. 总结：完整的工作流程</h2> <ol><li><strong>用户操作：</strong> 用户点击“发送”。</li> <li><strong>action 启动：</strong> <code>formAction</code> 被调用。</li> <li><strong>触发乐观：</strong> <code>addOptimisticMessage(&quot;Hello&quot;)</code> <strong>立即</strong>被调用。</li> <li><strong>React 执行“配方”：</strong> React 运行您的 <code>updateFn</code>，计算出“新的乐观列表”。</li> <li><strong>UI 立即更新：</strong> <code>optimisticMessages</code> 变成了这个“新列表”，UI <strong>立即</strong>重新渲染，用户<strong>立刻</strong>看到 &quot;Hello&quot;。</li> <li><strong>await 开始：</strong> <code>fakeSubmitAction(&quot;Hello&quot;)</code> <strong>才开始</strong>在后台运行（模拟 2 秒延迟）。</li> <li><strong>（情况 A：失败）</strong> <ul><li><code>fakeSubmitAction</code> 抛出错误 (<code>throw new Error</code>)。</li> <li><code>try...catch</code> 块捕获到错误。</li> <li>React <strong>自动</strong>侦测到失败，<strong>立即</strong>将 <code>optimisticMessages</code> <strong>“回滚”</strong> 到 <code>realMessages</code>（参数 1）的状态。&quot;Hello&quot; 消息从 UI 上<strong>消失</strong>。</li></ul></li> <li><strong>（情况 B：成功）</strong> <ul><li><code>fakeSubmitAction</code> 成功返回。</li> <li>您的 <code>try</code> 块调用 <code>setRealMessages(...)</code>，更新了“真实状态”。</li> <li>React <strong>自动</strong>侦测到 <code>realMessages</code> 变了，它会**“确认”<strong>乐观更新，并用</strong>新的 <code>realMessages</code>** 替换掉 <code>optimisticMessages</code>，UI 保持不变（或“发送中”标记消失）。</li></ul></li></ol></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/44.164a4f16.js" defer></script>
+  </body>
+</html>

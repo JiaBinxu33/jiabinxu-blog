@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>useReducer | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/45.5bc0d409.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.86e08cd4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.164a4f16.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.82b75b59.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link router-link-active">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>useReducer</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#基本用法" class="sidebar-link">基本用法</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#dispatch-函数" class="sidebar-link">dispatch 函数</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#reducer-函数实现" class="sidebar-link">reducer 函数实现</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#初始化函数-init-参数" class="sidebar-link">初始化函数（init 参数）</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#usereducer-vs-usestate" class="sidebar-link">useReducer vs useState</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#完整示例" class="sidebar-link">完整示例</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#常见陷阱与调试" class="sidebar-link">常见陷阱与调试</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_1-dispatch-后-state-没变-屏幕没更新" class="sidebar-link">1. dispatch 后 state 没变/屏幕没更新？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_2-dispatch-后部分属性丢失为-undefined" class="sidebar-link">2. dispatch 后部分属性丢失为 undefined？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_3-dispatch-后-state-变成-undefined" class="sidebar-link">3. dispatch 后 state 变成 undefined？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_4-dispatch-后立即读取-state-值没变" class="sidebar-link">4. dispatch 后立即读取 state，值没变？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_5-报错-too-many-re-renders" class="sidebar-link">5. 报错 “Too many re-renders”？</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/React/Hooks/useReducer.html#_6-reducer-初始化函数运行两次" class="sidebar-link">6. reducer/初始化函数运行两次？</a></li></ul></li><li><a href="/jiabinxu-blog/React/Hooks/useReducer.html#总结" class="sidebar-link">总结</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="usereducer"><a href="#usereducer" class="header-anchor">#</a> useReducer</h1> <p><code>useReducer</code> 是 React 提供的一个 Hook，用于在组件中以 reducer 的方式管理更复杂或多步骤的状态逻辑。它常用于替代 <code>useState</code>，尤其是在 state 结构较复杂或更新逻辑较多时。</p> <hr> <h2 id="基本用法"><a href="#基本用法" class="header-anchor">#</a> 基本用法</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> dispatch<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useReducer</span><span class="token punctuation">(</span>reducer<span class="token punctuation">,</span> initialArg<span class="token punctuation">,</span> init<span class="token operator">?</span><span class="token punctuation">)</span>
+</code></pre></div><ul><li><strong>reducer</strong>：用于更新 state 的纯函数，签名为 <code>(state, action) =&gt; newState</code></li> <li><strong>initialArg</strong>：初始 state，可以是任意类型</li> <li><strong>init</strong>（可选）：初始化函数，只在首次渲染时运行，用于生成实际的初始 state</li></ul> <p><strong>示例：</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useReducer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">reducer</span><span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> action</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 根据 action.type 返回新 state</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> dispatch<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useReducer</span><span class="token punctuation">(</span>reducer<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">42</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="dispatch-函数"><a href="#dispatch-函数" class="header-anchor">#</a> dispatch 函数</h2> <ul><li><code>dispatch(action)</code> 用于触发状态更新，参数 <code>action</code> 通常为带 type 字段的对象</li> <li>调用后不会立即改变 state，而是触发一次组件重新渲染</li> <li>调用完 dispatch 后立刻读取 state，拿到的还是旧值</li></ul> <p><strong>示例：</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">&quot;incremented_age&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="reducer-函数实现"><a href="#reducer-函数实现" class="header-anchor">#</a> reducer 函数实现</h2> <p>通常用 switch 语句按 action.type 匹配：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">reducer</span><span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> action</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;incremented_age&quot;</span><span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> state<span class="token punctuation">.</span>age <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;changed_name&quot;</span><span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> action<span class="token punctuation">.</span>nextName <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">default</span><span class="token operator">:</span>
+      <span class="token keyword">throw</span> <span class="token function">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Unknown action: &quot;</span> <span class="token operator">+</span> action<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>一定要返回新对象/新数组，<strong>不要直接修改原 state</strong>！</p></blockquote> <hr> <h2 id="初始化函数-init-参数"><a href="#初始化函数-init-参数" class="header-anchor">#</a> 初始化函数（init 参数）</h2> <p>当初始 state 的计算较复杂时，可以用 <code>init</code> 参数优化性能，只在首次渲染时执行：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">createInitialState</span><span class="token punctuation">(</span><span class="token parameter">username</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 复杂初始化逻辑</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token literal-property property">todos</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token literal-property property">draft</span><span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> dispatch<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useReducer</span><span class="token punctuation">(</span>reducer<span class="token punctuation">,</span> username<span class="token punctuation">,</span> createInitialState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p><code>init</code> 只会在首次渲染时运行一次，避免每次渲染都做重复计算。</p></blockquote> <hr> <h2 id="usereducer-vs-usestate"><a href="#usereducer-vs-usestate" class="header-anchor">#</a> useReducer vs useState</h2> <ul><li><code>useState</code> 更适合简单状态或单一字段</li> <li><code>useReducer</code> 更适合复杂对象/数组、多步骤更新、需要将更新逻辑集中管理的场景</li> <li>代码可读性和可维护性更高</li></ul> <hr> <h2 id="完整示例"><a href="#完整示例" class="header-anchor">#</a> 完整示例</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useReducer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">reducer</span><span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> action</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;incremented_age&quot;</span><span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> state<span class="token punctuation">.</span>age <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;changed_name&quot;</span><span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>state<span class="token punctuation">,</span> <span class="token literal-property property">name</span><span class="token operator">:</span> action<span class="token punctuation">.</span>nextName <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">default</span><span class="token operator">:</span>
+      <span class="token keyword">throw</span> <span class="token function">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Unknown action: &quot;</span> <span class="token operator">+</span> action<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">Form</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> dispatch<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useReducer</span><span class="token punctuation">(</span>reducer<span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&quot;Taylor&quot;</span><span class="token punctuation">,</span> <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">42</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">handleNameChange</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">&quot;changed_name&quot;</span><span class="token punctuation">,</span> <span class="token literal-property property">nextName</span><span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">function</span> <span class="token function">handleIncrement</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">&quot;incremented_age&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>input value<span class="token operator">=</span><span class="token punctuation">{</span>state<span class="token punctuation">.</span>name<span class="token punctuation">}</span> onChange<span class="token operator">=</span><span class="token punctuation">{</span>handleNameChange<span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>handleIncrement<span class="token punctuation">}</span><span class="token operator">&gt;</span>加一岁<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span>
+      <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>
+        你好，<span class="token punctuation">{</span>state<span class="token punctuation">.</span>name<span class="token punctuation">}</span>，你今年 <span class="token punctuation">{</span>state<span class="token punctuation">.</span>age<span class="token punctuation">}</span> 岁。
+      <span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span><span class="token operator">&gt;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="常见陷阱与调试"><a href="#常见陷阱与调试" class="header-anchor">#</a> 常见陷阱与调试</h2> <h3 id="_1-dispatch-后-state-没变-屏幕没更新"><a href="#_1-dispatch-后-state-没变-屏幕没更新" class="header-anchor">#</a> 1. dispatch 后 state 没变/屏幕没更新？</h3> <ul><li>不能直接修改 state（如 state.age++），必须返回新对象</li> <li>直接修改 state，React 会跳过渲染</li></ul> <h3 id="_2-dispatch-后部分属性丢失为-undefined"><a href="#_2-dispatch-后部分属性丢失为-undefined" class="header-anchor">#</a> 2. dispatch 后部分属性丢失为 undefined？</h3> <ul><li>返回新对象时要展开 <code>...state</code>，否则未赋值的属性会丢失</li></ul> <h3 id="_3-dispatch-后-state-变成-undefined"><a href="#_3-dispatch-后-state-变成-undefined" class="header-anchor">#</a> 3. dispatch 后 state 变成 undefined？</h3> <ul><li>reducer 必须覆盖所有 action.type，最后加个 default 或 throw Error</li></ul> <h3 id="_4-dispatch-后立即读取-state-值没变"><a href="#_4-dispatch-后立即读取-state-值没变" class="header-anchor">#</a> 4. dispatch 后立即读取 state，值没变？</h3> <ul><li>状态更新是异步的，dispatch 后本次事件中 state 不会立即变化</li></ul> <h3 id="_5-报错-too-many-re-renders"><a href="#_5-报错-too-many-re-renders" class="header-anchor">#</a> 5. 报错 “Too many re-renders”？</h3> <ul><li>可能在渲染期间直接调用了 dispatch，正确做法是事件中调用</li></ul> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 错误</span>
+<span class="token keyword">return</span> <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&gt;</span>Click me<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 正确</span>
+<span class="token keyword">return</span> <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span>handleClick<span class="token punctuation">}</span><span class="token operator">&gt;</span>Click me<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="_6-reducer-初始化函数运行两次"><a href="#_6-reducer-初始化函数运行两次" class="header-anchor">#</a> 6. reducer/初始化函数运行两次？</h3> <ul><li>严格模式（开发环境）下会运行两次，帮助你发现副作用。只要是纯函数，不会影响实际功能</li></ul> <hr> <h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <ul><li><code>useReducer</code> 适合管理复杂、多步骤、对象/数组类型的状态</li> <li>状态更新逻辑全部集中在 reducer，便于维护和测试</li> <li>返回新 state，<strong>不要直接修改原 state</strong></li> <li>dispatch 更新是异步的，不能立即读取到新 state</li> <li>遇到问题多检查 reducer、action、初始值、依赖是否写对</li></ul> <blockquote><p>建议实际项目中多用 useReducer 管理复杂表单或多字段、可组合的状态！</p></blockquote></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/45.5bc0d409.js" defer></script>
+  </body>
+</html>

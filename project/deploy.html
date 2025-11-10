@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>实训平台 + Dify 全流程部署详细笔记 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.86e08cd4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.164a4f16.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.5bc0d409.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.82b75b59.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>实训平台 + Dify 全流程部署详细笔记</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/project/deploy.html#_1-连接到服务器" class="sidebar-link">1. 连接到服务器</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#本机生成-ssh-密钥" class="sidebar-link">本机生成 SSH 密钥</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#将公钥发送给服务器管理员" class="sidebar-link">将公钥发送给服务器管理员</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#测试连接" class="sidebar-link">测试连接</a></li></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_2-代码拉取" class="sidebar-link">2. 代码拉取</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#dify-代码拉取-服务器端" class="sidebar-link">Dify 代码拉取（服务器端）</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#实训平台代码拉取" class="sidebar-link">实训平台代码拉取</a></li></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_3-部署准备工作" class="sidebar-link">3. 部署准备工作</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#_3-1-前端环境准备" class="sidebar-link">3.1 前端环境准备</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#_3-2-certbot、docker、nginx-安装" class="sidebar-link">3.2 Certbot、Docker、Nginx 安装</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#_3-3-配置环境变量" class="sidebar-link">3.3 配置环境变量</a></li></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_4-系统级-nginx-及-https-配置" class="sidebar-link">4. 系统级 Nginx 及 HTTPS 配置</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#获取-ssl-证书" class="sidebar-link">获取 SSL 证书</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#重新加载-nginx" class="sidebar-link">重新加载 Nginx</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#配置自动续期" class="sidebar-link">配置自动续期</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#nginx-配置软连接" class="sidebar-link">Nginx 配置软连接</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#nginx-配置示例" class="sidebar-link">Nginx 配置示例</a></li></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_5-端口开放" class="sidebar-link">5. 端口开放</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_6-启动服务" class="sidebar-link">6. 启动服务</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#启动-dify" class="sidebar-link">启动 Dify</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#启动实训平台前端" class="sidebar-link">启动实训平台前端</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#启动实训平台后端" class="sidebar-link">启动实训平台后端</a></li></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_7-dify-配置要点" class="sidebar-link">7. Dify 配置要点</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_8-常见问题与排查" class="sidebar-link">8. 常见问题与排查</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/deploy.html#_9-附录" class="sidebar-link">9. 附录</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/deploy.html#快速命令参考" class="sidebar-link">快速命令参考</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="实训平台-dify-全流程部署详细笔记"><a href="#实训平台-dify-全流程部署详细笔记" class="header-anchor">#</a> 实训平台 + Dify 全流程部署详细笔记</h1> <blockquote><p>本文档详细记录了从本地环境准备到服务器部署、环境配置、端口开放、服务启动、模型接入等完整流程，适用于 ShiXunPlatForm-Web（前端）、ShiXunPlatform（后端）、ShiXunDify（Dify 智能体平台）等项目的搭建。请根据实际域名、密钥等进行相应替换。</p></blockquote> <hr> <h2 id="_1-连接到服务器"><a href="#_1-连接到服务器" class="header-anchor">#</a> 1. 连接到服务器</h2> <h3 id="本机生成-ssh-密钥"><a href="#本机生成-ssh-密钥" class="header-anchor">#</a> 本机生成 SSH 密钥</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-b</span> <span class="token number">4096</span> <span class="token parameter variable">-C</span> <span class="token string">&quot;your_email@example.com&quot;</span>
+</code></pre></div><ul><li><code>-t</code> 指定密钥类型（一般为 rsa 或 ed25519）。</li> <li><code>-b</code> 指定密钥长度（RSA 推荐 4096 位）。</li> <li><code>-C</code> 注释，建议填写邮箱。</li></ul> <p>执行该命令后，程序会提示：</p> <ul><li><strong>Enter file in which to save the key</strong>：直接回车使用默认路径（如<code>~/.ssh/id_rsa</code>），也可自定义路径。</li> <li><strong>Enter passphrase</strong>：建议设置密码短语，增强私钥安全性。</li></ul> <p>命令执行完后，会在指定路径生成：</p> <ul><li>私钥：如 <code>id_rsa</code></li> <li>公钥：如 <code>id_rsa.pub</code></li></ul> <h3 id="将公钥发送给服务器管理员"><a href="#将公钥发送给服务器管理员" class="header-anchor">#</a> 将公钥发送给服务器管理员</h3> <p>管理员将你的公钥内容加到服务器的 <code>~/.ssh/authorized_keys</code> 文件中。</p> <h3 id="测试连接"><a href="#测试连接" class="header-anchor">#</a> 测试连接</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">ssh</span> ubuntu@<span class="token operator">&lt;</span>your-server-ip<span class="token operator">&gt;</span>
+</code></pre></div><p>如有多个 SSH 密钥，指定私钥连接：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">ssh</span> <span class="token parameter variable">-i</span> ~/.ssh/<span class="token operator">&lt;</span>your-key-name<span class="token operator">&gt;</span> ubuntu@<span class="token operator">&lt;</span>your-server-ip<span class="token operator">&gt;</span>
+</code></pre></div><hr> <h2 id="_2-代码拉取"><a href="#_2-代码拉取" class="header-anchor">#</a> 2. 代码拉取</h2> <h3 id="dify-代码拉取-服务器端"><a href="#dify-代码拉取-服务器端" class="header-anchor">#</a> Dify 代码拉取（服务器端）</h3> <ol><li><strong>生成服务器 SSH 密钥</strong>（如未配置过）:<div class="language-bash extra-class"><pre class="language-bash"><code>ssh-keygen <span class="token parameter variable">-t</span> ed25519 <span class="token parameter variable">-C</span> <span class="token string">&quot;your_email@example.com&quot;</span>
+</code></pre></div></li> <li><strong>把公钥加到 GitHub 账户/仓库 Deploy Keys</strong>:<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">cat</span> ~/.ssh/id_ed25519.pub
+</code></pre></div></li> <li><strong>测试 GitHub 连接:</strong><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+</code></pre></div></li> <li><strong>克隆 Dify 仓库代码（dev 分支）:</strong><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> clone <span class="token parameter variable">-b</span> dev git@github.com:XZXY-AI/ShiXunDify.git
+</code></pre></div></li></ol> <h3 id="实训平台代码拉取"><a href="#实训平台代码拉取" class="header-anchor">#</a> 实训平台代码拉取</h3> <ul><li>前端：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> clone <span class="token parameter variable">-b</span> dev git@github.com:XZXY-AI/ShiXunPlatForm-Web.git
+</code></pre></div></li> <li>后端：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> clone <span class="token parameter variable">-b</span> dev git@github.com:XZXY-AI/ShiXunPlatform.git
+</code></pre></div></li></ul> <blockquote><p>如遇到用户名密码问题，请确保 SSH Key 配置无误。</p></blockquote> <hr> <h2 id="_3-部署准备工作"><a href="#_3-部署准备工作" class="header-anchor">#</a> 3. 部署准备工作</h2> <h3 id="_3-1-前端环境准备"><a href="#_3-1-前端环境准备" class="header-anchor">#</a> 3.1 前端环境准备</h3> <h4 id="nvm-管理-node"><a href="#nvm-管理-node" class="header-anchor">#</a> nvm 管理 Node</h4> <ul><li>安装 nvm：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh <span class="token operator">|</span> <span class="token function">bash</span>
+</code></pre></div></li> <li>重新加载配置文件：
+<ul><li>bash: <code>source ~/.bashrc</code></li> <li>zsh: <code>source ~/.zshrc</code></li></ul></li> <li>验证 nvm：<div class="language-bash extra-class"><pre class="language-bash"><code>nvm <span class="token parameter variable">--version</span>
+</code></pre></div></li> <li>安装 Node（LTS）：<div class="language-bash extra-class"><pre class="language-bash"><code>nvm <span class="token function">install</span> <span class="token parameter variable">--lts</span>
+</code></pre></div></li> <li>验证 Node：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">node</span> <span class="token parameter variable">-v</span>
+</code></pre></div></li></ul> <h4 id="安装-yarn、pnpm、pm2"><a href="#安装-yarn、pnpm、pm2" class="header-anchor">#</a> 安装 yarn、pnpm、pm2</h4> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">--global</span> <span class="token function">yarn</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> <span class="token function">pnpm</span>
+<span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> pm2
+</code></pre></div><ul><li>验证 pm2：<div class="language-bash extra-class"><pre class="language-bash"><code>pm2 <span class="token parameter variable">--version</span>
+</code></pre></div></li></ul> <h4 id="安装依赖"><a href="#安装依赖" class="header-anchor">#</a> 安装依赖</h4> <p>切到前端目录：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">cd</span> ShiXunPlatForm-Web
+<span class="token function">yarn</span> <span class="token function">install</span> <span class="token parameter variable">--production</span>
+</code></pre></div><hr> <h3 id="_3-2-certbot、docker、nginx-安装"><a href="#_3-2-certbot、docker、nginx-安装" class="header-anchor">#</a> 3.2 Certbot、Docker、Nginx 安装</h3> <ul><li><strong>安装 snap 核心和 Certbot:</strong><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> snap <span class="token function">install</span> core
+<span class="token function">sudo</span> snap refresh core
+<span class="token function">sudo</span> snap <span class="token function">install</span> <span class="token parameter variable">--classic</span> certbot
+<span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> /snap/bin/certbot /usr/bin/certbot
+</code></pre></div></li> <li><strong>安装 Docker:</strong><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> snap <span class="token function">install</span> <span class="token function">docker</span>
+<span class="token function">docker</span> <span class="token parameter variable">-v</span>
+</code></pre></div></li> <li><strong>安装 Nginx:</strong><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> nginx
+nginx <span class="token parameter variable">-v</span>
+</code></pre></div></li></ul> <hr> <h3 id="_3-3-配置环境变量"><a href="#_3-3-配置环境变量" class="header-anchor">#</a> 3.3 配置环境变量</h3> <h4 id="前端环境变量"><a href="#前端环境变量" class="header-anchor">#</a> 前端环境变量</h4> <p>进入 <code>ShiXunPlatForm-Web</code> 目录，编辑 <code>.env.production</code>：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">nano</span> .env.production
+</code></pre></div><p>内容示例（请替换为实际域名）：</p> <div class="language- extra-class"><pre class="language-text"><code>NEXT_PUBLIC_API_BASE_URL=https://test1.xinzhiaigc.com
+NEXT_PUBLIC_API_APP_URL=https://test2.xinzhiaigc.com
+</code></pre></div><p>保存退出后可 <code>cat .env.production</code> 验证。</p> <hr> <h4 id="后端环境变量"><a href="#后端环境变量" class="header-anchor">#</a> 后端环境变量</h4> <ul><li>Python 版本需 3.10.12<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> python3
+python3 <span class="token parameter variable">--version</span>
+</code></pre></div></li> <li>安装 certbot 及 nginx 插件<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> certbot python3-certbot-nginx <span class="token parameter variable">-y</span>
+</code></pre></div></li></ul> <p>编辑 ShiXunPlatform 的 <code>.env</code> 文件（请根据实际替换密钥、域名等）：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">cd</span> ShiXunPlatform
+<span class="token function">nano</span> .env
+</code></pre></div><p>内容参考你需求文档中的示例。</p> <hr> <h4 id="dify-环境变量"><a href="#dify-环境变量" class="header-anchor">#</a> Dify 环境变量</h4> <p>在 <code>ShiXunDify/docker</code> 下新建 <code>.env</code> 文件，内容参照你的详细模板，并根据实际情况替换域名、密钥等。</p> <hr> <h2 id="_4-系统级-nginx-及-https-配置"><a href="#_4-系统级-nginx-及-https-配置" class="header-anchor">#</a> 4. 系统级 Nginx 及 HTTPS 配置</h2> <h3 id="获取-ssl-证书"><a href="#获取-ssl-证书" class="header-anchor">#</a> 获取 SSL 证书</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> certbot <span class="token parameter variable">--nginx</span> <span class="token parameter variable">-d</span> test1.xinzhiaigc.com <span class="token parameter variable">-d</span> test2.xinzhiaigc.com
+</code></pre></div><h3 id="重新加载-nginx"><a href="#重新加载-nginx" class="header-anchor">#</a> 重新加载 Nginx</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> nginx <span class="token parameter variable">-t</span>
+<span class="token function">sudo</span> systemctl reload nginx
+</code></pre></div><h3 id="配置自动续期"><a href="#配置自动续期" class="header-anchor">#</a> 配置自动续期</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> certbot renew --dry-run
+</code></pre></div><h3 id="nginx-配置软连接"><a href="#nginx-配置软连接" class="header-anchor">#</a> Nginx 配置软连接</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> /etc/nginx/sites-available/shixunPlatform-web /etc/nginx/sites-enabled/
+</code></pre></div><h3 id="nginx-配置示例"><a href="#nginx-配置示例" class="header-anchor">#</a> Nginx 配置示例</h3> <p>编辑 <code>/etc/nginx/sites-available/shixunPlatform-web</code>（注意替换域名、路径等）：</p> <div class="language-nginx extra-class"><pre class="language-nginx"><code><span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server_name</span> test1.xinzhiaigc.com test2.xinzhiaigc.com</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$project_root</span> /home/ubuntu/ShiXunPlatForm-Web</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">client_max_body_size</span> <span class="token number">50M</span></span><span class="token punctuation">;</span>
+
+    <span class="token directive"><span class="token keyword">location</span> /api/</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$host</span> = <span class="token string">&quot;test1.xinzhiaigc.com&quot;</span>)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$target_upstream_static</span> http://127.0.0.1:8000</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$host</span> = <span class="token string">&quot;test2.xinzhiaigc.com&quot;</span>)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$target_upstream_static</span> http://127.0.0.1:3000</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$target_upstream_static</span> = <span class="token string">&quot;&quot;</span>)</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">return</span> <span class="token number">404</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token directive"><span class="token keyword">proxy_pass</span> <span class="token variable">$target_upstream_static</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-Proto <span class="token variable">$scheme</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_connect_timeout</span> <span class="token number">60s</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_send_timeout</span> <span class="token number">60s</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_read_timeout</span> <span class="token number">60s</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">proxy_pass</span> http://127.0.0.1:3000</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> Host <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Real-IP <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">proxy_set_header</span> X-Forwarded-Proto <span class="token variable">$scheme</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token directive"><span class="token keyword">ssl_dhparam</span> /etc/letsencrypt/ssl-dhparams.pem</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$host</span> = test2.xinzhiaigc.com)</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">return</span> <span class="token number">301</span> https://<span class="token variable">$host</span><span class="token variable">$request_uri</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$host</span> = test1.xinzhiaigc.com)</span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">return</span> <span class="token number">301</span> https://<span class="token variable">$host</span><span class="token variable">$request_uri</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token directive"><span class="token keyword">listen</span> <span class="token number">80</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">server_name</span> test1.xinzhiaigc.com test2.xinzhiaigc.com</span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">return</span> <span class="token number">404</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr> <h2 id="_5-端口开放"><a href="#_5-端口开放" class="header-anchor">#</a> 5. 端口开放</h2> <p>确保 3443、3000、3001 端口未被占用：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> ss <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">':3443'</span>
+<span class="token function">sudo</span> ss <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">':3000'</span>
+<span class="token function">sudo</span> ss <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">':3001'</span>
+</code></pre></div><hr> <h2 id="_6-启动服务"><a href="#_6-启动服务" class="header-anchor">#</a> 6. 启动服务</h2> <h3 id="启动-dify"><a href="#启动-dify" class="header-anchor">#</a> 启动 Dify</h3> <p>进入 <code>ShiXunDify/docker</code> 目录：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span> <span class="token parameter variable">--build</span>
+</code></pre></div><p>验证 3000 端口是否监听：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> ss <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">':3000'</span>
+</code></pre></div><h3 id="启动实训平台前端"><a href="#启动实训平台前端" class="header-anchor">#</a> 启动实训平台前端</h3> <p>进入 <code>ShiXunPlatForm-Web</code> 根目录：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> build
+<span class="token assign-left variable">PORT</span><span class="token operator">=</span><span class="token number">3001</span> pm2 start <span class="token function">npm</span> <span class="token parameter variable">--name</span> <span class="token string">&quot;shixun-test&quot;</span> -- run start
+</code></pre></div><p>查看 pm2 状态：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>pm2 list
+</code></pre></div><h3 id="启动实训平台后端"><a href="#启动实训平台后端" class="header-anchor">#</a> 启动实训平台后端</h3> <p>进入 ShiXunPlatform 目录：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">docker-compose</span> up <span class="token parameter variable">--build</span> <span class="token parameter variable">-d</span>
+</code></pre></div><hr> <h2 id="_7-dify-配置要点"><a href="#_7-dify-配置要点" class="header-anchor">#</a> 7. Dify 配置要点</h2> <ul><li><code>.env</code> 文件中的域名、端口、API、密钥需全部根据实际修改，如：<div class="language- extra-class"><pre class="language-text"><code>APP_WEB_URL=https://test2.xinzhiaigc.com
+NGINX_SERVER_NAME=&quot;test1.xinzhiaigc.com test2.xinzhiaigc.com&quot;
+MAIN_SYSTEM_HOST=https://test1.xinzhiaigc.com
+MAIN_SYSTEM_ONLY_HOST=test1.xinzhiaigc.com
+APP_SYSTEM_ONLY_HOST=test2.xinzhiaigc.com
+</code></pre></div></li></ul> <hr> <h2 id="_8-常见问题与排查"><a href="#_8-常见问题与排查" class="header-anchor">#</a> 8. 常见问题与排查</h2> <ul><li><strong>端口冲突</strong>：如端口被占用，需先释放后再启动服务。</li> <li><strong>环境变量漏填</strong>：务必每个 <code>.env</code> 配置项都参考模版仔细填写。</li> <li><strong>域名解析未生效</strong>：必须先完成 DNS 解析再申请证书和配置 nginx。</li> <li><strong>服务未启动或报错</strong>：查看 <code>docker-compose logs</code>、<code>pm2 logs</code>、<code>nginx</code>/<code>certbot</code> 日志排查。</li></ul> <hr> <h2 id="_9-附录"><a href="#_9-附录" class="header-anchor">#</a> 9. 附录</h2> <h3 id="快速命令参考"><a href="#快速命令参考" class="header-anchor">#</a> 快速命令参考</h3> <ul><li><strong>查看端口占用</strong>：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> ss <span class="token parameter variable">-tulnp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">':端口号'</span>
+</code></pre></div></li> <li><strong>重启 nginx</strong>：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> systemctl reload nginx
+</code></pre></div></li> <li><strong>查看 pm2 列表</strong>：<div class="language-bash extra-class"><pre class="language-bash"><code>pm2 list
+</code></pre></div></li> <li><strong>docker-compose 启动</strong>：<div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span> <span class="token parameter variable">--build</span>
+</code></pre></div></li></ul> <hr></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/65.0bc9c8bd.js" defer></script>
+  </body>
+</html>

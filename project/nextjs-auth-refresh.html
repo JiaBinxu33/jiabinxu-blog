@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>基于 Next.js 的双 Token 无感刷新认证系统 - 学习笔记 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.f81cf313.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.bb87b8ff.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.180c3171.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/70.d4fc17a1.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.c3ce1b0a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.3c2a6c83.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.3c49b8de.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.91b5c8e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.ef4b17e3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.23f5619b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.4bb3669d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.664e814e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.21ad7801.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.d4db7480.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.31141967.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.8a3f30d9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.97e9a047.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.78676adc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.3050b4ef.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.cd43fc60.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.f04bcbc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.f5223a9d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.52241c93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.2e981bab.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d58d5448.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.fb28f85b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d10d4810.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.f89661dc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.a2c20bce.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.e39b3fc8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.edabae48.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.8f37da54.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.86e08cd4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.3ff6f6b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.42a528d4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.46dbe14a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.0b72d4b8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.7d892d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.164a4f16.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.5bc0d409.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.82b75b59.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.e959a5f5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.cc983ac3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.ed08971b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.9cbc22ee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.f9457251.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.63e6d8ea.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.51ebfdbe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.2e948603.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.1907287a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.2aca8e9e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.53572a11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.6c8d55a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.7c01df11.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.1df3a578.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.7cbe58bc.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.bf31f66a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.f2feff3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.d36efdc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.824240b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.6e5633db.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.0bc9c8bd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.b03cfd91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.3a221345.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.23192d8d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.e15e8a6b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.942695b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.bdb98294.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.5b17ac84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.3030d7e2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.3329104a.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.c9879746.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.684a4798.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.771dd409.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>基于 Next.js 的双 Token 无感刷新认证系统 - 学习笔记</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#🚀-概述" class="sidebar-link">🚀 概述</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第一部分-后端-api-接口搭建" class="sidebar-link">第一部分：后端 API 接口搭建</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-1-步-用户登录接口-api-auth-login" class="sidebar-link">第 1 步：用户登录接口 (/api/auth/login)</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-2-步-刷新-token-接口-api-auth-refresh" class="sidebar-link">第 2 步：刷新 Token 接口 (/api/auth/refresh)</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-3-步-用户登出接口-api-auth-logout" class="sidebar-link">第 3 步：用户登出接口 (/api/auth/logout)</a></li></ul></li><li><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第二部分-前端认证状态管理-use-client" class="sidebar-link">第二部分：前端认证状态管理 (&quot;use client&quot;)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-4-步-创建认证上下文-authcontext" class="sidebar-link">第 4 步：创建认证上下文 (AuthContext)</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-5-步-封装认证请求-authfetch" class="sidebar-link">第 5 步：封装认证请求 (authFetch)</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-6-步-实现核心的无感刷新逻辑" class="sidebar-link">第 6 步：实现核心的无感刷新逻辑</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-7-步-处理并发请求-防止重复刷新" class="sidebar-link">第 7 步：处理并发请求，防止重复刷新</a></li></ul></li><li><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第三部分-整合与使用" class="sidebar-link">第三部分：整合与使用</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-8-步-全局应用-provider" class="sidebar-link">第 8 步：全局应用 Provider</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/project/nextjs-auth-refresh.html#第-9-步-在组件中使用" class="sidebar-link">第 9 步：在组件中使用</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="基于-next-js-的双-token-无感刷新认证系统-学习笔记"><a href="#基于-next-js-的双-token-无感刷新认证系统-学习笔记" class="header-anchor">#</a> 基于 Next.js 的双 Token 无感刷新认证系统 - 学习笔记</h1> <h2 id="🚀-概述"><a href="#🚀-概述" class="header-anchor">#</a> 🚀 概述</h2> <p>首先token分为两种一种是短期的一种是长期的，为什么要分为两个token呢，就是因为出于安全性考虑，比如说你单token登录，一个token过期时间设置为几天，如果被人获取到了这个token，别人就可以利用这个token登录用户的账号，这个token也不能设置的太短，如果太短的话用户体验就太差了，你去上个厕所回来就要重新登录了</p> <p>再说回双token登录，短期token和长期token，短期token作为真正的token去使用所有的请求头都带上这个token，另外一个长期token作为刷新token，当我们的短期token过期的时候我们通过这个refreshtoken验证是否真正的过期，没有过期就重新签发一个短期token实现无感刷新</p> <p>双Token体系,<strong>两种Token的存储位置和方式完全不同</strong>：短期token可以存在内存中，长期token在服务器中（服务端设置的 HttpOnly Cookie）里，所以前端获取不到这个代码，安全系数高</p> <ul><li><strong>短期 accessToken</strong>：因为它需要被JavaScript频繁读取并添加到请求头中，所以通常存储在<strong>客户端的内存</strong>里（比如React的state或Vuex/Pinia中）。这使得它容易受到XSS攻击，但因为它生命周期极短，被盗后的危害有限。</li> <li><strong>长期 refreshToken</strong>：它的安全性最高。最佳实践是将其存储在由<strong>服务端设置的 HttpOnly Cookie</strong> 中。
+<ul><li><code>HttpOnly</code> 属性意味着前端的JavaScript代码<strong>完全无法读取</strong>到这个Cookie。</li> <li>这样一来，即使网站遭到XSS攻击，攻击者的脚本也偷不走 <code>refreshToken</code>，从而保证了用户长期会话的安全。</li></ul></li></ul> <p>可能遇到的问题：<a href="#%E7%AC%AC-7-%E6%AD%A5-%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E8%AF%B7%E6%B1%82-%E9%98%B2%E6%AD%A2%E9%87%8D%E5%A4%8D%E5%88%B7%E6%96%B0">如果多个请求同时因为 Token 过期而失败，它们会同时触发刷新，造成浪费和冲突。</a></p> <h2 id="第一部分-后端-api-接口搭建"><a href="#第一部分-后端-api-接口搭建" class="header-anchor">#</a> 第一部分：后端 API 接口搭建</h2> <p>我们在 Next.js 的 App Router 中创建三个核心的 API 接口，用于处理认证流程。</p> <h3 id="第-1-步-用户登录接口-api-auth-login"><a href="#第-1-步-用户登录接口-api-auth-login" class="header-anchor">#</a> 第 1 步：用户登录接口 (<code>/api/auth/login</code>)</h3> <p><strong>目的</strong>：验证用户身份，成功后返回 <code>accessToken</code>，同时将 <code>refreshToken</code> 安全地设置在 <code>HttpOnly</code> Cookie 中。</p> <h4 id="_1-1-签发两种-token"><a href="#_1-1-签发两种-token" class="header-anchor">#</a> 1.1 - 签发两种 Token</h4> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/login/route.ts
+import { sign } from 'jsonwebtoken';
+
+// 假设用户验证成功，用户ID为 1
+const userId = 1;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+// 创建 AccessToken (有效期短，例如15分钟)
+const accessToken = sign({ userId }, JWT_SECRET, { expiresIn: '15m' });
+// 创建 RefreshToken (有效期长，例如7天)
+const refreshToken = sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
+</code></pre></div><h4 id="_1-2-将-refreshtoken-序列化为安全的-cookie"><a href="#_1-2-将-refreshtoken-序列化为安全的-cookie" class="header-anchor">#</a> 1.2 - 将 RefreshToken 序列化为安全的 Cookie</h4> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/login/route.ts
+import { serialize } from 'cookie';
+
+const serializedCookie = serialize('refreshToken', refreshToken, {
+    httpOnly: true, // 防止JS读取，防御XSS攻击
+    secure: process.env.NODE_ENV === 'production', // 只在HTTPS下传输
+    sameSite: 'strict', // 严格的同站策略，防御CSRF攻击
+    maxAge: 60 * 60 * 24 * 7, // 7天有效期
+    path: '/',
+});
+</code></pre></div><h4 id="_1-3-组合成完整接口"><a href="#_1-3-组合成完整接口" class="header-anchor">#</a> 1.3 - 组合成完整接口</h4> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/login/route.ts
+import { NextResponse } from 'next/server';
+
+export async function POST(req: Request) {
+    // ... 用户名密码验证逻辑 ...
+    // ... 签发 token 和序列化 cookie 的代码 ...
+    
+    return NextResponse.json(
+        { accessToken }, // 在body中返回accessToken
+        {
+            status: 200,
+            headers: { 'Set-Cookie': serializedCookie }, // 在header中设置cookie
+        }
+    );
+}
+</code></pre></div><blockquote><p>💡 <strong>核心知识点回顾</strong></p> <ul><li><strong>jsonwebtoken</strong>: 这是一个构建和验证“数字身份证”（JWT）的工具。
+<ul><li><code>jwt.sign()</code>: <strong>签发凭证</strong>。它接收用户信息（Payload）、一个绝密的秘钥（Secret Key），生成一个带防伪签名（Signature）的 Token 字符串。这确保了 Token 的内容未经篡改。</li> <li><code>jwt.verify()</code>: <strong>验证凭证</strong>。它使用<strong>同一个秘钥</strong>来检查 Token 的签名是否正确、是否在有效期内。这是实现<strong>无状态认证</strong>的关键，服务器无需存储 Session 信息。</li></ul></li> <li><strong>NextResponse.json()</strong>: 这不是简单的 <code>JSON.stringify()</code>。它是一个<strong>完整的 HTTP 响应构造器</strong>。
+<ul><li>它将 JS 对象转换为 JSON 字符串作为<strong>响应体 (Body)</strong>。</li> <li><strong>自动设置</strong>关键的 <code>Content-Type: application/json</code> <strong>响应头 (Header)</strong>，告知浏览器数据格式。</li> <li>它返回一个功能齐全的 <code>NextResponse</code> 对象，允许你链式地设置状态码、Cookie (<code>Set-Cookie</code>) 和其他自定义 Headers，是构建健壮后端 API 的基石。</li></ul></li></ul></blockquote> <h3 id="第-2-步-刷新-token-接口-api-auth-refresh"><a href="#第-2-步-刷新-token-接口-api-auth-refresh" class="header-anchor">#</a> 第 2 步：刷新 Token 接口 (<code>/api/auth/refresh</code>)</h3> <p><strong>目的</strong>：当 <code>accessToken</code> 过期时，前端调用此接口，验证 <code>refreshToken</code> Cookie，并返回一个新的 <code>accessToken</code>。</p> <h4 id="_2-1-读取并验证-cookie"><a href="#_2-1-读取并验证-cookie" class="header-anchor">#</a> 2.1 - 读取并验证 Cookie</h4> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/refresh/route.ts
+import { cookies } from 'next/headers';
+import { verify } from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+export async function POST(req: Request) {
+    const cookieStore = cookies();
+    const refreshToken = cookieStore.get('refreshToken')?.value;
+
+    if (!refreshToken) {
+        return NextResponse.json({ message: 'RefreshToken 未找到' }, { status: 401 });
+    }
+
+    try {
+        const decoded = verify(refreshToken, JWT_SECRET) as { userId: number };
+        // ... 接 2.2
+    } catch (error) {
+        return NextResponse.json({ message: '会话无效，请重新登录' }, { status: 401 });
+    }
+}
+</code></pre></div><h4 id="_2-2-签发新的-accesstoken"><a href="#_2-2-签发新的-accesstoken" class="header-anchor">#</a> 2.2 - 签发新的 AccessToken</h4> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/refresh/route.ts
+// ... (在 try 块内部)
+// 使用从 refreshToken 解码出的用户信息来创建新的 accessToken
+const accessToken = sign({ userId: decoded.userId }, JWT_SECRET, { expiresIn: '15m' });
+return NextResponse.json({ accessToken });
+</code></pre></div><h3 id="第-3-步-用户登出接口-api-auth-logout"><a href="#第-3-步-用户登出接口-api-auth-logout" class="header-anchor">#</a> 第 3 步：用户登出接口 (<code>/api/auth/logout</code>)</h3> <p><strong>目的</strong>：让 <code>refreshToken</code> Cookie 失效，完成登出。通过返回一个同名、同路径但 <code>maxAge</code> 为负数的 Cookie 实现。</p> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/api/auth/logout/route.ts
+import { NextResponse } from 'next/server';
+import { serialize } from 'cookie';
+
+export async function POST(req: Request) {
+    const serializedCookie = serialize('refreshToken', '', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/',
+        maxAge: -1, // 关键：设置为负数使其立即过期
+    });
+
+    return NextResponse.json(
+        { message: '登出成功' },
+        {
+            status: 200,
+            headers: { 'Set-Cookie': serializedCookie },
+        }
+    );
+}
+</code></pre></div><h2 id="第二部分-前端认证状态管理-use-client"><a href="#第二部分-前端认证状态管理-use-client" class="header-anchor">#</a> 第二部分：前端认证状态管理 (<code>&quot;use client&quot;</code>)</h2> <h3 id="第-4-步-创建认证上下文-authcontext"><a href="#第-4-步-创建认证上下文-authcontext" class="header-anchor">#</a> 第 4 步：创建认证上下文 (AuthContext)</h3> <p><strong>目的</strong>：创建一个全局状态管理器，让应用中任何组件都能方便地获取认证状态和方法。</p> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/contexts/AuthContext.tsx
+&quot;use client&quot;;
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+// ... (接口定义和 Provider/Hook 骨架)
+</code></pre></div><h3 id="第-5-步-封装认证请求-authfetch"><a href="#第-5-步-封装认证请求-authfetch" class="header-anchor">#</a> 第 5 步：封装认证请求 (<code>authFetch</code>)</h3> <p><strong>目的</strong>：创建一个 <code>fetch</code> 的替代品，它能自动为请求添加 <code>Authorization</code> 头，并处理后续的无感刷新。</p> <h3 id="第-6-步-实现核心的无感刷新逻辑"><a href="#第-6-步-实现核心的无感刷新逻辑" class="header-anchor">#</a> 第 6 步：实现核心的无感刷新逻辑</h3> <p>在 <code>authFetch</code> 内部捕获 401 错误，调用刷新 API，获取新的 <code>accessToken</code>，然后用新 Token <strong>重试</strong>刚才失败的请求。</p> <h3 id="第-7-步-处理并发请求-防止重复刷新"><a href="#第-7-步-处理并发请求-防止重复刷新" class="header-anchor">#</a> 第 7 步：处理并发请求，防止重复刷新</h3> <p>问题：如果多个请求同时因为 Token 过期而失败，它们会同时触发刷新，造成浪费和冲突。</p> <p>解决方案：使用一个外部变量作为“锁”，确保同一时间只有一个刷新请求在进行。</p> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/contexts/AuthContext.tsx
+
+// 在 AuthProvider 组件外部定义一个变量
+let refreshTokenPromise: Promise&lt;string | null&gt; | null = null;
+
+// 在 AuthProvider 内部，authFetch 的 401 处理逻辑
+if (response.status === 401) {
+    if (!refreshTokenPromise) {
+        // 如果当前没有正在刷新的请求，则发起一个新的
+        refreshTokenPromise = new Promise(async (resolve, reject) =&gt; {
+            try {
+                // ... (执行刷新Token的API调用) ...
+                const newAccessToken = '...';
+                resolve(newAccessToken);
+            } catch (e) {
+                reject(e);
+            } finally {
+                // 结束后，清空Promise，以便下次可以再次触发
+                refreshTokenPromise = null;
+            }
+        });
+    }
+
+    try {
+        // 等待正在进行的刷新请求完成
+        const newAccessToken = await refreshTokenPromise;
+        // ... (用 newAccessToken 重试请求) ...
+    } catch (e) {
+        // 刷新失败，登出
+    }
+}
+</code></pre></div><blockquote><p>🧠 <strong>深度解析：并发刷新与 Promise 锁模式</strong></p> <p>这是一个极其巧妙的并发控制模式。为什么必须用 <code>Promise</code> 而不是简单的布尔值 <code>isRefreshing</code>？</p> <ul><li><strong>布尔值的缺陷</strong>: 布尔值只能告知“<strong>是否在刷新</strong>”，但它无法提供一个机制让后来的请求<strong>暂停并等待结果</strong>，也无法<strong>传递最终的结果</strong>（新的Token）。简单的 <code>while(isRefreshing)</code> 会阻塞 JavaScript 主线程，导致页面卡死。</li> <li><strong>Promise 的完美 çözüm</strong>：
+<ol><li><strong>状态即是锁</strong>: 一个处于 <code>pending</code> 状态的 Promise 本身就是一个完美的“锁”。</li> <li><strong>await 即是等待</strong>: <code>await</code> 关键字天生就是用来“暂停”当前函数，等待一个 Promise 完成，并且<strong>不会阻塞主线程</strong>。</li> <li><strong>resolve 即是结果传递</strong>: 当 Promise 被 <code>resolve(value)</code> 时，所有 <code>await</code> 这个 Promise 的地方都会被唤醒，并拿到这个 <code>value</code>。</li></ol></li></ul> <blockquote><p>思想升华：发布-订阅模式的精妙应用</p></blockquote> <blockquote><p>这个 Promise 锁模式，本质上是<strong>利用 Promise 的原生特性，实现了一次性的、带记忆功能的发布-订阅模式</strong>。</p></blockquote> <blockquote><ul><li><strong>主题</strong>: <code>refreshTokenPromise</code> 这个 Promise 对象。</li> <li><strong>发布者</strong>: 第一个触发刷新并创建 <code>new Promise</code> 的请求。它通过调用 <code>resolve</code> 或 <code>reject</code> 来“发布”最终结果。</li> <li><strong>订阅者</strong>: 所有后来 <code>await refreshTokenPromise</code> 的请求。它们“订阅”了这个主题，等待最终结果的通知。</li></ul></blockquote> <blockquote><p>这证明了<strong>设计模式是一种思想，而非固定的代码</strong>。通过理解其核心（如解耦），我们可以用各种工具（如 Promise）巧妙地实现它。</p></blockquote></blockquote> <h2 id="第三部分-整合与使用"><a href="#第三部分-整合与使用" class="header-anchor">#</a> 第三部分：整合与使用</h2> <h3 id="第-8-步-全局应用-provider"><a href="#第-8-步-全局应用-provider" class="header-anchor">#</a> 第 8 步：全局应用 Provider</h3> <p>将 <code>AuthProvider</code> 包裹在根布局 <code>layout.tsx</code> 中，使整个应用都能访问到认证状态。</p> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/layout.tsx
+import { AuthProvider } from './contexts/AuthContext';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;html lang=&quot;en&quot;&gt;
+      &lt;body&gt;
+        &lt;AuthProvider&gt;
+          {children}
+        &lt;/AuthProvider&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+
+</code></pre></div><h3 id="第-9-步-在组件中使用"><a href="#第-9-步-在组件中使用" class="header-anchor">#</a> 第 9 步：在组件中使用</h3> <p>在任何客户端组件中，通过 <code>useAuth</code> hook 来获取数据或执行操作。<code>authFetch</code> 会在后台自动处理所有 Token 刷新逻辑，实现真正的“无感刷新”。</p> <div class="language- extra-class"><pre class="language-text"><code>// 文件: /app/dashboard/page.tsx
+&quot;use client&quot;;
+import { useAuth } from &quot;../contexts/AuthContext&quot;;
+import { useEffect } from &quot;react&quot;;
+
+export default function Dashboard() {
+    const { authFetch, logout } = useAuth();
+
+    useEffect(() =&gt; {
+        const loadData = async () =&gt; {
+            try {
+                // 使用我们封装好的 authFetch，它会自动处理认证和刷新
+                const res = await authFetch('/api/some-protected-data');
+                const data = await res.json();
+                console.log(data);
+            } catch (error) {
+                // 刷新失败的错误会在这里被捕获
+                console.error(error);
+            }
+        };
+        loadData();
+    }, [authFetch]);
+
+    return &lt;button onClick={logout}&gt;登出&lt;/button&gt;;
+}
+
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.f81cf313.js" defer></script><script src="/jiabinxu-blog/assets/js/3.bb87b8ff.js" defer></script><script src="/jiabinxu-blog/assets/js/2.180c3171.js" defer></script><script src="/jiabinxu-blog/assets/js/70.d4fc17a1.js" defer></script>
+  </body>
+</html>
