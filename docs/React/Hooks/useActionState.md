@@ -2,7 +2,8 @@
 
 ## 1. useActionState 简介
 
-`useActionState` 是 React 18 引入的一个新的 Hook，主要用于在表单或交互操作中结合异步 Server Actions（如 Next.js 的 server actions）和本地 UI 状态管理。它适用于需要在用户操作后异步处理数据并反馈结果的场景，比如提交表单、批量操作等。
+useActionState 是一个 react19 新加入的 Hooks，允许您根据表单操作的结果更新状态。
+在早期的 React Canary 版本中，此 API 是 React DOM 的一部分，并被调用 useFormState。
 
 - `useActionState` 使得**异步操作的结果和状态管理更加集中和清晰**，尤其适合 Server Components 和结合 Next.js 的 App Router 使用。
 - 其设计类似于 `useReducer`，但专为异步 Server Actions 场景优化。

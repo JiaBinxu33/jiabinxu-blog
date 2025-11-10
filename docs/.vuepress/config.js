@@ -53,6 +53,10 @@ module.exports = {
               { text: "JavaScript", link: "/JavaScript/" },
               { text: "常见面试手写题", link: "/JavaScript/handwriting-code/" },
               {
+                text: "常见面试场景题",
+                link: "/JavaScript/scenario-questions/",
+              },
+              {
                 text: "JavaScript核心对象",
                 link: "/JavaScript/javascript-core-objects/",
               },
@@ -86,6 +90,10 @@ module.exports = {
               {
                 text: "useActionState",
                 link: "/React/Hooks/useActionState/",
+              },
+              {
+                text: "useOptimistic",
+                link: "/React/Hooks/useOptimistic/",
               },
             ],
           },

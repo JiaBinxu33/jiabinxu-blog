@@ -178,15 +178,13 @@ module.exports = (options, context) => ({
 
         lastIndex = endIndex;
 
-        if (sectionText) {
-          documents.push({
-            id: `${page.key}#${header.slug}`,
-            path: `${page.path}#${header.slug}`,
-            pageTitle: pageTitle,
-            headerTitle: header.title, // 标题显示原始的
-            text: sectionText, // 文本显示清理后的
-          });
-        }
+        documents.push({
+          id: `${page.key}#${header.slug}`,
+          path: `${page.path}#${header.slug}`,
+          pageTitle: pageTitle,
+          headerTitle: header.title, // 标题显示原始的
+          text: sectionText, // 文本显示清理后的
+        });
 
         // (v5) 修复连锁反应 (保持不变)
         if (mustBreak) {
