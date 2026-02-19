@@ -1,19 +1,6 @@
-# Ji Binxu's Personal Technical Blog
+# Jia Binxu's Personal Technical Blog
 
 欢迎访问我的个人技术博客，这里记录了我的学习笔记、项目实践和技术思考。
-
----
-
-## ✨ 博客特点
-
-- **前端开发由浅入深**：涵盖 Html、CSS、JavaScript 及主流框架
-- **内容方向**：
-  - 前端工程化实践
-  - 算法与数据结构
-  - 常见面试问题总结
-  - 实战项目与技术笔记
-
----
 
 ## 🌐 在线访问
 

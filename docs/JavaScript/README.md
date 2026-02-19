@@ -882,18 +882,32 @@ git config --global --unset https.proxy
 
 ### 3. 快速开启/关闭 Git 代理（推荐 alias）
 
-为了方便日常切换，可以将开启和关闭代理的操作写成 shell alias：
+为了方便日常切换，可以将开启和关闭代理的操作写成 shell alias，将上述 alias 写入 `~/.bashrc`、`~/.zshrc` 等 shell 配置文件中，重开终端即可生效：
 
-```bash
-# 快速开启 Git 科学上网代理
-alias proxy_on="git config --global http.proxy http://127.0.0.1:7897 && git config --global https.proxy http://127.0.0.1:7897 && echo 'Git proxy has been turned ON.'"
+- 在终端中输入以下命令，使用 nano 文本编辑器打开你的 bash 配置文件：
 
-# 快速关闭 Git 科学上网代理
-alias proxy_off="git config --global --unset http.proxy && git config --global --unset https.proxy && echo 'Git proxy has been turned OFF.'"
-```
+  ```bash
+  nano ~/.bashrc
+  ```
 
-> **提示**：可以将上述 alias 写入 `~/.bashrc`、`~/.zshrc` 等 shell 配置文件中，重开终端即可生效。
->
+- 将代码粘贴进去
+
+  ```bash
+  # 快速开启 Git 科学上网代理
+  alias proxy_on="git config --global http.proxy http://127.0.0.1:7897 && git config --global https.proxy http://127.0.0.1:7897 && echo 'Git proxy has been turned ON.'"
+
+  # 快速关闭 Git 科学上网代理
+  alias proxy_off="git config --global --unset http.proxy && git config --global --unset https.proxy && echo 'Git proxy has been turned OFF.'"
+  ```
+
+- 在 nano 编辑器中，按以下快捷键保存退出：
+
+    按下 Ctrl + O（字母 O，代表 Output），然后按回车键确认保存。
+
+    按下 Ctrl + X 退出编辑器。
+
+- 重启终端
+
 > - 之后只需运行 `proxy_on` 即可开启代理，`proxy_off` 关闭代理。
 
 ---
