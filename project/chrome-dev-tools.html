@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>浏览器调试工具 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.021d97b0.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.b2c4be22.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.32f92df3.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/64.75cf06d3.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.18f24d4d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.f222a23c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.56af1cc9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.255721b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.f3ea0607.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.1b110a27.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.39648d8b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.0ef50842.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.8badbe76.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.a3699f00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.707b5de3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.81e2aad5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.e498e6e1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.efe31014.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.1714b436.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.2c09190f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.0480544c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.9f8d447b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.09cb9fb1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.0605e2ac.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.81c39062.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.1c47a7b0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.5cf4be7b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.25ff7732.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.94856497.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.65f9f974.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.3e53f8e8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.918c1699.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.d1056d91.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.ddc1f692.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.09f92277.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.72b043da.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.80154dcf.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.2cd0f3f1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.96c59fc3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.781806ca.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.c4b8d48c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.ebe059b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.6419fe21.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.bc960d86.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.5ee63c7f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.ab0b6ce5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.49d0dcfb.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.953df241.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.be2c184f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.b3ea28da.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.024fca93.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.6e502b35.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.59837752.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.43df9ef2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.6db3ddaa.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.ea853d0c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.3aeea16d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.7f6b73f4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.75b453a5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.8ba3a3b0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.3edf567f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.e83106d6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.b7932e4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.a169eb3d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.75e706a2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.2b346ea0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.3ee242b9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.67398d70.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.81c730a1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.f8ec9055.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.0056e891.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.3762b0df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.0867c31b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.c0403f9a.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>浏览器调试工具</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#检查元素" class="sidebar-link">检查元素</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#打开" class="sidebar-link">打开</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#打开命令菜单" class="sidebar-link">打开命令菜单</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#查找dom树" class="sidebar-link">查找dom树</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#复制样式" class="sidebar-link">复制样式</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#console面板" class="sidebar-link">console面板</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#断点" class="sidebar-link">断点</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#network" class="sidebar-link">Network</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/chrome-dev-tools.html#application" class="sidebar-link">Application</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="浏览器调试工具"><a href="#浏览器调试工具" class="header-anchor">#</a> 浏览器调试工具</h1> <p><a href="https://www.bilibili.com/video/BV1KM4y1G7EF/?spm_id_from=333.337.search-card.all.click&amp;vd_source=471ae300a01d18a7dc8b121c6c288fd7" target="_blank" rel="noopener noreferrer">【浏览器调试工具精讲】Chrome Dev Tools精讲，前端必看！_哔哩哔哩_bilibili<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="检查元素"><a href="#检查元素" class="header-anchor">#</a> 检查元素</h2> <ul><li>使用选择工具</li> <li>先框选右键检查</li></ul> <h2 id="打开"><a href="#打开" class="header-anchor">#</a> 打开</h2> <p>f12</p> <p>菜单&gt;更多工具&gt;开发者工具</p> <h2 id="打开命令菜单"><a href="#打开命令菜单" class="header-anchor">#</a> 打开命令菜单</h2> <div class="language- extra-class"><pre class="language-text"><code>   ctrl+shift+p
+   command + shift + p
+</code></pre></div><ul><li>主题 switch to dark theme 可以切换调试工具到黑色主题</li> <li><strong>截屏</strong>screenshot  截取的图片会以png的格式下载到电脑上 里面有四个选项
+<ul><li>capture area screenshot</li> <li>capture full size screenshot：可以截取到所有的屏幕外滚动条的内容</li> <li>capture node screenshot：截取一个节点（元素）先选中一个节点 然后截取</li> <li>capture screenshot</li></ul></li></ul> <h2 id="查找dom树"><a href="#查找dom树" class="header-anchor">#</a> 查找dom树</h2> <p>ctrl+f
+查询方式</p> <ul><li>文本查询</li> <li>css选择器</li> <li>Xpath
+eg. //section/p
+// 意思是全局范围内寻找
+找全局范围内的section标签下的p标签</li> <li>在console面板内可以使用 inspect(dom)的方式查找节点</li></ul> <h2 id="复制样式"><a href="#复制样式" class="header-anchor">#</a> 复制样式</h2> <p>选中右键复制样式 在浏览器的element style中粘贴进去
+computed面板 展示所有的style</p> <h2 id="console面板"><a href="#console面板" class="header-anchor">#</a> console面板</h2> <p>快捷键 ctrl+shift+j
+执行语句
+$_返回上一条语句的执行结果
+$0上一个选择的DOM节点
+console.group 层组 用console.groupEnd结尾
+console.time 返回中间代码运行的时间 用console.timeEnd结尾
+console.table参数是数组对象 可以吧数组对象可视化可以排序</p> <h2 id="断点"><a href="#断点" class="header-anchor">#</a> 断点</h2> <p>在代码中加debugger或者在浏览器中直接加
+比console效果好 可以在过程中监听到各个值的变化
+f10下一步
+f8 跳到下一个debugger 没有就结束了
+右键节点 break on 有三个选项</p> <ul><li>subtree modification当节点的子节点被修改时js暂停执行</li> <li>attribute modification 当节点的属性被修改时js暂停执行</li> <li>node removal 当节点被删除时js暂停执行</li></ul> <p>如果debugger的时候用框架写的跳转到了系统文件里面 可以忽略掉该文件</p> <ul><li>在Sources面板下右侧的Call Stack 中找到那个文件
+右键选择add script to ignore list</li></ul> <h2 id="network"><a href="#network" class="header-anchor">#</a> Network</h2> <p>Preserve log 保留历史请求 比如从一个页面跳转到另一个页面的时候 想看之前的请求
+节流器
+disable catch 去掉浏览器的缓存
+HAR file 导入可以模拟网络环境 看到客户当时是什么情况</p> <h2 id="application"><a href="#application" class="header-anchor">#</a> Application</h2> <p>缓存
+Local Storage和Session Storage的区别
+local Storage回永久保存 除非手动删除
+Session Storage关闭会话就删除
+Cookies 可以设置过期时间的缓存</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.021d97b0.js" defer></script><script src="/jiabinxu-blog/assets/js/3.b2c4be22.js" defer></script><script src="/jiabinxu-blog/assets/js/2.32f92df3.js" defer></script><script src="/jiabinxu-blog/assets/js/64.75cf06d3.js" defer></script>
+  </body>
+</html>
