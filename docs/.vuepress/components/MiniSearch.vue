@@ -129,9 +129,9 @@ export default {
       // 1. 定义一个正则表达式来匹配 CJK (中日韩) 字符
       const CJK_REGEX = this.CJK_REGEX;
       const SEPARATOR_REGEX =
-        /[,\.!?();:"'\[\]{}。\uff0c\uff1a\uff08\uff09\u3001\u3002\u300a\u300b\u201c\u201d\u2018\u2019-]/g;
+        /[,\.!?();:"'\[\]{}。\uff0c\uff1a\uff08\uff09\u3001\u3002\u300a\u300b\u201c\u201d\u2018\u2019-]/;
 
-      const WHITESPACE_REGEX = /[\s\r\n]/g;
+      const WHITESPACE_REGEX = /[\s\r\n]/;
 
       const tokenize = (text) => {
         if (!text) return [];
@@ -253,7 +253,7 @@ export default {
       }
     },
 
-    /**
+/**
      * 将搜索结果分组并高亮
      */
     groupAndHighlightResults(results, query) {
