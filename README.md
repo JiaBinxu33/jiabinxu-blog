@@ -60,7 +60,7 @@ npm run dev
 # 打包
 yarn build
 
-# 部署到远程（如有部署脚本）
+# 部署到远程
 yarn deploy
 ```
 
@@ -84,14 +84,7 @@ yarn deploy
 
 ## 🛠️ 配置与常见问题
 
-- 配置文件位于 `docs/.vuepress/config.js`（如使用 VuePress）。
-- 跳转链接写法示例：
-
-  ```
-  [要展示的文字](#链接到的地址)
-  // 在下面要有相对应的地址，方可跳转
-  ### 链接到的地址
-  ```
+- 配置文件位于 `docs/.vuepress/config.js`。
 
 - **切换包管理器时请清理 node_modules 和 lock 文件，避免依赖冲突。**
 

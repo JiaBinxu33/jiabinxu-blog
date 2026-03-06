@@ -128,6 +128,12 @@ module.exports = {
               },
             ],
           },
+           {
+            text: "杂项",
+            items: [
+              { text: "markdown文档规则", link: "/others/markdownRules/" },
+            ],
+          },
           // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",
