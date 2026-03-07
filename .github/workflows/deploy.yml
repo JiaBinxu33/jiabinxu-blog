@@ -25,34 +25,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 4. 构建多语言版本并生成重定向入口
-      - name: Build Multi-language Docs
-        env:
-          REPO_NAME: "jiabinxu-blog" # 你的仓库名
+      # 4. 构建文档
+      - name: Build Docs
         run: |
           mkdir -p .temp_deploy
+          npx vuepress build docs --dest .temp_deploy
           
-          # 构建中文和英文版
-          npx vuepress build docs --dest .temp_deploy/zh --lang zh-CN
-          npx vuepress build docs --dest .temp_deploy/en --lang en-US
-          
-          # 创建语言切换入口
-          cat > .temp_deploy/index.html <<EOF
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta charset="utf-8">
-              <script>
-                const lang = navigator.language.startsWith('zh') ? 'zh' : 'en';
-                window.location.href = \`/\${REPO_NAME}/\${lang}/\`;
-              </script>
-              <noscript>
-                <meta http-equiv="refresh" content="0; url=/\${REPO_NAME}/zh/">
-              </noscript>
-            </head>
-          </html>
-          EOF
-
       # 5. 部署到 blog_pages 分支
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
