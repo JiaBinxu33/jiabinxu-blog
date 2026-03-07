@@ -1,0 +1,63 @@
+name: Auto Deploy Blog
+
+# 触发条件：当代码推送到 master 分支时运行
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 获取源码
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # 根据你的项目修改 Node 版本
+
+      # 3. 安装依赖 (如果是 yarn 请换成 yarn install)
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. 构建多语言版本并生成重定向入口
+      - name: Build Multi-language Docs
+        env:
+          REPO_NAME: "jiabinxu-blog" # 你的仓库名
+        run: |
+          mkdir -p .temp_deploy
+          
+          # 构建中文和英文版
+          npx vuepress build docs --dest .temp_deploy/zh --lang zh-CN
+          npx vuepress build docs --dest .temp_deploy/en --lang en-US
+          
+          # 创建语言切换入口
+          cat > .temp_deploy/index.html <<EOF
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <script>
+                const lang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+                window.location.href = \`/\${REPO_NAME}/\${lang}/\`;
+              </script>
+              <noscript>
+                <meta http-equiv="refresh" content="0; url=/\${REPO_NAME}/zh/">
+              </noscript>
+            </head>
+          </html>
+          EOF
+
+      # 5. 部署到 blog_pages 分支
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .temp_deploy
+          publish_branch: blog_pages # 部署目标分支
+          commit_message: "Deploy: ${{ github.event.head_commit.message }}"
