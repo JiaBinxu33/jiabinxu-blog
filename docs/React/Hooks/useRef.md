@@ -1,6 +1,15 @@
 # useRef
 
-useRef 是一个 React Hook，它能帮助引用一个不需要渲染的值。
+## 作用
+
+1. 保存数据，不受组件重新执行的影响，比如存一个对象到 ref 中，改变了这个 ref 里面的值，重新渲染之后内部的数据是改变过后的值，不受重新渲染的影响。
+2. 获取真实 DOM，由于 react 是虚拟 dom，有时操作虚拟 dom 无满足开发需求，需要操作真实 DOM
+
+   - 需要获取真实 dom 的情况：
+     - 自动聚焦
+     - 音视频 API
+     - 滚动位置控制
+     - 集成第三方非 React 库，你需要通过 useRef 给它们提供一个挂载点，比如引入 ECharts 等
 
 ```jsx
 const ref = useRef(initialValue);

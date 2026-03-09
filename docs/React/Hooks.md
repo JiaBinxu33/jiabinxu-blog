@@ -1,4 +1,4 @@
-# hocks
+# hooks
 
 ## 简介
 
@@ -189,7 +189,7 @@ return (
 ## useContext - 用于优化 Context 中 Consumer 的写法
 
 用于优化 Context 中 Consumer 的写法 Provider 还是要正常写
-这个 hocks 就是可以传入 createContext 的实例 直接获取到结果
+这个 hooks 就是可以传入 createContext 的实例 直接获取到结果
 写法：
 const { Provider 中的 value } = useContext(context2);
 
@@ -212,7 +212,7 @@ useRef 还有一些其他的特性 可以绕过 CaptureValue 的特征
 通过父组件让子组件获得焦点原理
 在父组件里面定义一个 ref 等于 useRef 的返回值 在子组件标签中写 ref= {ref} ，让子组件套上一个 forwardRef 高阶组件然后子组件自己也去定义一个 ref 和父组件的名称一样 给子组件中的元素也加上这个 ref 属性 然后在子组件中使用 useImperativeHandle 函数组件可以接受第二个参数 ref useImperativeHandle 的第一个参数是 ref 第二个参数是 input 标签中的那个 ref 的 current 去改变 ref 的指向 让父组件的子组件标签中的 ref 去指向 input 的 ref
 
-# redux 提供的两个 hocks
+# redux 提供的两个 hooks
 
 ## useSelect 用于获取仓库数据的
 
@@ -234,4 +234,4 @@ useRef 还有一些其他的特性 可以绕过 CaptureValue 的特征
 
     是用来获取路由信息下的 location 对象 也可以用来做跳转
 
-## 自定义 hocks 相当于 vue 中的组合 API 相同的功能放在一个文件里面
+## 自定义 hooks 相当于 vue 中的组合 API 相同的功能放在一个文件里面

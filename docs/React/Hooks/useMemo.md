@@ -1,6 +1,6 @@
 # useMemo
 
-`useMemo` 是 React 提供的一个 Hook，用于在组件多次渲染时缓存某个计算过程的结果。只有依赖项发生变化时，才会重新计算，否则直接复用上一次的结果，从而优化性能、减少不必要的计算。
+`useMemo` 用于在组件多次渲染时缓存某个计算过程的结果。只有依赖项发生变化时，才会重新计算，否则直接复用上一次的结果，从而优化性能、减少不必要的计算。
 
 ---
 
@@ -124,7 +124,7 @@ function ChatRoom({ roomId }) {
       serverUrl: "https://localhost:1234",
       roomId,
     }),
-    [roomId]
+    [roomId],
   );
   useEffect(() => {
     const connection = createConnection(options);
@@ -160,11 +160,11 @@ function ChatRoom({ roomId }) {
 ```js
 const searchOptions = useMemo(
   () => ({ matchMode: "whole-word", text }),
-  [text]
+  [text],
 );
 const visibleItems = useMemo(
   () => searchItems(allItems, searchOptions),
-  [allItems, searchOptions]
+  [allItems, searchOptions],
 );
 ```
 
@@ -194,7 +194,7 @@ const handleSubmit = useCallback(
   (orderDetails) => {
     post("/product/" + productId + "/buy", { referrer, orderDetails });
   },
-  [productId, referrer]
+  [productId, referrer],
 );
 ```
 

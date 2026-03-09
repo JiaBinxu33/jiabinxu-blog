@@ -1,6 +1,6 @@
 # useContext
 
-`useContext` 是 React 提供的一个 Hook，用于在函数组件中直接读取和订阅 context 上下文数据。它极大地方便了组件间深层数据传递，避免了层层 props 传递。
+`useContext` 用于在函数组件中直接读取和订阅 context 上下文数据。它极大地方便了组件间深层数据传递，避免了层层 props 传递。
 
 ---
 
@@ -212,7 +212,7 @@ function MyApp() {
       currentUser,
       login,
     }),
-    [currentUser, login]
+    [currentUser, login],
   );
 
   return (

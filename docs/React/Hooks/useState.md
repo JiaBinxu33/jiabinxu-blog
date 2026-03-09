@@ -1,6 +1,8 @@
 # useState
 
-useState 是一个 React 钩子，可让你将 状态变量 添加到组件中。
+## 作用
+
+- 为组件声明状态变量
 
 ```jsx
 const [state, setState] = useState(initialState);

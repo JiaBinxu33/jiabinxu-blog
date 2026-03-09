@@ -1,6 +1,6 @@
 # useCallback
 
-`useCallback` 是 React 提供的一个 Hook，用于在组件多次渲染时缓存某个函数。只有依赖项发生变化时，才会返回新函数，否则复用上一次的函数引用，常用于性能优化。
+`useCallback` 用于在组件多次渲染时缓存某个函数。只有依赖项发生变化时，才会返回新函数，否则复用上一次的函数引用，常用于性能优化。
 
 ---
 
@@ -26,7 +26,7 @@ function ProductPage({ productId, referrer }) {
         orderDetails,
       });
     },
-    [productId, referrer]
+    [productId, referrer],
   );
   // ...
 }
@@ -84,7 +84,7 @@ function ProductPage({ productId, referrer, theme }) {
     (orderDetails) => {
       post("/product/" + productId + "/buy", { referrer, orderDetails });
     },
-    [productId, referrer]
+    [productId, referrer],
   );
 
   return (
@@ -109,7 +109,7 @@ const handleAddTodo = useCallback(
     const newTodo = { id: nextId++, text };
     setTodos([...todos, newTodo]);
   },
-  [todos]
+  [todos],
 );
 ```
 
@@ -150,7 +150,7 @@ const createOptions = useCallback(
     serverUrl: "https://localhost:1234",
     roomId,
   }),
-  [roomId]
+  [roomId],
 );
 
 useEffect(() => {
@@ -185,7 +185,7 @@ function useRouter() {
     (url) => {
       dispatch({ type: "navigate", url });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const goBack = useCallback(() => {
