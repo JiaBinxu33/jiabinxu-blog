@@ -97,65 +97,66 @@ Promise.race():是一个数组，返回一个新的 promise，第一个完成的
   //添加事件 - on
   //执行事件 - emit
   //删除事件 - remove
-class Ob {
+  class ob {
     constructor() {
-      this.message = []; //记录事件的记事本
+      this.message = {};
     }
-    // 添加事件 - on
-    // type:事件类型  fn:事件处理函数。 type事件类型存在追加，不存在创建。
+    //订阅事件
     on(type, fn) {
+      // 如果不存在事件先初始化一个数组
       if (!this.message[type]) {
-        //不存在创建
-        this.message[type] = [fn];
-      } else {
-        //存在追加
-        this.message[type].push(fn);
+        this.message[type] = [];
       }
+      // 将传入的回调函数推入该事件的数组中
+      this.message[type].push(fn);
     }
-    // 执行事件 - emit
-    emit(type) {
-      if (!this.message[type]) return; //事件类型不存在，退出
+    //发布事件 (emit)
+    emit(type, ...args) {
+      // 防止报错，如果没订阅过这个事件就直接发布的话直接return
+      if (!this.message[type]) return;
+      //args是参数，emit执行该类型里的所有函数，代表发布事件之后所有订阅了该事件的对象接收到了通知
       this.message[type].forEach((item) => {
-        item();
+        item(...args);
       });
     }
-    // 删除事件 - remove - 事件类型，那个事件处理函数
+    //取消订阅
     remove(type, fn) {
-      if (!this.message[type]) return; //事件类型不存在，退出
-      for (let i = 0; i < this.message[type].length; i++) {
-        if (this.message[type][i] == fn) {
-          this.message[type].splice(i, 1); //改变原数组
-          i--;
-        }
+      // 防止报错，防止取消订阅不存在的类型导致报错
+      if (!this.message[type]) return;
+      // 如果没传入函数就删除该类型和该类型里的所有函数
+      if (!fn) {
+        delete this.message[type];
+      } else {
+        this.message[type] = this.message[type].filter((item) => item !== fn);
       }
     }
   }
-
-  function fn1() {
-    console.log("买奔驰");
+  const event = new ob();
+  function fn1(food) {
+    console.log(`买菜1收到通知，需要买：${food}`);
+  }
+  function fn2(food, weight) {
+    console.log(`买菜2收到通知，需要买：${weight}的${food}`);
   }
 
-  function fn2() {
-    console.log("买宝马");
-  }
+  // 订阅事件
+  event.on("买菜", fn1);
+  event.on("买菜", fn2);
+  console.log("event.message", event.message);
+  // 发布事件，并传递数据
+  console.log("--- 第一次发布 ---");
+  event.emit("买菜", "西红柿", "两斤");
+  // 预期输出:
+  // 买菜1收到通知，需要买：西红柿
+  // 买菜2收到通知，需要买：两斤的西红柿
 
-  function fn3() {
-    console.log("买奥迪");
-  }
-
-  function fn4() {
-    console.log("买白菜");
-  }
-  let observer = new Ob();
-  observer.on("买车", fn1); //绑定事件
-  observer.on("买车", fn2);
-  observer.on("买车", fn3);
-  observer.on("cai", fn4);
-
-  observer.remove("买车", fn2); //删除事件
-
-  observer.emit("买车"); //执行事件
-  observer.emit("cai");
+  // 移除 fn1 的订阅
+  event.remove("买菜", fn1);
+  console.log("event.message", event.message);
+  console.log("--- 第二次发布 ---");
+  event.emit("买菜", "土豆", "三斤");
+  // 预期输出（fn1已被移除，只有fn2会执行）:
+  // 买菜2收到通知，需要买：三斤的土豆
 ```
 
 单例模式
@@ -902,9 +903,9 @@ git config --global --unset https.proxy
 
 - 在 nano 编辑器中，按以下快捷键保存退出：
 
-    按下 Ctrl + O（字母 O，代表 Output），然后按回车键确认保存。
+  按下 Ctrl + O（字母 O，代表 Output），然后按回车键确认保存。
 
-    按下 Ctrl + X 退出编辑器。
+  按下 Ctrl + X 退出编辑器。
 
 - 重启终端
 
@@ -947,18 +948,22 @@ git config --global --get https.proxy
 
 垃圾回收方式
 
-- 标记清除 - 现代JavaScript使用的方式
-    - 标记阶段（Marking）： 垃圾回收器从根对象（Window 或 Global）开始，递归遍历所有引用的对象。如果一个对象还能通过某种方式被“找到”，它就是可达的，通过这种方式把所有能找到的标记为“活跃的”。
+- 标记清除 - 现代 JavaScript 使用的方式
 
-    - 清除阶段（Sweeping）： 遍历堆内存，将那些没有被标记的对象视为垃圾并回收其内存。
+  - 标记阶段（Marking）： 垃圾回收器从根对象（Window 或 Global）开始，递归遍历所有引用的对象。如果一个对象还能通过某种方式被“找到”，它就是可达的，通过这种方式把所有能找到的标记为“活跃的”。
 
-    - 优点： 解决了“循环引用”导致内存无法回收的问题。只要对象无法从根部访问，即使它们互相引用，也会被清理。
+  - 清除阶段（Sweeping）： 遍历堆内存，将那些没有被标记的对象视为垃圾并回收其内存。
+
+  - 优点： 解决了“循环引用”导致内存无法回收的问题。只要对象无法从根部访问，即使它们互相引用，也会被清理。
+
 - 引用计数 - 旧方式
+
   - 工作原理：跟踪记录每个值被引用的次数。一旦没有引用，内存就直接释放了。
   - 致命缺陷：
     引用计数无法处理循环引用。比如，对象 A 引用了对象 B，同时对象 B 也引用了对象 A (A.b = B; B.a = A;)。即使这两个对象从程序的其他任何地方都不可达了（比如没有任何根对象能访问到它们），它们的引用计数永远不会变为 0（因为它们互相引用着）。这就导致它们占用的内存永远无法被回收，造成内存泄漏。标记清除算法则可以正确处理这种情况，因为它只关心对象是否从根可达。
 
 - 内存管理
+
   - 什么时候触发垃圾回收？
     - 垃圾回收器周期性运行，如果分配的内存非常多，那么回收工作也会很艰巨，确定垃圾回收时间间隔就变成了一个值得思考的问题。
       - 合理的 GC 方案：(1)、遍历所有可访问的对象; (2)、回收已不可访问的对象。
@@ -967,21 +972,23 @@ git config --global --get https.proxy
 
 - 会产生对象一致可达从而导致[内存泄漏](#内存泄漏是什么-内存泄露造成的原因)的情况：
   1. 闭包
-    闭包的本质是内部函数引用了外部函数的变量。只要内部函数还在，外部函数的变量就永远是“可达”的。
+     闭包的本质是内部函数引用了外部函数的变量。只要内部函数还在，外部函数的变量就永远是“可达”的。
   2. 意外的全局变量
-    在 JavaScript 中，全局对象（如 window）是永远可达的“根”。如果你无意中把对象挂载到了全局，它就永远不会被清理。
-    - 未声明变量： function foo() { bar = "leak"; }（bar 实际上变成了 window.bar）。
-    - 使用 this： 在全局作用域下调用普通函数，this 可能指向 window。
+     在 JavaScript 中，全局对象（如 window）是永远可达的“根”。如果你无意中把对象挂载到了全局，它就永远不会被清理。
+  - 未声明变量： function foo() { bar = "leak"; }（bar 实际上变成了 window.bar）。
+  - 使用 this： 在全局作用域下调用普通函数，this 可能指向 window。
   3. 被遗忘的定时器
-    如果 setInterval 或 setTimeout 里的回调函数引用了某个对象，那么在定时器被清除之前，该对象会一直保持可达。
+     如果 setInterval 或 setTimeout 里的回调函数引用了某个对象，那么在定时器被清除之前，该对象会一直保持可达。
   4. 脱离文档的 DOM 引用 (Detached DOM Nodes)
-    这是一种很隐蔽的情况：你用 JS 变量保存了一个 DOM 节点的引用，后来虽然从页面上删除了这个节点，但因为 JS 变量还指着它，整个 DOM 树片段都无法被回收。
+     这是一种很隐蔽的情况：你用 JS 变量保存了一个 DOM 节点的引用，后来虽然从页面上删除了这个节点，但因为 JS 变量还指着它，整个 DOM 树片段都无法被回收。
   5. 控制台日志 (Console Logs)
-    这是一个有趣的冷知识：在很多浏览器中，为了让你能在控制台查看对象，被 console.log 记录的对象会保持可达。如果你在生产环境下大量打印复杂对象，也可能导致内存占用过高。
+     这是一个有趣的冷知识：在很多浏览器中，为了让你能在控制台查看对象，被 console.log 记录的对象会保持可达。如果你在生产环境下大量打印复杂对象，也可能导致内存占用过高。
+
 ## 深浅拷贝
 
 - 为什么需要深拷贝？
-    - 如果说只是简单的赋值，由于对象之间的引用实际上是地址，只简单的赋值其实就是给对象加了个门 可以通过另一个名字访问，这个对象本身的内容其实没有变，这时候这两个名称都可以访问这个对象，这就会容易产生混乱，因为他们都可以更改这个对象的属性，所以需要深拷贝
+
+  - 如果说只是简单的赋值，由于对象之间的引用实际上是地址，只简单的赋值其实就是给对象加了个门 可以通过另一个名字访问，这个对象本身的内容其实没有变，这时候这两个名称都可以访问这个对象，这就会容易产生混乱，因为他们都可以更改这个对象的属性，所以需要深拷贝
 
 - 浅拷贝,拷贝一级，如果是对象里面还有对象,无法解决
   1. for… in… 循环
@@ -1327,7 +1334,7 @@ p1.sayHello(); // 输出：Hello, I am Alice
     "resize",
     debounce(function () {
       console.log("窗口大小变化");
-    }, 500)
+    }, 500),
   );
   ```
 
@@ -1355,7 +1362,7 @@ p1.sayHello(); // 输出：Hello, I am Alice
     "scroll",
     throttle(function () {
       console.log("页面滚动");
-    }, 200)
+    }, 200),
   );
   ```
 
