@@ -2,16 +2,16 @@
 
 ## 🚀 概述
 
-首先token分为两种一种是短期的一种是长期的，为什么要分为两个token呢，就是因为出于安全性考虑，比如说你单token登录，一个token过期时间设置为几天，如果被人获取到了这个token，别人就可以利用这个token登录用户的账号，这个token也不能设置的太短，如果太短的话用户体验就太差了，你去上个厕所回来就要重新登录了
+首先 token 分为两种一种是短期的一种是长期的，为什么要分为两个 token 呢，就是因为出于安全性考虑，比如说你单 token 登录，一个 token 过期时间设置为几天，如果被人获取到了这个 token，别人就可以利用这个 token 登录用户的账号，这个 token 也不能设置的太短，如果太短的话用户体验就太差了，你去上个厕所回来就要重新登录了
 
-再说回双token登录，短期token和长期token，短期token作为真正的token去使用所有的请求头都带上这个token，另外一个长期token作为刷新token，当我们的短期token过期的时候我们通过这个refreshtoken验证是否真正的过期，没有过期就重新签发一个短期token实现无感刷新
+再说回双 token 登录，短期 token 和长期 token，短期 token 作为真正的 token 去使用所有的请求头都带上这个 token，另外一个长期 token 作为刷新 token，当我们的短期 token 过期的时候我们通过这个 refreshtoken 验证是否真正的过期，没有过期就重新签发一个短期 token 实现无感刷新
 
-双Token体系,**两种Token的存储位置和方式完全不同**：短期token可以存在内存中，长期token在服务器中（服务端设置的 HttpOnly Cookie）里，所以前端获取不到这个代码，安全系数高
+双 Token 体系,**两种 Token 的存储位置和方式完全不同**：短期 token 可以存在内存中，长期 token 在服务器中（服务端设置的 HttpOnly Cookie）里，所以前端获取不到这个代码，安全系数高
 
-- **短期 accessToken**：因为它需要被JavaScript频繁读取并添加到请求头中，所以通常存储在**客户端的内存**里（比如React的state或Vuex/Pinia中）。这使得它容易受到XSS攻击，但因为它生命周期极短，被盗后的危害有限。
+- **短期 accessToken**：因为它需要被 JavaScript 频繁读取并添加到请求头中，所以通常存储在**客户端的内存**里（比如 React 的 state 或 Vuex/Pinia 中）。这使得它容易受到 XSS 攻击，但因为它生命周期极短，被盗后的危害有限。
 - **长期 refreshToken**：它的安全性最高。最佳实践是将其存储在由**服务端设置的 HttpOnly Cookie** 中。
-  - `HttpOnly` 属性意味着前端的JavaScript代码**完全无法读取**到这个Cookie。
-  - 这样一来，即使网站遭到XSS攻击，攻击者的脚本也偷不走 `refreshToken`，从而保证了用户长期会话的安全。
+  - `HttpOnly` 属性意味着前端的 JavaScript 代码**完全无法读取**到这个 Cookie。
+  - 这样一来，即使网站遭到 XSS 攻击，攻击者的脚本也偷不走 `refreshToken`，从而保证了用户长期会话的安全。
 
 可能遇到的问题：[如果多个请求同时因为 Token 过期而失败，它们会同时触发刷新，造成浪费和冲突。](#第-7-步-处理并发请求-防止重复刷新)
 
@@ -63,7 +63,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
     // ... 用户名密码验证逻辑 ...
     // ... 签发 token 和序列化 cookie 的代码 ...
-    
+
     return NextResponse.json(
         { accessToken }, // 在body中返回accessToken
         {
@@ -178,7 +178,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 问题：如果多个请求同时因为 Token 过期而失败，它们会同时触发刷新，造成浪费和冲突。
 
-解决方案：使用一个外部变量作为“锁”，确保同一时间只有一个刷新请求在进行。
+解决方案：使用一个外部变量作为“锁”，确保同一时间只有一个刷新请求在进行，把刷新 Token”这个动作变成一个全员共享的 Promise。
+
+- 当多个请求同时因为过期失败时：第一个失败的请求去真正发请求刷新，并把这个过程存为一个 Promise。其他同时失败的请求过来一看，发现已经有这个 Promise 在运行了，它们就不再发新的请求，而是全部原地 await 等待这同一个 Promise。等这个 Promise 拿到新 Token 结束了，所有等待的请求就直接拿着这个新 Token 各自去重试。
 
 ```
 // 文件: /app/contexts/AuthContext.tsx
@@ -218,7 +220,7 @@ if (response.status === 401) {
 >
 > 这是一个极其巧妙的并发控制模式。为什么必须用 `Promise` 而不是简单的布尔值 `isRefreshing`？
 >
-> - **布尔值的缺陷**: 布尔值只能告知“**是否在刷新**”，但它无法提供一个机制让后来的请求**暂停并等待结果**，也无法**传递最终的结果**（新的Token）。简单的 `while(isRefreshing)` 会阻塞 JavaScript 主线程，导致页面卡死。
+> - **布尔值的缺陷**: 布尔值只能告知“**是否在刷新**”，但它无法提供一个机制让后来的请求**暂停并等待结果**，也无法**传递最终的结果**（新的 Token）。简单的 `while(isRefreshing)` 会阻塞 JavaScript 主线程，导致页面卡死。
 > - **Promise 的完美 çözüm**：
 >   1. **状态即是锁**: 一个处于 `pending` 状态的 Promise 本身就是一个完美的“锁”。
 >   2. **await 即是等待**: `await` 关键字天生就是用来“暂停”当前函数，等待一个 Promise 完成，并且**不会阻塞主线程**。
