@@ -237,7 +237,7 @@ display:flex;
    clear:both;
    }
 
-## 浏览器是如何渲染页面的？
+## 浏览器渲染原理
 
 当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。
 
@@ -366,9 +366,9 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
 
 当对⼀个⽂档进⾏布局的时候，浏览器的渲染引擎会将所有元素表示为⼀个个矩形的盒⼦。CSS 决定这些盒⼦的⼤⼩、位置以及属性（例如颜⾊、背景、边框尺⼨…）通常把怪异盒模型加入到重置样式表中
 
- - 怪异盒模型 width 的宽度是 border + padding + content 的宽度值
- - 盒模型由  width 的宽度是 content（内容）+padding（内边距）+border（边框）组成。
-这两种盒模型所占据的真实空间都是 margin+ width
+- 怪异盒模型 width 的宽度是 border + padding + content 的宽度值
+- 盒模型由 width 的宽度是 content（内容）+padding（内边距）+border（边框）组成。
+  这两种盒模型所占据的真实空间都是 margin+ width
 
 ## BFC
 
@@ -403,12 +403,12 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
 ## 清除图片间隙
 
 - 清除图片左右的间隙
-    - 将图片挨着写（中间没有空格，也没有回车）
-    - 将图片的父元素的 font-size 设置成 0
-    - 给图片设置浮动
+  - 将图片挨着写（中间没有空格，也没有回车）
+  - 将图片的父元素的 font-size 设置成 0
+  - 给图片设置浮动
 - 清除图片的上下间距
-    - 将图片设置成 display: block
-    - 给图片设置 vertical-align: top / middle / bottom
+  - 将图片设置成 display: block
+  - 给图片设置 vertical-align: top / middle / bottom
 
 ## CSS `transform: rotate` 导致的布局问题与通用解决方案
 
