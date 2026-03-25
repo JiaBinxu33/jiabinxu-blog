@@ -162,6 +162,55 @@ Promise.race():是一个数组，返回一个新的 promise，第一个完成的
 单例模式
 单例模式就是一个实例在整个网页的生命周期里只创建一次，后续再调用实例创建函数的时候，返回的仍是之前创建的实例。在实际开发中应用十分广泛，例如页面中的登录框，显示消息的提示窗
 
+## JavaScript 中的数据类型
+
+在 JavaScript 中，我们可以分成两种类型，两种类型的区别是：存储位置不同：
+
+- 基本类型
+  基本数据类型存储在栈中，在栈中存放的是对应的值
+- 复杂类型
+  引用类型的对象存储于堆中，引用类型对应的值存储在堆中，在栈中存放的是指向堆内存的地址
+
+* 基本类型
+
+  - Number
+    数值最常见的整数类型格式则为十进制，还可以设置八进制（零开头）、十六进制（0x 开头）。
+    ```javascript
+    let intNum = 55; // 10进制的55
+    let num1 = 070; // 8进制的56
+    let hexNum1 = 0xa; //16进制的10
+    ```
+    浮点类型则在数值中必须包含小数点，还可通过科学计数法表示。
+    ```javascript
+    let floatNum1 = 1.1;
+    let floatNum2 = 0.1;
+    let floatNum3 = 0.1; // 有效，但不推荐
+    let floatNum = 3.125e7; // 等于31250000
+    ```
+  - String
+  - Boolean
+    通过 Boolean 可以将其他类型的数据转化成布尔值。
+    规则如下：
+    | **数据类型** | **转换为 true 的值** | **转换为 false 的值** |
+    | ------------ | ---------------------- | --------------------- |
+    | String | 非空字符串 | `""` |
+    | Number | 非零数值（包括无穷值） | `0`、`NaN` |
+    | Object | 任意对象 | `null` |
+    | Undefined | N/A（不存在） | `undefined` |
+
+  - Undefined
+    Undefined 类型只有一个值，就是特殊值 undefined。当使用 var 或 let 声明了变量但没有初始化时，就相当于给变量赋予了 undefined 值。
+  - null
+    逻辑上讲，null 值表示一个空对象指针，这也是给 typeof 传一个 null 会返回 "object" 的原因。
+  - symbol
+    Symbol（符号）实例是唯一、不可变的。Symbol 的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险。
+
+* 引用类型
+  复杂类型统称为 Object：
+  - Object
+  - Array
+  - Function
+
 ## Es6 新增了那些语法
 
 1. let 和 const
@@ -293,6 +342,218 @@ Promise.race():是一个数组，返回一个新的 promise，第一个完成的
 - Promise:无法取消 promise。如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。当处于 Pending 状态时，无法得知目前进展到哪一个阶段
 - Generator:Generator 是 es6 提出的另一种异步编程解决方案，需要在函数名之前加一个\*号，函数内部使用 yield 语句。Generaotr 函数会返回一个遍历器，可以进行遍历操作执行每个中断点 yield,不能自动执行异步操作，需要写多个 next()方法.
 - async/await:es2017 引入的异步操作解决方案，可以理解为 Generator 的语法糖，最重要的好处是同步编程风格,async 函数返回一个 Promise。内置执行器，比 Generator 操作更简单。async/await 比\*yield 语义更清晰。返回值是 Promise 对象，可以用 then 指定下一步操作。代码更整洁。可以捕获同步和异步的错误。
+
+- 将 Promise、Generator、async/await 进行比较：
+  - Promise 和 async/await 是专门用于处理异步操作的。
+  - Generator 并不是为异步而设计出来的，它还有其他功能（对象迭代、控制输出、部署 Iterator 接口...）。
+  - Promise 编写代码相比 Generator、async 更为复杂化，且可读性也稍差。
+  - Generator、async 需要与 Promise 对象搭配处理异步情况。
+  - async 实质是 Generator 的语法糖，相当于会自动执行 Generator 函数。
+  - async 使用上更为简洁，将异步代码以同步的形式进行编写，是处理异步编程的最终方案。
+
+## Generator 介绍
+
+Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
+
+回顾一下解决异步的手段：
+
+- 回调函数
+- Promise
+
+既然 Promise 已经是一种比较流行的解决异步方案，那么为什么还出现 Generator？甚至 async/await 呢？该问题我们留在后面再进行分析，下面先认识下 Generator。
+
+- Generator 函数
+  执行 Generator 函数会返回一个遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。形式上，Generator 函数是一个普通函数，但是有两个特征：
+
+  1. `function` 关键字与函数名之间有一个星号。
+  2. 函数体内部使用 `yield` 表达式，定义不同的内部状态。
+
+  ```javascript
+  function* helloWorldGenerator() {
+    yield "hello";
+    yield "world";
+    return "ending";
+  }
+  ```
+
+  ***
+
+#### 使用
+
+Generator 函数会返回一个遍历器对象，即具有 `Symbol.iterator` 属性，并且返回给自己。
+
+```javascript
+function* gen() {
+  // some code
+}
+
+var g = gen();
+
+g[Symbol.iterator]() === g;
+// true
+```
+
+通过 `yield` 关键字可以暂停 generator 函数返回的遍历器对象的状态。
+
+```javascript
+function* helloWorldGenerator() {
+  yield "hello";
+  yield "world";
+  return "ending";
+}
+
+var hw = helloWorldGenerator();
+```
+
+上述存在三个状态：`hello`、`world`、`return`。
+
+通过 `next` 方法才会遍历到下一个内部状态，其运行逻辑如下：
+
+1. 遇到 `yield` 表达式，就暂停执行后面的操作，并将紧跟在 `yield` 后面的那个表达式的值，作为返回的对象的 `value` 属性值。
+2. 下一次调用 `next` 方法时，再继续往下执行，直到遇到下一个 `yield` 表达式。
+3. 如果没有再遇到新的 `yield` 表达式，就一直运行到函数结束，直到 `return` 语句为止，并将 `return` 语句后面的表达式的值，作为返回的对象的 `value` 属性值。
+4. 如果该函数没有 `return` 语句，则返回的对象的 `value` 属性值为 `undefined`。
+
+```javascript
+hw.next();
+// { value: 'hello', done: false }
+
+hw.next();
+// { value: 'world', done: false }
+
+hw.next();
+// { value: 'ending', done: true }
+
+hw.next();
+// { value: undefined, done: true }
+```
+
+- `done` 用来判断是否存在下个状态，`value` 对应状态值。
+- `yield` 表达式本身没有返回值，或者说总是返回 `undefined`。
+- 通过调用 `next` 方法可以带一个参数，该参数就会被当作上一个 `yield` 表达式的返回值。
+
+```javascript
+function* foo(x) {
+  var y = 2 * (yield x + 1);
+  var z = yield y / 3;
+  return x + y + z;
+}
+
+var a = foo(5);
+a.next(); // Object{value:6, done:false}
+a.next(); // Object{value:NaN, done:false}
+a.next(); // Object{value:NaN, done:true}
+
+var b = foo(5);
+b.next(); // { value:6, done:false }
+b.next(12); // { value:8, done:false }
+b.next(13); // { value:42, done:true }
+```
+
+正因为 Generator 函数返回 Iterator 对象，因此我们还可以通过 `for...of` 进行遍历：
+
+```javascript
+function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (let v of foo()) {
+  console.log(v);
+}
+// 1 2 3 4 5
+```
+
+原生对象没有遍历接口，通过 Generator 函数为它加上这个接口，就能使用 `for...of` 进行遍历了：
+
+```javascript
+function* objectEntries(obj) {
+  let propKeys = Reflect.ownKeys(obj);
+
+  for (let propKey of propKeys) {
+    yield [propKey, obj[propKey]];
+  }
+}
+
+let jane = { first: "Jane", last: "Doe" };
+
+for (let [key, value] of objectEntries(jane)) {
+  console.log(`${key}: ${value}`);
+}
+// first: Jane
+// last: Doe
+```
+
+---
+
+- 使用场景
+
+  Generator 是异步解决的一种方案，最大特点则是将异步操作同步化表达出来。
+
+  ```javascript
+  function* loadUI() {
+    showLoadingScreen();
+    yield loadUIDataAsynchronously();
+    hideLoadingScreen();
+  }
+  var loader = loadUI();
+  // 加载UI
+  loader.next();
+
+  // 卸载UI
+  loader.next();
+  ```
+
+  包括 `redux-saga` 中间件也充分利用了 Generator 特性：
+
+  ```javascript
+  import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+  import Api from "...";
+
+  function* fetchUser(action) {
+    try {
+      const user = yield call(Api.fetchUser, action.payload.userId);
+      yield put({ type: "USER_FETCH_SUCCEEDED", user: user });
+    } catch (e) {
+      yield put({ type: "USER_FETCH_FAILED", message: e.message });
+    }
+  }
+
+  function* mySaga() {
+    yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+  }
+
+  function* mySaga() {
+    yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
+  }
+
+  export default mySaga;
+  ```
+
+  还能利用 Generator 函数，在对象上实现 Iterator 接口：
+
+  ```javascript
+  function* iterEntries(obj) {
+    let keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      yield [key, obj[key]];
+    }
+  }
+
+  let myObj = { foo: 3, bar: 7 };
+
+  for (let [key, value] of iterEntries(myObj)) {
+    console.log(key, value);
+  }
+
+  // foo 3
+  // bar 7
+  ```
 
 ## 什么是事件委托 什么是事件冒泡
 
@@ -1851,3 +2112,231 @@ for (const value of arr) {
 - 全量 (Full)： 指对所有目标数据或代码进行一次完整的处理。不管这些数据或代码之前是否被处理过、是否发生过变化，都统一当作新数据重新执行一遍操作。
 
 - 增量 (Incremental)： 指基于上一次操作的状态，只挑出在此之后发生变化（新增、修改、删除）的部分进行处理。
+
+## == 和 === 区别 相等和全等
+
+类型转换：相等操作符（==）会做类型转换，再进行值的比较；全等运算符（===）不会做类型转换。
+
+null 与 undefined 比较：相等操作符（==）为 true，全等（===）为 false。
+
+相等运算符隐藏的类型转换，会带来一些违反直觉的结果：
+
+```JavaScript
+'' == '0'           // false
+0 == ''             // true
+0 == '0'            // true
+
+false == 'false'    // false
+false == '0'        // true
+
+false == undefined  // false
+false == null       // false
+null == undefined   // true
+
+' \t\r\n' == 0      // true
+```
+
+## ajax 的原理以及实现
+
+- ajax 是什么？
+  AJAX 全称(Async Javascript and XML)
+
+即异步的 JavaScript 和 XML，是一种创建交互式网页应用的网页开发技术，可以在不重新加载整个网页的情况下，与服务器交换数据，并且更新部分网页
+
+Ajax 的原理简单来说通过 XmlHttpRequest 对象来向服务器发异步请求，从服务器获得数据，然后用 JavaScript 来操作 DOM 而更新页面
+
+- 实现过程
+
+  - 创建 Ajax 的核心对象 XMLHttpRequest 对象
+    ```js
+    const xhr = new XMLHttpRequest();
+    ```
+  - 通过 XMLHttpRequest 对象的 open() 方法与服务端建立连接
+
+    ```js
+    //method：表示当前的请求方式，常见的有GET、POST
+    // url：服务端地址
+    // async：布尔值，表示是否异步执行操作，默认为true
+    // user: 可选的用户名用于认证用途；默认为`null
+    // password: 可选的密码用于认证用途，默认为`null
+      xhr.open(method, url, [async][, user][, password])
+    ```
+
+  - 构建请求所需的数据内容，并通过 XMLHttpRequest 对象的 send() 方法发送给服务器端
+
+  - 通过 XMLHttpRequest 对象提供的 onreadystatechange 事件监听服务器端你的通信状态
+    只要 readyState 属性值一变化，就会触发一次 readystatechange 事件
+
+    XMLHttpRequest.responseText 属性用于接收服务器端的响应结果
+
+  - 接受并处理服务端向客户端响应的数据结果
+
+  - 将处理结果更新到 HTML 页面中
+
+- 封装 ajax 情求
+
+```JavaScript
+//封装一个ajax请求
+function ajax(options) {
+    //创建XMLHttpRequest对象
+    const xhr = new XMLHttpRequest()
+
+
+    //初始化参数的内容
+    options = options || {}
+    options.type = (options.type || 'GET').toUpperCase()
+    options.dataType = options.dataType || 'json'
+    const params = options.data
+
+    //发送请求
+    if (options.type === 'GET') {
+        xhr.open('GET', options.url + '?' + params, true)
+        xhr.send(null)
+    } else if (options.type === 'POST') {
+        xhr.open('POST', options.url, true)
+        xhr.send(params)
+
+    //接收请求
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            let status = xhr.status
+            if (status >= 200 && status < 300) {
+                options.success && options.success(xhr.responseText, xhr.responseXML)
+            } else {
+                options.fail && options.fail(status)
+            }
+        }
+    }
+}
+```
+
+使用方式如下
+
+```JavaScript
+ajax({
+    type: 'post',
+    dataType: 'json',
+    data: {},
+    url: 'https://xxxx',
+    success: function(text,xml){//请求成功后的回调函数
+        console.log(text)
+    },
+    fail: function(status){////请求失败后的回调函数
+        console.log(status)
+    }
+})
+```
+
+## 单点登录
+
+单点登录（Single Sign On），简称为 SSO，是目前比较流行的企业业务整合的解决方案之一
+
+SSO 的定义是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统
+
+SSO 一般都需要一个独立的认证中心（passport），子系统的登录均得通过 passport，子系统本身将不参与登录操作
+
+当一个系统成功登录以后，passport 将会颁发一个令牌给各个子系统，子系统可以拿着令牌会获取各自的受保护资源，为了减少频繁认证，各个子系统在被 passport 授权以后，会建立一个局部会话，在一定时间内可以无需再次向 passport 发起认证
+
+- 举个例子
+  淘宝、天猫都属于阿里旗下，当用户登录淘宝后，再打开天猫，系统便自动帮用户登录了天猫，这种现象就属于单点登录
+
+- 实现
+
+  - 同域名下的单点登录
+    cookie 的 domain 属性设置为当前域的父域，并且父域的 cookie 会被子域所共享。path 属性默认为 web 应用的上下文路径
+
+    利用 Cookie 的这个特点，没错，我们只需要将 Cookie 的 domain 属性设置为父域的域名（主域名），同时将 Cookie 的 path 属性设置为根路径，将 Session ID（或 Token）保存到父域中。这样所有的子域应用就都可以访问到这个 Cookie
+
+    不过这要求应用系统的域名需建立在一个共同的主域名之下，如 tieba.baidu.com 和 map.baidu.com，它们都建立在 baidu.com 这个主域名之下，那么它们就可以通过这种方式来实现单点登录
+
+  - 不同域名下的单点登录(一)
+    如果是不同域的情况下，Cookie 是不共享的，这里我们可以部署一个认证中心，用于专门处理登录请求的独立的 Web 服务
+
+    用户统一在认证中心进行登录，登录成功后，认证中心记录用户的登录状态，并将 token 写入 Cookie（注意这个 Cookie 是认证中心的，应用系统是访问不到的）
+
+    应用系统检查当前请求有没有 Token，如果没有，说明用户在当前系统中尚未登录，那么就将页面跳转至认证中心
+
+    由于这个操作会将认证中心的 Cookie 自动带过去，因此，认证中心能够根据 Cookie 知道用户是否已经登录过了
+
+    如果认证中心发现用户尚未登录，则返回登录页面，等待用户登录
+
+    如果发现用户已经登录过了，就不会让用户再次登录了，而是会跳转回目标 URL，并在跳转前生成一个 Token，拼接在目标 URL 的后面，回传给目标应用系统
+
+    应用系统拿到 Token 之后，还需要向认证中心确认下 Token 的合法性，防止用户伪造。确认无误后，应用系统记录用户的登录状态，并将 Token 写入 Cookie，然后给本次访问放行。（注意这个 Cookie 是当前应用系统的）当用户再次访问当前应用系统时，就会自动带上这个 Token，应用系统验证 Token 发现用户已登录，于是就不会有认证中心什么事了
+
+    此种实现方式相对复杂，支持跨域，扩展性好，是单点登录的标准做法
+
+  - 不同域名下的单点登录(二)
+    可以选择将 Session ID （或 Token ）保存到浏览器的 LocalStorage 中，让前端在每次向后端发送请求时，主动将 LocalStorage 的数据传递给服务端
+
+    这些都是由前端来控制的，后端需要做的仅仅是在用户登录成功后，将 Session ID（或 Token）放在响应体中传递给前端
+
+    单点登录完全可以在前端实现。前端拿到 Session ID（或 Token ）后，除了将它写入自己的 LocalStorage 中之外，还可以通过特殊手段将它写入多个其他域下的 LocalStorage 中
+
+    关键代码如下：
+
+    ```JavaScript
+    // 获取 token
+    var token = result.data.token;
+
+    // 动态创建一个不可见的iframe，在iframe中加载一个跨域HTML
+    var iframe = document.createElement("iframe");
+    iframe.src = "http://app1.com/localstorage.html";
+    document.body.append(iframe);
+    // 使用postMessage()方法将token传递给iframe
+    setTimeout(function () {
+        iframe.contentWindow.postMessage(token, "http://app1.com");
+    }, 4000);
+    setTimeout(function () {
+        iframe.remove();
+    }, 6000);
+
+    // 在这个iframe所加载的HTML中绑定一个事件监听器，当事件被触发时，把接收到的token数据写入localStorage
+    window.addEventListener('message', function (event) {
+        localStorage.setItem('token', event.data)
+    }, false);
+    ```
+
+    前端通过 iframe+postMessage() 方式，将同一份 Token 写入到了多个域下的 LocalStorage 中，前端每次在向后端发送请求之前，都会主动从 LocalStorage 中读取 Token 并在请求中携带，这样就实现了同一份 Token 被多个域所共享
+
+    此种实现方式完全由前端控制，几乎不需要后端参与，同样支持跨域
+
+- 流程
+
+  - 用户访问系统 1 的受保护资源，系统 1 发现用户未登录，跳转至 sso 认证中心，并将自己的地址作为参数
+
+  - sso 认证中心发现用户未登录，将用户引导至登录页面
+
+  - 用户输入用户名密码提交登录申请
+
+  - sso 认证中心校验用户信息，创建用户与 sso 认证中心之间的会话，称为全局会话，同时创建授权令牌
+
+  - sso 认证中心带着令牌跳转会最初的请求地址（系统 1）
+
+  - 系统 1 拿到令牌，去 sso 认证中心校验令牌是否有效
+
+  - sso 认证中心校验令牌，返回有效，注册系统 1
+
+  - 系统 1 使用该令牌创建与用户的会话，称为局部会话，返回受保护资源
+
+  - 用户访问系统 2 的受保护资源
+
+  - 系统 2 发现用户未登录，跳转至 sso 认证中心，并将自己的地址作为参数
+
+  - sso 认证中心发现用户已登录，跳转回系统 2 的地址，并附上令牌
+
+  - 系统 2 拿到令牌，去 sso 认证中心校验令牌是否有效
+
+  - sso 认证中心校验令牌，返回有效，注册系统 2
+
+  - 系统 2 使用该令牌创建与用户的局部会话，返回受保护资源
+
+  - 用户登录成功之后，会与 sso 认证中心及各个子系统建立会话，用户与 sso 认证中心建立的会话称为全局会话
+
+  - 用户与各个子系统建立的会话称为局部会话，局部会话建立之后，用户访问子系统受保护资源将不再通过 sso 认证中心
+
+- 全局会话与局部会话有如下约束关系：
+
+局部会话存在，全局会话一定存在
+全局会话存在，局部会话不一定存在
+全局会话销毁，局部会话必须销毁
