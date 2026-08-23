@@ -126,9 +126,13 @@ module.exports = {
                 text: "Chrome调试工具",
                 link: "/project/chrome-dev-tools/",
               },
+              {
+                text: "洪的学习笔记(webpack,算法,小程序)",
+                link: "/project/hong/",
+              },
             ],
           },
-           {
+          {
             text: "杂项",
             items: [
               { text: "markdown文档规则", link: "/others/markdownRules/" },

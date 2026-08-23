@@ -359,7 +359,7 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
   sessionStorage 数据在当前浏览器窗口关闭后自动删除。
   cookie 设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭
 - 数据与服务器之间的交互方式
-  cookie 的数据会自动的传递到服务器，服务器端也可以写 cookie 到客户端
+  cookie 的数据会自动的传递到服务器，浏览器每次请求后端都会自动携带，所以登录态、用户验证、token 传统方案全部依赖 Cookie，服务器端也可以写 cookie 到客户端
   sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。
 
 ## Css 盒模型的理解
@@ -375,8 +375,8 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
 - 概念：
   BFC 块状格式化上下文 （block formatting context），是一个独立空间，只有块状元素参与，规定了里面的块状元素如何布局，与外界毫不相干
 
-- 如何触发 BFC 1. 根元素 html 2. float 除了 none 选项之外 3. position : absolute/fixed 4. display: inline-block/table-cell/flex/inline-flex 5. overflow 除了 visible 选项之外
 - BFC 布局规则
+
   1. 内部的块状元素从上往下排列
   2. 垂直方向的距离由 margin 控制
      属于同一个 BFC 的元素，上下 margin 会重叠
@@ -384,6 +384,13 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
   4. BFC 的区域不会和浮动元素相重叠
   5. BFC 区域和外界空间毫不相干
   6. 计算 BFC 元素高度，浮动元素也参与计算
+
+- 如何触发 BFC
+  1. 根元素 html
+  2. float 除了 none 选项之外
+  3. position : absolute/fixed
+  4. display: inline-block/table-cell/flex/inline-flex
+  5. overflow 除了 visible 选项
 - BFC 应用
   1. 两栏布局
   2. 清除 margin 重叠
