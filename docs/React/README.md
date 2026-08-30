@@ -253,42 +253,45 @@ Fiber 架构： 是 “要怎么做”。它是 React 16+ 引入的一套全新�
 
 ## 生命周期
 
-- **初始化阶段**
-  constructor 是一个特殊的函数，当这个类被实例化的时候，自动执行，最先执行，只执行一次
-  初始化 props 和 state
 - **挂载阶段**
-  UNSAFE\_ 前面有这个的就是被废弃了 带 Will 的一般都被废弃了 16.3 版本
-  _UNSAFE_componentWillMount()_
-  _render()_ - return 标签渲染页面
-  _componentDidMount()_
-  数据请求 这里面基本上什么都可以写了
-  只能在 componentDidMount 里面请求数据 由于 fiber 算法的存在 在别的生命周期里每个片都会请求一次数据多次请求
-- **数据更新阶段**
 
-  - _shouldComponentUpdate()_
-    作用：使用 shouldComponentUpdate 就是为了减少 render 不必要的渲染
-    一定要返回一个布尔值
-    里面手动判断页面是否需要渲染
-    shouldComponentUpdate 提供了两个参数 nextProps 和 nextState，表示下一次 props 和一次 state 的值，当函数返回 false 时候，render()方法不执行，组件也就不会渲染，返回 true 时，组件照常重渲染
-    当传递的是一个复杂对象时由于地址不相同所以就没用了
-    解决：
+  - **constructor()**  
+    在组件被实例化时最先且仅执行一次，主要用于初始化 state 和绑定 class 方法的 this 作用域。
 
-  1. 使用 setState 改变数据之前，先采用 es6 中 assgin 进行拷贝，但是 assgin 只深拷贝的数据的第一层，所以说不是最完美的解决办法。
-  2. 使用 JSON.parse(JSON.stringfy())进行深拷贝，但是遇到数据为 undefined 和函数时就会错。
+  - **UNSAFE_componentWillMount()** (已废弃)  
+    在组件即将被挂载到 DOM 之前触发，属于已被废弃的节点，过去常用于同步修改 state 或进行挂载前的轻量初始化。
 
-  - 使用 immutable.js 进行项目的搭建。immutable 中讲究数据的不可变性，每次对数据进行操作前，都会自动的对数据进行深拷贝，项目中数据采用 immutable 的方式，可以轻松解决问题，但是又多了一套 API 去学习
-    immutable.js
-    Immutable Data 就是一旦创建，就不能再被更改的数据。对 Immutable 对象的任何修改或添加删除操作都会返回一个新的 Immutable 对象
-    Immutable 实现的原理是 Persistent Data Structure（持久化数据结构），也就是使用旧数据创建新数据时，要保证旧数据同时可用且不变。同时为了避免 deepCopy 把所有节点都复制一遍带来的性能损耗，Immutable 使用了 Structural Sharing（结构共享），即如果对象树中一个节点发生变化，只修改这个节点和受它影响的父节点，其它节点则进行共享
+  - **render()**  
+    在组件初始化挂载和每次数据（props/state）改变时触发，负责根据当前数据计算并返回需要渲染的 JSX 结构（必须保持纯函数，不能在此发起请求或修改 state）。
 
-  - _UNSAFE_componentWillUpdate() {}_
-  - _componentWillReceiveProps_
-  - _componentWillUpdate()_
-  - _render()_
-  - _componentDidUpdate()_
+  - **componentDidMount()**  
+     发送异步请求、订阅事件、操作 DOM。
 
-- **销毁阶段**
-  _componentWillUnmount_
+- **更新阶段 (Updating)**
+
+  - **UNSAFE_componentWillReceiveProps**(nextProps) (已废弃)  
+    在已挂载组件接收到父组件传递的新 props 时触发，常用于根据属性变化来同步更新当前组件的 state。
+
+  - **_shouldComponentUpdate()_**
+
+    - **作用**：性能优化的核心手段，用于控制组件是否需要重新渲染，减少不必要的 `render`。
+    - **返回值**：必须返回一个布尔值。返回 `true` 组件正常渲染，返回 `false` 则阻止后续的 `render` 及更新。
+    - **不可变数据与对象比对问题**：
+      - 如果直接修改 `state` 中的对象（如 `this.state.obj.a = 1`），新旧 state 指向同一内存地址（`this.state.obj === nextState.obj` 为 `true`），`shouldComponentUpdate` 会误认为数据没变而不触发渲染。
+    - **常见解决方案**：
+      1. **浅拷贝（扩展运算符 `{...obj}` / `Object.assign`）**：生成新的内存地址，让 `shouldComponentUpdate` 能识别到引用变化。缺点是深层嵌套属性仍需手动层层拷贝。
+      2. **深拷贝（如 `JSON.parse(JSON.stringify())`）**：彻底解耦引用，但遇到 `undefined`、函数、`Symbol` 或循环引用时会失效或报错，且深度递归性能较差。
+      3. **Immutable.js**：实现真正的“不可变数据（Immutable Data）”。基于**持久化数据结构**与**结构共享（Structural Sharing）**——当修改数据时，仅复制受影响的父子节点，未修改节点共享内存。既保证了引用的可比性，又极大地减少了深度深拷贝带来的性能损耗（缺点是增加学习成本）。
+
+  - **UNSAFE_componentWillUpdate**(nextProps, nextState) (已废弃)  
+    在 shouldComponentUpdate 返回 true 后、视图重新渲染前触发，用于在更新前做最后的准备工作（严禁在此调用 setState 以免死循环）。
+  - **render()**
+
+  - **componentDidUpdate**(prevProps, prevState)  
+    在组件重新渲染并更新完 DOM 后立即触发，用于处理更新后的 DOM 操作，或对比新旧数据发起二次网络请求。
+
+- **销毁阶段**  
+  **_componentWillUnmount_**  
   清除定时器，断开 websocket，取消事件监听，卸载第三方插件
 
 ## React 组件通信方法
@@ -655,7 +658,7 @@ function Counter() {
 - 受控组件:
   表单数据由组件状态来管理，以 React 状态为唯一数据源，通过 onChange 改变状态，value 展示状态
 - 非受控组件
-  表单交给 react 去控制，React 不维护其状态，仅在需要时通过 ref 直接读取值的组件。
+  表单交给 原生 DOM（浏览器）去控制，React 不维护其状态，仅在需要时通过 ref 直接读取值的组件。
   只有文件上传一定要使用非受控组件，其他时候都尽量使用受控组件
 - 为什么文件上传一定要使用非受控组件？
   1. JavaScript 没有写入权限，防止恶意网站在后台悄悄窃取用户本地的隐私文件，现代浏览器严格规定：文件输入框的值只能由用户手动点击并选择文件来更改，JavaScript 绝对无法通过代码去动态设置或修改它的值。
@@ -673,27 +676,52 @@ function Counter() {
 
 ## hoc 高阶组件
 
-高阶组件是一个函数，这个函数要传入一个组件，并且返回一个新组件
-高阶组件的取名一般用 with 开头，后面加功能
-作用增强组件的功能,并且可以做复用
-传入一个组件 return 一个功能更多的组件
+- 作用：高阶组件是一个函数，这个函数要传入一个组件，并且返回一个新组件
 
-高阶组件-加版权号
+- 形式高阶组件的取名一般用 with 开头，传入一个组件 return 一个功能更多的组件
+
+- 用途：
+
+  - 复用逻辑：HOC 可以帮助我们在组件之间复用逻辑，避免重复代码。在上面的示例中，我们可以将加载状态的逻辑复用在多个组件中，而无需在每个组件中单独实现。
+  - 修改 props：HOC 可以用来修改传递给组件的 props，从而改变组件的行为。例如，我们可以使用 HOC 来根据权限级别显示或隐藏组件的某些部分。
+  - 条件渲染：HOC 可以用来根据特定条件决定是否渲染组件。例如，在上面的示例中，我们根据 isLoading 属性的值来决定是渲染加载指示器还是渲染 WrappedComponent。
+  - 提供额外的功能：HOC 可以用来为组件提供额外的功能，例如错误处理、性能监控或者数据获取。
+
+- 例子
+  高阶组件-通过 props 注入用户信息
 
 ```JSX
-const withCopy = (Comp) => {
-return class extends Component {
-    render() {
-    return (
-            <>
-                {/_ {...this.props}是将接收到的 props 全部传递给子组件 _/}
-                <Comp num={20} {...this.props}></Comp>
-                {/_ <div>&copy;版权所有 贾滨旭 xxx </div> _/}
-            </>
-            );
-        }
-    };
-};
+import React, { useState, useEffect } from "react";
+
+// 定义高阶组件
+function withUser(WrappedComponent) {
+  // 返回一个新的组件
+  return function WithUserComponent(props) {
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+      // 模拟从接口或本地缓存中读取用户数据
+      setTimeout(() => {
+        setUserInfo({
+          name: "Jiabinxu",
+          role: "Admin",
+          uid: "10086"
+        });
+      }, 500);
+    }, []);
+
+    // 数据没拿到之前，展示占位符
+    if (!userInfo) return <div>获取用户数据中...</div>;
+
+    // 核心代码在这里！！！
+    // 1. {...props}：透传外部本来的普通属性
+    // 2. currentUser={userInfo}：隐式注入了全新的属性！
+    return <WrappedComponent {...props} currentUser={userInfo} />;
+  };
+}
+
+export default withUser;
+
 ```
 
 ## diff 算法 React Fiber 虚拟 dom
@@ -715,16 +743,14 @@ return class extends Component {
    2. 对于同一层次的一组子节点，它们可以通过唯一的 id 进行区分
 
 - React Fiber
-  渲染的时候将一个大的进程拆分成小的片 在每个片结束后查看一下其他的进程 然后运行小一点的进程 再去执行下一个片 例子星巴克
-  虚拟 DOM
+  渲染的时候将一个大的进程拆分成小的片 在每个片结束后查看一下其他的进程 然后运行小一点的进程 再去执行下一个片  
   虚拟 dom 相当于在 js 和 真实 dom 中间加了一个缓存，利用 dom diff 算法避免了没有必要的 dom 操作，当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较，记录两棵树差异把所记录的差异渲染再真实 dom 上，从而提高性能。
 
 ## 时间复杂度 空间复杂度
 
-时间复杂度：是指执⾏当前算法所消耗的时间；
-空间复杂度：是指执⾏当前算法需要占⽤多少内存空间
-常⻅的量级有：常数阶 O(1)，对数阶 O(logN)，线性阶 O(n)，线性对数阶 O(nlogN)，平⽅阶 O(n²)，⽴⽅阶 O(n³)，K
-次⽅阶 O(n^k)，指数阶
+时间复杂度：是指执⾏当前算法所消耗的时间；  
+空间复杂度：是指执⾏当前算法需要占⽤多少内存空间  
+常⻅的量级有：常数阶 O(1)，对数阶 O(logN)，线性阶 O(n)，线性对数阶 O(nlogN)，平⽅阶 O(n²)，⽴⽅阶 O(n³)，K 次⽅阶 O(n^k)，指数阶
 
 ## protal 将组件放到页面中任意你想放的位置
 

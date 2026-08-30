@@ -138,6 +138,13 @@ module.exports = {
               { text: "markdown文档规则", link: "/others/markdownRules/" },
             ],
           },
+          {
+            text: "AI相关",
+            items: [
+              { text: "claudeRules", link: "/ai/claudeRules/" },
+              { text: "ai使用心得", link: "/ai/usageExperience/" },
+            ],
+          },
           // { text: "External", link: "https://google.com" },
         ],
         sidebar: "auto",

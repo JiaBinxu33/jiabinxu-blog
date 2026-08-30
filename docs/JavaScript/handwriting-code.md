@@ -84,18 +84,23 @@ const arr = [
   [1, 2],
   [3, [4, 5]],
 ];
-const my_flat = (arr) => {
+
+const fn = (arr) => {
   let res = [];
-  arr.forEach((item) => {
-    if (Array.isArray(item)) {
-      res.push(...my_flat(item));
-    } else {
-      res.push(item);
-    }
-  });
+  function flat(arr) {
+    arr.forEach((element) => {
+      if (Array.isArray(element)) {
+        flat(element);
+      } else {
+        res.push(element);
+      }
+    });
+  }
+  flat(arr);
   return res;
 };
-console.log(my_flat(arr));
+
+console.log(fn(arr));
 ```
 
 ## 常见函数原理
@@ -170,12 +175,47 @@ Function.prototype.myCall = function(context,...args){
 }
 ```
 
-### 实现 PromisealSettled()方法
+### 实现 PromiseallSettled()方法
 
-- 说明：PromisealSettled() 方法返回一个 Promise，该 Promise 在所有给定的 Promise 都已经成功解决(fulfilled) 或拒绝(rejected)之后解决，并返回一个对象数组，每个对象都描述了每个 Promise 的结果。与 Promise 不同的是, Promise.all 一旦遇到错误就会立即拒绝，而 PromisealSettled 则会等待所有 Promise 都结束(无论成功还是失败)
+- 说明：PromiseallSettled() 方法返回一个 Promise，该 Promise 在所有给定的 Promise 都已经成功解决(fulfilled) 或拒绝(rejected)之后解决，并返回一个对象数组，每个对象都描述了每个 Promise 的结果。与 Promise 不同的是, Promise.all 一旦遇到错误就会立即拒绝，而 PromiseallSettled 则会等待所有 Promise 都结束(无论成功还是失败)
 
 ```JavaScript
+function promiseAllSettled(iterable) {
+  // 将可迭代对象转换为数组，若不可迭代会同步抛出 TypeError（与原生行为一致）
+  const input = Array.from(iterable);
+  const len = input.length;
 
+  // 空数组直接返回已解决的空数组
+  if (len === 0) {
+    return Promise.resolve([]);
+  }
+
+  // 用于存放最终结果
+  const results = new Array(len);
+  let completed = 0; // 已完成的 Promise 数量
+
+  return new Promise((resolve) => {
+    input.forEach((item, index) => {
+      // 用 Promise.resolve 包装，兼容非 Promise 值
+      Promise.resolve(item).then(
+        (value) => {
+          results[index] = { status: 'fulfilled', value };
+          completed++;
+          if (completed === len) {
+            resolve(results);
+          }
+        },
+        (reason) => {
+          results[index] = { status: 'rejected', reason };
+          completed++;
+          if (completed === len) {
+            resolve(results);
+          }
+        }
+      );
+    });
+  });
+}
 ```
 
 ### 实现一个简单的 Promise

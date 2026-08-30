@@ -3,22 +3,31 @@
 - 功能
   - 分片，断点续传、暂停/继续/取消、进度条、并发上传、自动重试、断点恢复等
 - 技术栈
-  - 前端：Next.js（App Router）、Ant Design（UI）、TypeScript
+  - 前端：Next.js（App Router）、Ant Design（UI）、TypeScript、spark-md5（哈希计算）
   - 通信：fetch+FormData
   - 后端：Next.js API 路由，Node.js 文件操作
 
 ## 初始实现：基础上传与进度条
 
 - 实现目标
+
   - 完成基础的文件上传功能，为后续扩展打好基础。
   - 提供文件上传入口，上传后能获得文件访问链接。
   - UI 能反馈上传进度（最初用模拟进度）。
+
 - 前端实现
+
   - 使用 Ant Design 的 Upload 组件，触发上传操作。
+
   - 利用 beforeUpload 拦截文件，实现自定义上传逻辑。
+
   - 进度条组件展示上传进度，最初阶段可简单模拟。
+
   - 关键代码片段：
-    ```tsx
+
+    TypeScript
+
+    ```
     <Upload
       showUploadList={false}
       beforeUpload={beforeUpload}
@@ -28,12 +37,20 @@
     </Upload>
     <Progress percent={progress} />
     ```
+
 - 后端实现
+
   - 提供 `/api/upload` POST 接口，支持 multipart/form-data。
+
   - 文件直接保存到 `public/uploads` 目录。
+
   - 返回上传后文件的 URL 供前端展示。
+
   - 关键代码片段（省略部分细节）：
-    ```typescript
+
+    TypeScript
+
+    ```
     export async function POST(req: NextRequest) {
       const formData = await req.formData();
       const file = formData.get("file") as File;
@@ -48,7 +65,9 @@
       return NextResponse.json({ error: "参数不全" }, { status: 400 });
     }
     ```
+
 - 知识点与扩展
+
   - Ant Design 的 Upload 组件自带 UI 体验好，但大文件上传、断点等高级功能需自定义。
   - fetch+FormData 适合现代浏览器环境，便于后续扩展分片上传。
   - 进度条初始实现可直接受控于上传事件，后续可与分片进度结合。
@@ -56,28 +75,41 @@
 ## 分片上传与真实进度
 
 - 目标
+
   - 解决大文件上传问题，防止浏览器内存溢出和网络异常导致的上传失败。
   - 进度条要能真实反映上传进度。
+
 - 实现细节
+
   - 前端将文件按固定大小（如 2MB）切片，每个分片单独上传。
+
   - 分片进度通过“已上传分片数/总分片数”计算，进度条实时反馈。
+
   - 分片上传可采用串行或并发，后续实现并发。
+
   - 关键代码片段：
-    ```typescript
+
+    TypeScript
+
+    ```
     const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
     const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
     const chunk = file.slice(start, end);
     // 分片上传
     const formData = new FormData();
     formData.append("file", chunk);
-    formData.append("fileId", fileId);
+    formData.append("fileId", fileId); // 使用文件真实 MD5
     formData.append("chunkIndex", chunkIndex.toString());
     formData.append("totalChunks", totalChunks.toString());
     ```
+
 - 后端支持
-  - 每个分片单独存储，目录结构为 public/uploads/chunks/${fileId}/${chunkIndex}
+
+  - 每个分片单独存储，目录结构为 public/uploads/chunks/${fileId}/${chunkIndex}\_${eTag}
   - 提供合并接口，前端上传完毕后通知后端合并为完整文件。
+
 - 知识点与扩展
+
   - `File.slice` 支持大文件切割，浏览器兼容性好。
   - 分片上传能显著提升大文件上传的可靠性和容错性。
   - 进度条以分片为单位更真实，便于处理重试/断点等场景。
@@ -85,13 +117,22 @@
 ## 断点续传与分片管理
 
 - 目标
+
   - 支持断点续传，保证上传失败/刷新后可以继续，提升用户体验和资源利用率。
+
 - 实现细节
-  - 上传前先询问后端哪些分片已上传，避免重复上传。
+
+  - 上传前先询问后端哪些分片已上传（及其对应的 ETag），避免重复上传。
+
   - 上传进度实时保存到 localStorage，刷新后可恢复状态。
-  - 上传完成后，前端发起合并请求，后端负责合并分片并清理临时目录。
+
+  - 上传完成后，前端发起合并请求，需携带分片和 ETag 信息，后端负责合并分片并清理临时目录。
+
   - 关键代码片段：
-    ```typescript
+
+    TypeScript
+
+    ```
     // 查询已上传分片
     async function getUploadedChunks(fileId: string) { ... }
     // 保存断点到 localStorage
@@ -101,33 +142,46 @@
         fileName: file.name,
         fileSize: file.size,
         totalChunks,
-        uploadedChunks: Array.from(finishedSet),
+        uploadedChunks: parts, // 保存 [{ chunkIndex, eTag }] 的数组
       })
     );
     ```
-  - 后端 GET `/api/upload?fileId=...` 返回已上传分片索引数组，POST 支持单分片上传。
+
+  - 后端 GET `/api/upload?fileId=...` 返回已上传分片及其 ETag 数组，POST 支持单分片上传并返回该分片的 MD5 作为 ETag。
+
 - 知识点与扩展
+
   - 利用 localStorage 记录断点，前端可随时恢复上传状态。
   - 分片上传与断点续传方案配合能极大提高大文件上传的可用性。
-  - 分片索引同步保证前后端一致，防止分片丢失。
+  - 分片索引与 ETag 校验同步保证前后端一致，防止分片损坏或丢失。
 
 ## 暂停、继续、取消与并发上传
 
 - 目标
+
   - 支持用户在上传过程中随时暂停、继续或取消，提升灵活性。
   - 支持多个分片并发上传，提高带宽利用率和上传速度。
   - 分片上传失败可自动重试，增强健壮性。
+
 - 实现细节
 
   - 每个分片上传都配备独立的 AbortController，便于单独中断。
+
   - 暂停操作：调用 controller.abort() 终止所有正在上传的分片，暂停新分片上传。
+
   - 继续操作：检测断点信息，恢复未完成分片上传。
+
   - 取消操作：清理本地 localStorage 和后端临时分片，重置 UI 状态。
+
   - 控制最大并发数（如 3），通过 activeCount 计数器控制上传队列。
+
   - 分片失败自动重试最多 3 次，防止临时网络波动导致整体失败。
+
   - 关键代码片段：
 
-    ```typescript
+    TypeScript
+
+    ```
     // 暂停
     setPaused(true);
     pausedRef.current = true;
@@ -142,6 +196,7 @@
     ```
 
 - 知识点与扩展
+
   - AbortController 能精准控制 fetch 请求，适合中断分片上传。
   - 并发上传要平衡速度与资源占用，避免过高并发带来带宽/服务器压力。
   - 自动重试机制是应对分片级别短暂失败的最佳实践。
@@ -149,13 +204,22 @@
 ## 断点恢复与刷新恢复
 
 - 目标
+
   - 页面刷新后能自动检测未完成的上传任务，并提示用户继续上传。
+
 - 实现细节
+
   - localStorage 记录每个上传任务的 fileId、fileName、fileSize、已上传分片索引等信息。
+
   - 页面加载时检测 localStorage，若存在断点信息则展示断点恢复 UI，要求用户选择同名同大小文件继续上传。
+
   - 恢复上传时校验文件名、大小是否一致，防止上传错误文件。
+
   - 关键代码片段：
-    ```typescript
+
+    TypeScript
+
+    ```
     function detectPendingResume() {
       if (typeof window === "undefined") return null;
       // 遍历 localStorage 查找断点
@@ -169,7 +233,10 @@
       return null;
     }
     ```
-    ```tsx
+
+    TypeScript
+
+    ```
     {
       pendingResume && !uploading && !paused && (
         <div>
@@ -182,7 +249,9 @@
       );
     }
     ```
+
 - 知识点与扩展
+
   - localStorage 断点检测需 SSR 兼容，避免 window 未定义报错。
   - 文件名、大小的严格校验，防止断点恢复时上传非原文件。
   - UI 友好提示，提升用户体验。
@@ -190,15 +259,22 @@
 ## 代码结构优化与关注点分离
 
 - 目标
+
   - 提升代码可维护性和可扩展性，便于团队协作和后期优化。
+
 - 实现细节
 
   - 工具函数、分片上传核心、断点检测、UI 渲染等分区明确。
+
   - 组件内部只关注 UI 和状态管理，逻辑和工具函数外置。
+
   - 变量命名清晰，添加关键注释，降低后续维护成本。
+
   - 关键结构示例：
 
-    ```typescript
+    TypeScript
+
+    ```
     // ========== 工具函数 ==========
     // getFileId, getUploadedChunks, mergeChunks ...
 
@@ -213,26 +289,38 @@
     ```
 
 - 知识点与扩展
+
   - 关注点分离（Separation of Concerns）是可扩展项目的基础。
   - 工具函数、核心逻辑与 UI 完全解耦，方便单元测试和多人协作。
 
 ## fetch 方案统一与体验细节
 
 - 目标
+
   - 所有分片上传统一用 fetch，便于前端统一管理和后续扩展。
+
 - 实现细节
+
   - 使用 fetch+FormData 进行分片上传，统一所有上传请求格式。
+
   - 进度条以“分片数量进度”模拟，兼容 fetch 的进度不可控问题。
+
   - 保留自动重试、断点续传等所有功能。
+
   - 关键代码片段：
-    ```typescript
+
+    TypeScript
+
+    ```
     const res = await fetch("/api/upload", {
       method: "POST",
       body: formData,
       signal: controller.signal,
     });
     ```
+
 - 知识点与扩展
+
   - fetch API 现代浏览器支持好，适合数据流式传输。
   - 进度条用分片进度模拟，实际体验与 xhr 基于事件的进度类似。
   - fetch 信号机制适合实现暂停/取消。
@@ -240,83 +328,141 @@
 ## 常见问题与最终优化
 
 - localStorage is not defined
+
   - SSR 阶段 window 不存在，需用 typeof window !== 'undefined' 判断，避免首屏报错。
+
   - 代码示例：
-    ```typescript
+
+    TypeScript
+
+    ```
     if (typeof window === "undefined") return null;
     ```
+
 - Hydration failed
+
   - localStorage 检查逻辑放到 useEffect，pendingResume 初始为 null，解决 SSR/CSR 不一致导致的 React Hydration 报错。
+
 - 断点假提示
+
   - 上传成功后同步清理 localStorage 和 UI 状态，避免断点“假提示”误导用户。
+
 - 其他体验细节
+
   - 进度条下方增加暂停说明提示。
   - 断点提示区域直观显示文件名、大小。
   - 使用 messageApi 消息防堆叠，防止多次弹窗影响体验。
+
 - 知识点与扩展
+
   - SSR/CSR 兼容是 Next.js 项目常见难点，需特别注意状态的初始化时机。
   - 状态与 UI 一致性管理，用户体验优化细节。
 
 ## 最终版代码的核心知识点
 
 - 分片切割与唯一标识
-  - 利用 fileName+fileSize 生成唯一 fileId，保证断点和分片管理准确。
-    ```typescript
-    function getFileId(file: File) {
-      return `${file.name}-${file.size}`;
+
+  - 引入 `spark-md5` 利用文件内容的 MD5 摘要生成唯一 fileId，保证断点、分片管理准确，防篡改并支持秒传扩展。
+
+    TypeScript
+
+    ```
+    async function getFileId(file: File): Promise<string> {
+      // 采用抽样切片读取计算，防止大文件卡死浏览器
+      // ... 详见完整代码示例
     }
     ```
+
 - 分片并发上传与自动重试
+
   - 见 concurrentUploadChunks、uploadChunkWithRetry，实现并发和失败重试。
+
 - 断点检测与 localStorage 管理
+
   - 见 detectPendingResume 和分片进度本地持久化。
+
 - 状态流转：暂停/继续/取消/放弃断点
+
   - handlePause、handleResume、handleCancel、handleAbandonResume 各自负责一类状态转换，避免混乱。
+
 - 合并分片与后端协作
-  - 前端上传完毕后调用合并接口，后端合并分片生成最终文件。
-    ```typescript
+
+  - 前端上传完毕后调用合并接口，**提交所有分片的 chunkIndex 和 eTag (MD5) 列表**，后端校验无误后合并分片生成最终文件。
+
+    TypeScript
+
+    ```
     async function mergeChunks(
       fileId: string,
       fileName: string,
-      totalChunks: number
+      parts: { chunkIndex: number; eTag: string }[]
     ) {
       await fetch("/api/upload/merge", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fileId, fileName, totalChunks }),
+        body: JSON.stringify({ fileId, fileName, parts }),
       });
     }
     ```
+
 - SSR/CSR 兼容与 hydration 问题规避
+
   - 所有 window/localStorage 操作均在 useEffect 和客户端执行，保证一致性。
+
 - 关注点分离与代码结构优化
+
   - 工具函数、分片上传核心、断点检测、UI 渲染完全独立，便于维护和扩展。
 
 ## 完整代码示例
 
-```TSX
+代码段
+
+```
 //src\app\(upload)\UpLoadFile
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Upload, Button, Progress, Modal } from "antd";
-import { message } from "antd";
+import { Upload, Button, Progress, Modal, message } from "antd";
 import {
   UploadOutlined,
   PauseOutlined,
   PlayCircleOutlined,
 } from "@ant-design/icons";
+import SparkMD5 from "spark-md5"; // 需 npm install spark-md5
 
 // ========== 常量 ==========
 const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
 const MAX_CONCURRENT = 3;
 
 // ========== 工具函数 ==========
-function getFileId(file: File) {
-  return `${file.name}-${file.size}`;
+async function getFileId(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const chunks = Math.ceil(file.size / CHUNK_SIZE);
+    let currentChunk = 0;
+    const spark = new SparkMD5.ArrayBuffer();
+    const fileReader = new FileReader();
+
+    fileReader.onload = (e) => {
+      spark.append(e.target?.result as ArrayBuffer);
+      currentChunk++;
+      if (currentChunk < chunks) {
+        loadNext();
+      } else {
+        resolve(spark.end());
+      }
+    };
+    fileReader.onerror = reject;
+
+    function loadNext() {
+      const start = currentChunk * CHUNK_SIZE;
+      const end = Math.min(start + CHUNK_SIZE, file.size);
+      fileReader.readAsArrayBuffer(file.slice(start, end));
+    }
+    loadNext();
+  });
 }
 
-async function getUploadedChunks(fileId: string) {
+async function getUploadedChunks(fileId: string): Promise<{ chunkIndex: number; eTag: string }[]> {
   const res = await fetch(`/api/upload?fileId=${encodeURIComponent(fileId)}`);
   if (!res.ok) return [];
   const data = await res.json();
@@ -326,12 +472,12 @@ async function getUploadedChunks(fileId: string) {
 async function mergeChunks(
   fileId: string,
   fileName: string,
-  totalChunks: number
+  parts: { chunkIndex: number; eTag: string }[]
 ) {
   const res = await fetch("/api/upload/merge", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fileId, fileName, totalChunks }),
+    body: JSON.stringify({ fileId, fileName, parts }),
   });
   if (!res.ok) throw new Error("合并失败");
   return await res.json();
@@ -342,14 +488,16 @@ async function concurrentUploadChunks(
   file: File,
   fileId: string,
   totalChunks: number,
-  uploadedChunks: number[],
+  uploadedChunks: { chunkIndex: number; eTag: string }[],
   onProgress: (percent: number) => void,
   pausedRef: { current: boolean },
   canceledRef: { current: boolean },
   uploadTasksRef: React.RefObject<{ [key: number]: AbortController }>
-): Promise<void> {
+): Promise<{ chunkIndex: number; eTag: string }[]> {
   let nextChunk = 0;
-  const finishedSet = new Set<number>(uploadedChunks);
+  const finishedMap = new Map<number, string>(
+    uploadedChunks.map((c) => [c.chunkIndex, c.eTag])
+  );
   let progressArr = Array(totalChunks).fill(0);
 
   function saveProgress() {
@@ -359,27 +507,33 @@ async function concurrentUploadChunks(
         fileName: file.name,
         fileSize: file.size,
         totalChunks,
-        uploadedChunks: Array.from(finishedSet),
+        uploadedChunks: Array.from(finishedMap.entries()).map(
+          ([chunkIndex, eTag]) => ({ chunkIndex, eTag })
+        ),
       })
     );
   }
 
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<{ chunkIndex: number; eTag: string }[]>((resolve, reject) => {
     let activeCount = 0;
     let error: any = null;
 
     function uploadNext() {
       if (canceledRef.current || pausedRef.current || error) return;
-      if (finishedSet.size === totalChunks) {
+      if (finishedMap.size === totalChunks) {
         saveProgress();
         onProgress(100);
-        resolve();
+        // 返回排好序的分片摘要数据供合并使用
+        const parts = Array.from(finishedMap.entries())
+          .map(([chunkIndex, eTag]) => ({ chunkIndex, eTag }))
+          .sort((a, b) => a.chunkIndex - b.chunkIndex);
+        resolve(parts);
         return;
       }
       while (activeCount < MAX_CONCURRENT && nextChunk < totalChunks) {
-        if (finishedSet.has(nextChunk)) {
+        if (finishedMap.has(nextChunk)) {
           progressArr[nextChunk] = 100;
-          onProgress(Math.round((finishedSet.size / totalChunks) * 100));
+          onProgress(Math.round((finishedMap.size / totalChunks) * 100));
           nextChunk++;
           continue;
         }
@@ -396,17 +550,17 @@ async function concurrentUploadChunks(
           (percent: number) => {
             progressArr[chunkIndex] = percent;
             const totalPercent = Math.round(
-              (finishedSet.size / totalChunks) * 100
+              (finishedMap.size / totalChunks) * 100
             );
             onProgress(totalPercent);
           }
         )
-          .then(() => {
+          .then((eTag: string) => {
             delete uploadTasksRef.current[chunkIndex];
             progressArr[chunkIndex] = 100;
-            finishedSet.add(chunkIndex);
+            finishedMap.set(chunkIndex, eTag);
             saveProgress();
-            onProgress(Math.round((finishedSet.size / totalChunks) * 100));
+            onProgress(Math.round((finishedMap.size / totalChunks) * 100));
             activeCount--;
             uploadNext();
           })
@@ -429,8 +583,8 @@ function uploadChunkWithRetry(
   controller: AbortController,
   onChunkProgress: (percent: number) => void,
   retry = 0
-): Promise<void> {
-  return new Promise<void>(async (resolve, reject) => {
+): Promise<string> {
+  return new Promise<string>(async (resolve, reject) => {
     const start = chunkIndex * CHUNK_SIZE;
     const end = Math.min(file.size, start + CHUNK_SIZE);
     const chunk = file.slice(start, end);
@@ -449,22 +603,15 @@ function uploadChunkWithRetry(
         signal: controller.signal,
       });
       if (res.ok) {
+        const data = await res.json();
         onChunkProgress(100);
-        resolve();
+        resolve(data.eTag);
       } else {
         if (retry < 3) {
           setTimeout(() => {
             uploadChunkWithRetry(
-              file,
-              chunkIndex,
-              fileId,
-              totalChunks,
-              controller,
-              onChunkProgress,
-              retry + 1
-            )
-              .then(resolve)
-              .catch(reject);
+              file, chunkIndex, fileId, totalChunks, controller, onChunkProgress, retry + 1
+            ).then(resolve).catch(reject);
           }, 500);
         } else {
           reject(new Error(`分片${chunkIndex}上传失败`));
@@ -476,16 +623,8 @@ function uploadChunkWithRetry(
       } else if (retry < 3) {
         setTimeout(() => {
           uploadChunkWithRetry(
-            file,
-            chunkIndex,
-            fileId,
-            totalChunks,
-            controller,
-            onChunkProgress,
-            retry + 1
-          )
-            .then(resolve)
-            .catch(reject);
+            file, chunkIndex, fileId, totalChunks, controller, onChunkProgress, retry + 1
+          ).then(resolve).catch(reject);
         }, 500);
       } else {
         reject(new Error(`分片${chunkIndex}上传失败`));
@@ -624,7 +763,7 @@ export default function UpLoadFile() {
     canceledRef.current = false;
     setCurrentFile(file);
 
-    const fileId = getFileId(file);
+    const fileId = await getFileId(file);
     const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
 
     uploadContext.current = { file, fileId, totalChunks, nextChunk: 0 };
@@ -648,7 +787,7 @@ export default function UpLoadFile() {
     }
 
     try {
-      await concurrentUploadChunks(
+      const parts = await concurrentUploadChunks(
         file,
         fileId,
         totalChunks,
@@ -659,7 +798,7 @@ export default function UpLoadFile() {
         uploadTasksRef
       );
       // 合并
-      const res = await mergeChunks(fileId, file.name, totalChunks);
+      const res = await mergeChunks(fileId, file.name, parts);
       setFileUrl(res.url);
       setFileType(file.type);
       setCurrentFile(null);
@@ -692,7 +831,7 @@ export default function UpLoadFile() {
     pausedRef.current = false;
     canceledRef.current = false;
 
-    const { file, fileId, totalChunks, nextChunk } = uploadContext.current;
+    const { file, fileId, totalChunks } = uploadContext.current;
     let uploadedChunks = [];
     const saved = localStorage.getItem(`upload_${fileId}`);
     if (saved) {
@@ -711,7 +850,7 @@ export default function UpLoadFile() {
     }
 
     try {
-      await concurrentUploadChunks(
+      const parts = await concurrentUploadChunks(
         file,
         fileId,
         totalChunks,
@@ -722,7 +861,7 @@ export default function UpLoadFile() {
         uploadTasksRef
       );
       // 合并
-      const res = await mergeChunks(fileId, file.name, totalChunks);
+      const res = await mergeChunks(fileId, file.name, parts);
       setFileUrl(res.url);
       setFileType(file.type);
       setCurrentFile(null);
@@ -836,15 +975,17 @@ export default function UpLoadFile() {
     </div>
   );
 }
-
 ```
 
-```TS
+代码段
+
+```
 // src\app\api\upload\route.ts
 
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import crypto from "crypto";
 
 // 分片临时存储目录
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads", "chunks");
@@ -854,19 +995,14 @@ async function ensureDir(dir: string) {
   await fs.mkdir(dir, { recursive: true });
 }
 
-// 工具：获取分片文件路径
-function getChunkPath(fileId: string, chunkIndex: string) {
-  return path.join(UPLOAD_DIR, fileId, chunkIndex);
+// 工具：获取分片文件路径（包含 eTag 方便后续验证）
+function getChunkPath(fileId: string, chunkInfo: string) {
+  return path.join(UPLOAD_DIR, fileId, chunkInfo);
 }
 
 // 工具：获取分片目录
 function getChunkDir(fileId: string) {
   return path.join(UPLOAD_DIR, fileId);
-}
-
-// 工具：获取最终文件路径
-function getFinalFilePath(fileName: string) {
-  return path.join(process.cwd(), "public", "uploads", fileName);
 }
 
 // GET: 查询已上传分片
@@ -879,8 +1015,18 @@ export async function GET(req: NextRequest) {
   const chunkDir = getChunkDir(fileId);
   try {
     const files = await fs.readdir(chunkDir);
-    // 返回已上传分片的索引数组
-    const uploadedChunks = files.map((name) => Number(name)).filter((n) => !isNaN(n));
+    // 解析带有 MD5 eTag 的分片文件名 chunkIndex_eTag
+    const uploadedChunks = files
+      .map((name) => {
+        const [indexStr, eTag] = name.split("_");
+        const chunkIndex = Number(indexStr);
+        if (!isNaN(chunkIndex) && eTag) {
+          return { chunkIndex, eTag };
+        }
+        return null;
+      })
+      .filter(Boolean);
+
     return NextResponse.json({ uploadedChunks });
   } catch {
     return NextResponse.json({ uploadedChunks: [] });
@@ -914,12 +1060,17 @@ export async function POST(req: NextRequest) {
   // 分片上传
   const chunkDir = getChunkDir(fileId);
   await ensureDir(chunkDir);
-  const chunkPath = getChunkPath(fileId, chunkIndex);
+
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
+
+  // 服务端计算分片 MD5 并作为 ETag 返回
+  const eTag = crypto.createHash('md5').update(buffer).digest('hex');
+  const chunkPath = getChunkPath(fileId, `${chunkIndex}_${eTag}`);
+
   await fs.writeFile(chunkPath, buffer);
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, eTag });
 }
 
 // DELETE: 删除分片目录
@@ -937,10 +1088,11 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: "删除失败" }, { status: 500 });
   }
 }
-
 ```
 
-```TS
+代码段
+
+```
 // src\app\api\upload\merge\route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
@@ -956,9 +1108,10 @@ function getFinalFilePath(fileName: string) {
 }
 
 export async function POST(req: NextRequest) {
-  const { fileId, fileName, totalChunks } = await req.json();
+  // 修改为接收前端传递的完整性验证列表 parts: [{chunkIndex, eTag}]
+  const { fileId, fileName, parts } = await req.json();
 
-  if (!fileId || !fileName || !totalChunks) {
+  if (!fileId || !fileName || !parts || !Array.isArray(parts)) {
     return NextResponse.json({ error: "参数不全" }, { status: 400 });
   }
 
@@ -966,13 +1119,20 @@ export async function POST(req: NextRequest) {
   const finalPath = getFinalFilePath(fileName);
 
   try {
-    // 合并所有分片
     const writeStream = await fs.open(finalPath, "w");
-    for (let i = 0; i < totalChunks; i++) {
-      const chunkPath = path.join(chunkDir, String(i));
-      const data = await fs.readFile(chunkPath);
-      await writeStream.write(data);
+
+    // 合并所有分片，强制依靠前端传入的 eTag 进行定位读取，顺带完成了完整性二次确认
+    for (const part of parts) {
+      const chunkPath = path.join(chunkDir, `${part.chunkIndex}_${part.eTag}`);
+      try {
+        const data = await fs.readFile(chunkPath);
+        await writeStream.write(data);
+      } catch (err) {
+        await writeStream.close();
+        return NextResponse.json({ error: `分片 ${part.chunkIndex} 校验失败或数据丢失` }, { status: 400 });
+      }
     }
+
     await writeStream.close();
 
     // 删除分片目录
@@ -984,5 +1144,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "合并失败" }, { status: 500 });
   }
 }
-
 ```
+
+12
