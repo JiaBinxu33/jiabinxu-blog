@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "vuepress dev docs --temp .temp",
     "build": "vuepress build docs --no-cache",
-   "deploy": "yarn build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git push -f git@jia-github:JiaBinxu33/jiabinxu-blog.git master:blog_pages"
+    "deploy": "yarn build && cd docs/.vuepress/dist && git init && git add -A && git commit -m 'Deploy' && git -c core.sshCommand=\"ssh -i ~/.ssh/id_ed25519_jiabinxu -o IdentitiesOnly=yes -p 443\" push -f ssh://git@ssh.github.com/JiaBinxu33/jiabinxu-blog.git master:blog_pages"
   },
   "dependencies": {
     "minisearch": "^7.2.0",
