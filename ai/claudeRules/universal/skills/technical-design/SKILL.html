@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术方案设计 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="Use when requirements are clarified but implementation approach is unclear, need to break down complex features before coding, or must create technical specifications for team collaboration">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.d81c5f05.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.b2c4be22.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.32f92df3.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/85.d15c5ed0.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.18f24d4d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/100.640ede1d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/101.fce35451.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/102.3c7b2426.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/103.9e5470fd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/104.0f1324a4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/105.da6b0b32.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/106.42623203.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/107.15e9b6ac.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/108.e3c864df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/109.2a5c8cb3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/110.a3e4f661.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/111.ae809737.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/112.b35c422c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/113.61e8b6d1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/114.5a6b440c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/115.1b3f4a0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/116.87080bd6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/117.056b264f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/118.748bcebe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.bb1e7d80.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.56af1cc9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.255721b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.f3ea0607.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.1b110a27.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.39648d8b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.0ef50842.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.8badbe76.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.a3699f00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.5b1aabee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.81e2aad5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.e498e6e1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.efe31014.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.1714b436.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.2c09190f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.0480544c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.74a54dd8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.ecf7ce3e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.8d9226f0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d1a9e49f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.7f73f4fa.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d9b8ce4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.007f5113.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.8ecebf95.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.d2d1baa4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.15cff58d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.694051ed.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.f7e13c8e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.ddc1f692.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.84b955d0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.ffb4cf64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.21fd83f4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.485bb23d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.9c0ecf22.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.36fa9061.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.9866de5d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.9276f9f6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.6e6516d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.c1de0c0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.619edfc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.d06af4e0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.4bfce429.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.bf6176b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.b8ad4b8c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.90cd6855.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.b893ca00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.8320c1a8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.1f2f3eb9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.03f834c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.cfc76f4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.ea853d0c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.083e40f1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.85b873a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.25ea02e7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.cb21a249.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.386c2c9c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.797f97b4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.0c3ee44b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.c36c6e79.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.8fbb8f41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.c443ec0b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.2b346ea0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.83017983.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.030b1076.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.21a4a7b6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.645e2197.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.1abd2d41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/75.1881e672.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/76.f6c69f21.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/77.ab56a3ec.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/78.05db1106.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/79.14173bf2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.3762b0df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/80.2844eadd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/81.b606547f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/82.8d3747d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/83.9a51c557.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/84.bb79b392.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/86.081915cd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/87.60df60e5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/88.96590f84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/89.e8765f99.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.0867c31b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/90.fcac1ef9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/91.237627d5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/92.75533b63.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/93.075f47c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/94.60ea1833.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/95.3e5795c6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/96.a359979e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/97.07c1a80b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/98.0b2e516f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/99.a7810584.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.c0403f9a.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link router-link-active">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link router-link-active">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>技术方案设计</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#概述" class="sidebar-link">概述</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#术语定义" class="sidebar-link">术语定义</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#设计流程" class="sidebar-link">设计流程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#_1-创建模板文件" class="sidebar-link">1. 创建模板文件</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#_2-代码仓库分析和初步设计" class="sidebar-link">2. 代码仓库分析和初步设计</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#_3-逐个功能点协作设计" class="sidebar-link">3. 逐个功能点协作设计</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#_4-整体方案整合" class="sidebar-link">4. 整体方案整合</a></li></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#核心原则" class="sidebar-link">核心原则</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#交付物" class="sidebar-link">交付物</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#方案完成展示" class="sidebar-link">方案完成展示</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#方案提交" class="sidebar-link">方案提交</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/SKILL.html#执行交接" class="sidebar-link">执行交接</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="技术方案设计"><a href="#技术方案设计" class="header-anchor">#</a> 技术方案设计</h1> <h2 id="概述"><a href="#概述" class="header-anchor">#</a> 概述</h2> <p>基于明确的需求和代码仓库分析，通过协作式设计创建技术实施方案。</p> <p><strong>Announce at start:</strong> &quot;我正在使用 wmb-technical-design skill 来协助你创建技术方案&amp;实施文档，现在我要先帮你创建文档&quot;</p> <p><strong>Save to:</strong> <code>docs/design/YYYY-MM-DD-&lt;需求名称&gt;/TECHNICAL_SPEC.md</code></p> <h2 id="术语定义"><a href="#术语定义" class="header-anchor">#</a> 术语定义</h2> <table><thead><tr><th>术语</th> <th>定义</th> <th>对应产物</th></tr></thead> <tbody><tr><td><strong>功能点</strong></td> <td>产品维度的独立模块，能独立向用户交付价值</td> <td>一个 <code>feature/xxx.md</code> 文件</td></tr> <tr><td><strong>任务</strong></td> <td>功能点内的实现步骤</td> <td>feature 文件中的&quot;任务 1&quot;、&quot;任务 2&quot;...</td></tr></tbody></table> <p><strong>从 DRAFT.md 接收功能点时</strong>：</p> <ul><li>验证每个功能点是否符合&quot;独立交付价值&quot;标准</li> <li>如发现 DRAFT 中的&quot;功能点&quot;实际是同一模块的不同方面，应合并处理</li> <li>合并后的功能点对应一个 feature 文件，原来的&quot;功能点&quot;变为该文件中的任务</li></ul> <h2 id="设计流程"><a href="#设计流程" class="header-anchor">#</a> 设计流程</h2> <h3 id="_1-创建模板文件"><a href="#_1-创建模板文件" class="header-anchor">#</a> 1. 创建模板文件</h3> <ul><li>确认需求来源：询问是否有 DRAFT_SPEC.md 或其他需求文档</li> <li><strong>必须使用</strong><code>cp</code>命令复制 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/assets/TECHNICAL_SPEC_template.html">TECHNICAL_SPEC_template.md</a> 模板<strong>创建主文档并进行写入，严格按照文档格式填充</strong></li> <li>创建文档目录结构</li></ul> <h3 id="_2-代码仓库分析和初步设计"><a href="#_2-代码仓库分析和初步设计" class="header-anchor">#</a> 2. 代码仓库分析和初步设计</h3> <ul><li>必须先完成第一步创建模板，才可以进行仓库分析</li> <li><strong>For Claude Code:</strong> 使用find命令协助你检索，项目中若存在 <code>.claude/rules</code> 文件夹，遵循里面的规则</li> <li><strong>必须</strong>使用 subAgent 探索现有代码结构和技术栈</li> <li>分析每个功能点与现有系统的关系</li> <li>形成功能点实施的大概思路</li> <li>绘制整体架构图和数据流时序图</li></ul> <h3 id="_3-逐个功能点协作设计"><a href="#_3-逐个功能点协作设计" class="header-anchor">#</a> 3. 逐个功能点协作设计</h3> <p><strong>执行约束</strong>（必须严格遵守）：</p> <ul><li><strong>禁止批量确认</strong>：不得一次性列出多个功能点的技术决策问题</li> <li><strong>禁止跳过确认</strong>：未获得用户确认前，不得进入下一个功能点</li> <li><strong>单点推进</strong>：完成功能点N的全部流程后，才能开始功能点N+1</li></ul> <p><strong>针对每个功能点，严格按以下顺序执行</strong>：</p> <ol><li><p><strong>创建子文档</strong>：<strong>必须使用</strong><code>cp</code>命令 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/assets/feature_template.html">feature_template.md</a> 创建功能子文档</p></li> <li><p><strong>代码分析</strong>：分析现有代码，形成初步方案思路</p></li> <li><p><strong>展示方案概要</strong>：向用户展示该功能点的大致实现方案（让用户有整体把握）</p> <ul><li>实现位置（在哪个文件/方法中修改）</li> <li>核心修改内容</li> <li>大致实现思路</li></ul></li> <li><p><strong>【强制停止】逐个确认技术决策</strong>：</p> <ul><li>如有需要确认的技术决策，<strong>一次只问一个问题</strong></li> <li>发送消息后<strong>等待用户回复</strong>，确认后再问下一个问题</li> <li>决策点包括：参数定义、边界情况处理、与现有代码的关系等</li> <li>遵循 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/technical-design/references/quest_guide.html">quest_guide</a> 的提问格式</li> <li>直到所有决策点确认完毕</li></ul></li> <li><p><strong>编写文档</strong>：用户确认后再编写文档，遵循 DRY, YAGNI 原则，文档是给下一位同事看的，他只能看懂当前的格式，改了之后系统会异常，如果某环节没有备注无即可，不要删除章节</p> <ul><li>直到你有95%的信心理解某个功能点后，编写文档</li> <li>不要一次性完成编写，可以分段写，严格按照文档格式填充</li> <li><strong>Skill 优先</strong>：如果功能点可用现有 skill 实现，直接引用 skill 名称，不要重复编写实现细节
+<ul><li>正确：<code>使用 wmb-xxx skill 完成此功能点</code></li> <li>错误：把 skill 的步骤复制/改写到文档中</li></ul></li></ul></li> <li><p><strong>更新主文档</strong>：更新主文档概要后，进入下一个功能点</p></li></ol> <h3 id="_4-整体方案整合"><a href="#_4-整体方案整合" class="header-anchor">#</a> 4. 整体方案整合</h3> <ul><li>仔细阅读所有功能点文档</li> <li>检查功能点间的依赖关系和文件冲突</li> <li>识别和解决潜在冲突（命名冲突、架构不一致、实施顺序依赖）</li> <li>验证技术选型和架构模式的一致性</li> <li>优化整体架构和实施顺序</li> <li>最终整合提交完整技术方案</li></ul> <h2 id="核心原则"><a href="#核心原则" class="header-anchor">#</a> 核心原则</h2> <ul><li><strong>一次一问，逐点推进</strong>: 一次只处理一个功能点、一个问题，不要批量提问压倒用户</li> <li><strong>先展示后确认</strong>: 先给出功能点的整体方案概要，让用户有全局把握，再逐个确认细节</li> <li><strong>Skill 优先</strong>: 功能点能用 skill 实现就直接引用，不要重复编写 skill 已有的内容</li> <li><strong>精确路径</strong>: 明确具体的文件路径和命令</li> <li><strong>DRY, YAGNI</strong>: 方案保持简洁，避免重复和过度设计</li> <li><strong>绝对复制</strong>: 模板创建场景<strong>只能使用</strong> <code>cp</code> 命令，不可直接编写</li> <li><strong>分步编写</strong>：渐进式编写文档，不要一次性完成</li></ul> <h2 id="交付物"><a href="#交付物" class="header-anchor">#</a> 交付物</h2> <p><strong>主文档</strong>: <code>docs/design/YYYY-MM-DD-&lt;功能名称&gt;/TECHNICAL_SPEC.md</code> <strong>功能点子文档</strong>: <code>docs/design/YYYY-MM-DD-&lt;功能名称&gt;/feature/[功能点名称].md</code></p> <h2 id="方案完成展示"><a href="#方案完成展示" class="header-anchor">#</a> 方案完成展示</h2> <p>在提供执行选项前，<strong>必须在对话中展示技术方案摘要</strong>，让用户无需打开文件即可 review：</p> <div class="language-markdown extra-class"><pre class="language-markdown"><code><span class="token title important"><span class="token punctuation">##</span> 技术方案摘要</span>
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">功能点1: [名称]</span><span class="token punctuation">**</span></span>
+<span class="token list punctuation">-</span> 实现位置: <span class="token code-snippet code keyword">`具体文件路径`</span>
+<span class="token list punctuation">-</span> 核心修改: [一句话描述做什么]
+<span class="token list punctuation">-</span> 关键决策: [技术选型/处理方式]
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">功能点2: [名称]</span><span class="token punctuation">**</span></span>
+<span class="token list punctuation">-</span> 实现位置: <span class="token code-snippet code keyword">`具体文件路径`</span>
+<span class="token list punctuation">-</span> 核心修改: [一句话描述]
+<span class="token list punctuation">-</span> 关键决策: [技术选型/处理方式]
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">实施顺序</span><span class="token punctuation">**</span></span>: 功能点1 → 功能点2 → ...
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">涉及文件汇总</span><span class="token punctuation">**</span></span>:
+<span class="token list punctuation">-</span> <span class="token code-snippet code keyword">`path/to/file1.ts`</span> - [修改内容]
+<span class="token list punctuation">-</span> <span class="token code-snippet code keyword">`path/to/file2.ts`</span> - [修改内容]
+</code></pre></div><p>用户确认方案无误后，提交技术方案文档。</p> <hr> <h2 id="方案提交"><a href="#方案提交" class="header-anchor">#</a> 方案提交</h2> <p>用户确认方案摘要后，<strong>立即提交技术方案文档到 git</strong>：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> <span class="token function">add</span> docs/design/YYYY-MM-DD-<span class="token operator">&lt;</span>功能名称<span class="token operator">&gt;</span>/
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">&quot;docs: &lt;功能名称&gt;技术方案设计&quot;</span>
+</code></pre></div><hr> <h2 id="执行交接"><a href="#执行交接" class="header-anchor">#</a> 执行交接</h2> <p>用户确认方案摘要后，询问是否开始执行：</p> <p><strong>&quot;技术方案已保存到 <code>docs/design/YYYY-MM-DD-&lt;功能名称&gt;/TECHNICAL_SPEC.md</code>。准备好开始实施了吗？&quot;</strong></p> <p><strong>如果用户确认开始：</strong></p> <ul><li><strong>必须使用子技能:</strong> wmb-subagent-driven-development-每个任务分派独立子代理，任务间人工审核，快速迭代</li> <li>在当前会话继续</li> <li>每个功能点使用独立 subagent</li> <li>双重审查（规范符合 + 代码质量）</li> <li>如果当前是在 <strong>CatPaw</strong> 的执行环境中，则要求用户确保已启用「设置-chat-任务子代理」</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.d81c5f05.js" defer></script><script src="/jiabinxu-blog/assets/js/3.b2c4be22.js" defer></script><script src="/jiabinxu-blog/assets/js/2.32f92df3.js" defer></script><script src="/jiabinxu-blog/assets/js/85.d15c5ed0.js" defer></script>
+  </body>
+</html>

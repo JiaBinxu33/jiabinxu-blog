@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>前端大文件上传 | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="前端开发知识体系">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.d81c5f05.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.b2c4be22.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.32f92df3.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/108.e3c864df.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.18f24d4d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/100.640ede1d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/101.fce35451.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/102.3c7b2426.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/103.9e5470fd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/104.0f1324a4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/105.da6b0b32.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/106.42623203.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/107.15e9b6ac.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/109.2a5c8cb3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/110.a3e4f661.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/111.ae809737.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/112.b35c422c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/113.61e8b6d1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/114.5a6b440c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/115.1b3f4a0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/116.87080bd6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/117.056b264f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/118.748bcebe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.bb1e7d80.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.56af1cc9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.255721b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.f3ea0607.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.1b110a27.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.39648d8b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.0ef50842.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.8badbe76.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.a3699f00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.5b1aabee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.81e2aad5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.e498e6e1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.efe31014.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.1714b436.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.2c09190f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.0480544c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.74a54dd8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.ecf7ce3e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.8d9226f0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d1a9e49f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.7f73f4fa.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d9b8ce4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.007f5113.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.8ecebf95.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.d2d1baa4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.15cff58d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.694051ed.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.f7e13c8e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.ddc1f692.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.84b955d0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.ffb4cf64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.21fd83f4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.485bb23d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.9c0ecf22.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.36fa9061.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.9866de5d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.9276f9f6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.6e6516d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.c1de0c0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.619edfc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.d06af4e0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.4bfce429.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.bf6176b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.b8ad4b8c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.90cd6855.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.b893ca00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.8320c1a8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.1f2f3eb9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.03f834c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.cfc76f4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.ea853d0c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.083e40f1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.85b873a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.25ea02e7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.cb21a249.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.386c2c9c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.797f97b4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.0c3ee44b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.c36c6e79.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.8fbb8f41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.c443ec0b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.2b346ea0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.83017983.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.030b1076.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.21a4a7b6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.645e2197.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.1abd2d41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/75.1881e672.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/76.f6c69f21.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/77.ab56a3ec.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/78.05db1106.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/79.14173bf2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.3762b0df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/80.2844eadd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/81.b606547f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/82.8d3747d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/83.9a51c557.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/84.bb79b392.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/85.d15c5ed0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/86.081915cd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/87.60df60e5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/88.96590f84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/89.e8765f99.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.0867c31b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/90.fcac1ef9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/91.237627d5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/92.75533b63.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/93.075f47c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/94.60ea1833.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/95.3e5795c6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/96.a359979e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/97.07c1a80b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/98.0b2e516f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/99.a7810584.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.c0403f9a.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>前端大文件上传</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/project/fileUpload.html#初始实现-基础上传与进度条" class="sidebar-link">初始实现：基础上传与进度条</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#分片上传与真实进度" class="sidebar-link">分片上传与真实进度</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#断点续传与分片管理" class="sidebar-link">断点续传与分片管理</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#暂停、继续、取消与并发上传" class="sidebar-link">暂停、继续、取消与并发上传</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#断点恢复与刷新恢复" class="sidebar-link">断点恢复与刷新恢复</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#代码结构优化与关注点分离" class="sidebar-link">代码结构优化与关注点分离</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#fetch-方案统一与体验细节" class="sidebar-link">fetch 方案统一与体验细节</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#常见问题与最终优化" class="sidebar-link">常见问题与最终优化</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#最终版代码的核心知识点" class="sidebar-link">最终版代码的核心知识点</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/project/fileUpload.html#完整代码示例" class="sidebar-link">完整代码示例</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="前端大文件上传"><a href="#前端大文件上传" class="header-anchor">#</a> 前端大文件上传</h1> <ul><li>功能
+<ul><li>分片，断点续传、暂停/继续/取消、进度条、并发上传、自动重试、断点恢复等</li></ul></li> <li>技术栈
+<ul><li>前端：Next.js（App Router）、Ant Design（UI）、TypeScript、spark-md5（哈希计算）</li> <li>通信：fetch+FormData</li> <li>后端：Next.js API 路由，Node.js 文件操作</li></ul></li></ul> <h2 id="初始实现-基础上传与进度条"><a href="#初始实现-基础上传与进度条" class="header-anchor">#</a> 初始实现：基础上传与进度条</h2> <ul><li><p>实现目标</p> <ul><li>完成基础的文件上传功能，为后续扩展打好基础。</li> <li>提供文件上传入口，上传后能获得文件访问链接。</li> <li>UI 能反馈上传进度（最初用模拟进度）。</li></ul></li> <li><p>前端实现</p> <ul><li><p>使用 Ant Design 的 Upload 组件，触发上传操作。</p></li> <li><p>利用 beforeUpload 拦截文件，实现自定义上传逻辑。</p></li> <li><p>进度条组件展示上传进度，最初阶段可简单模拟。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;Upload
+  showUploadList={false}
+  beforeUpload={beforeUpload}
+  maxCount={1}
+&gt;
+  &lt;Button icon={&lt;UploadOutlined /&gt;}&gt;上传文件&lt;/Button&gt;
+&lt;/Upload&gt;
+&lt;Progress percent={progress} /&gt;
+</code></pre></div></li></ul></li> <li><p>后端实现</p> <ul><li><p>提供 <code>/api/upload</code> POST 接口，支持 multipart/form-data。</p></li> <li><p>文件直接保存到 <code>public/uploads</code> 目录。</p></li> <li><p>返回上传后文件的 URL 供前端展示。</p></li> <li><p>关键代码片段（省略部分细节）：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>export async function POST(req: NextRequest) {
+  const formData = await req.formData();
+  const file = formData.get(&quot;file&quot;) as File;
+  const fileName = formData.get(&quot;fileName&quot;) as string;
+  if (file &amp;&amp; fileName) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    await fs.writeFile(filePath, buffer);
+    const fileUrl = `/uploads/${fileName}`;
+    return NextResponse.json({ url: fileUrl });
+  }
+  return NextResponse.json({ error: &quot;参数不全&quot; }, { status: 400 });
+}
+</code></pre></div></li></ul></li> <li><p>知识点与扩展</p> <ul><li>Ant Design 的 Upload 组件自带 UI 体验好，但大文件上传、断点等高级功能需自定义。</li> <li>fetch+FormData 适合现代浏览器环境，便于后续扩展分片上传。</li> <li>进度条初始实现可直接受控于上传事件，后续可与分片进度结合。</li></ul></li></ul> <h2 id="分片上传与真实进度"><a href="#分片上传与真实进度" class="header-anchor">#</a> 分片上传与真实进度</h2> <ul><li><p>目标</p> <ul><li>解决大文件上传问题，防止浏览器内存溢出和网络异常导致的上传失败。</li> <li>进度条要能真实反映上传进度。</li></ul></li> <li><p>实现细节</p> <ul><li><p>前端将文件按固定大小（如 2MB）切片，每个分片单独上传。</p></li> <li><p>分片进度通过“已上传分片数/总分片数”计算，进度条实时反馈。</p></li> <li><p>分片上传可采用串行或并发，后续实现并发。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
+const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+const chunk = file.slice(start, end);
+// 分片上传
+const formData = new FormData();
+formData.append(&quot;file&quot;, chunk);
+formData.append(&quot;fileId&quot;, fileId); // 使用文件真实 MD5
+formData.append(&quot;chunkIndex&quot;, chunkIndex.toString());
+formData.append(&quot;totalChunks&quot;, totalChunks.toString());
+</code></pre></div></li></ul></li> <li><p>后端支持</p> <ul><li>每个分片单独存储，目录结构为 public/uploads/chunks/${fileId}/${chunkIndex}_${eTag}</li> <li>提供合并接口，前端上传完毕后通知后端合并为完整文件。</li></ul></li> <li><p>知识点与扩展</p> <ul><li><code>File.slice</code> 支持大文件切割，浏览器兼容性好。</li> <li>分片上传能显著提升大文件上传的可靠性和容错性。</li> <li>进度条以分片为单位更真实，便于处理重试/断点等场景。</li></ul></li></ul> <h2 id="断点续传与分片管理"><a href="#断点续传与分片管理" class="header-anchor">#</a> 断点续传与分片管理</h2> <ul><li><p>目标</p> <ul><li>支持断点续传，保证上传失败/刷新后可以继续，提升用户体验和资源利用率。</li></ul></li> <li><p>实现细节</p> <ul><li><p>上传前先询问后端哪些分片已上传（及其对应的 ETag），避免重复上传。</p></li> <li><p>上传进度实时保存到 localStorage，刷新后可恢复状态。</p></li> <li><p>上传完成后，前端发起合并请求，需携带分片和 ETag 信息，后端负责合并分片并清理临时目录。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>// 查询已上传分片
+async function getUploadedChunks(fileId: string) { ... }
+// 保存断点到 localStorage
+localStorage.setItem(
+  `upload_${fileId}`,
+  JSON.stringify({
+    fileName: file.name,
+    fileSize: file.size,
+    totalChunks,
+    uploadedChunks: parts, // 保存 [{ chunkIndex, eTag }] 的数组
+  })
+);
+</code></pre></div></li> <li><p>后端 GET <code>/api/upload?fileId=...</code> 返回已上传分片及其 ETag 数组，POST 支持单分片上传并返回该分片的 MD5 作为 ETag。</p></li></ul></li> <li><p>知识点与扩展</p> <ul><li>利用 localStorage 记录断点，前端可随时恢复上传状态。</li> <li>分片上传与断点续传方案配合能极大提高大文件上传的可用性。</li> <li>分片索引与 ETag 校验同步保证前后端一致，防止分片损坏或丢失。</li></ul></li></ul> <h2 id="暂停、继续、取消与并发上传"><a href="#暂停、继续、取消与并发上传" class="header-anchor">#</a> 暂停、继续、取消与并发上传</h2> <ul><li><p>目标</p> <ul><li>支持用户在上传过程中随时暂停、继续或取消，提升灵活性。</li> <li>支持多个分片并发上传，提高带宽利用率和上传速度。</li> <li>分片上传失败可自动重试，增强健壮性。</li></ul></li> <li><p>实现细节</p> <ul><li><p>每个分片上传都配备独立的 AbortController，便于单独中断。</p></li> <li><p>暂停操作：调用 controller.abort() 终止所有正在上传的分片，暂停新分片上传。</p></li> <li><p>继续操作：检测断点信息，恢复未完成分片上传。</p></li> <li><p>取消操作：清理本地 localStorage 和后端临时分片，重置 UI 状态。</p></li> <li><p>控制最大并发数（如 3），通过 activeCount 计数器控制上传队列。</p></li> <li><p>分片失败自动重试最多 3 次，防止临时网络波动导致整体失败。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>// 暂停
+setPaused(true);
+pausedRef.current = true;
+Object.values(uploadTasksRef.current).forEach((controller) =&gt; controller.abort());
+
+// 并发上传核心
+while (activeCount &lt; MAX_CONCURRENT &amp;&amp; nextChunk &lt; totalChunks) {
+  const controller = new AbortController();
+  uploadTasksRef.current[chunkIndex] = controller;
+  uploadChunkWithRetry(..., controller, ...)
+}
+</code></pre></div></li></ul></li> <li><p>知识点与扩展</p> <ul><li>AbortController 能精准控制 fetch 请求，适合中断分片上传。</li> <li>并发上传要平衡速度与资源占用，避免过高并发带来带宽/服务器压力。</li> <li>自动重试机制是应对分片级别短暂失败的最佳实践。</li></ul></li></ul> <h2 id="断点恢复与刷新恢复"><a href="#断点恢复与刷新恢复" class="header-anchor">#</a> 断点恢复与刷新恢复</h2> <ul><li><p>目标</p> <ul><li>页面刷新后能自动检测未完成的上传任务，并提示用户继续上传。</li></ul></li> <li><p>实现细节</p> <ul><li><p>localStorage 记录每个上传任务的 fileId、fileName、fileSize、已上传分片索引等信息。</p></li> <li><p>页面加载时检测 localStorage，若存在断点信息则展示断点恢复 UI，要求用户选择同名同大小文件继续上传。</p></li> <li><p>恢复上传时校验文件名、大小是否一致，防止上传错误文件。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>function detectPendingResume() {
+  if (typeof window === &quot;undefined&quot;) return null;
+  // 遍历 localStorage 查找断点
+  for (let i = 0; i &lt; localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key &amp;&amp; key.startsWith(&quot;upload_&quot;)) {
+      // ...判断有效断点
+      return {...}
+    }
+  }
+  return null;
+}
+</code></pre></div><p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  pendingResume &amp;&amp; !uploading &amp;&amp; !paused &amp;&amp; (
+    &lt;div&gt;
+      &lt;Progress percent={resumeProgress} /&gt;
+      &lt;Button onClick={() =&gt; fileInputRef.current?.click()}&gt;
+        请选择文件以继续上传
+      &lt;/Button&gt;
+      &lt;Button onClick={handleAbandonResume}&gt;放弃断点&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div></li></ul></li> <li><p>知识点与扩展</p> <ul><li>localStorage 断点检测需 SSR 兼容，避免 window 未定义报错。</li> <li>文件名、大小的严格校验，防止断点恢复时上传非原文件。</li> <li>UI 友好提示，提升用户体验。</li></ul></li></ul> <h2 id="代码结构优化与关注点分离"><a href="#代码结构优化与关注点分离" class="header-anchor">#</a> 代码结构优化与关注点分离</h2> <ul><li><p>目标</p> <ul><li>提升代码可维护性和可扩展性，便于团队协作和后期优化。</li></ul></li> <li><p>实现细节</p> <ul><li><p>工具函数、分片上传核心、断点检测、UI 渲染等分区明确。</p></li> <li><p>组件内部只关注 UI 和状态管理，逻辑和工具函数外置。</p></li> <li><p>变量命名清晰，添加关键注释，降低后续维护成本。</p></li> <li><p>关键结构示例：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>// ========== 工具函数 ==========
+// getFileId, getUploadedChunks, mergeChunks ...
+
+// ========== 分片上传核心逻辑 ==========
+// concurrentUploadChunks, uploadChunkWithRetry ...
+
+// ========== 断点检测工具 ==========
+// detectPendingResume ...
+
+// ========== 组件 ==========
+export default function UpLoadFile() { ... }
+</code></pre></div></li></ul></li> <li><p>知识点与扩展</p> <ul><li>关注点分离（Separation of Concerns）是可扩展项目的基础。</li> <li>工具函数、核心逻辑与 UI 完全解耦，方便单元测试和多人协作。</li></ul></li></ul> <h2 id="fetch-方案统一与体验细节"><a href="#fetch-方案统一与体验细节" class="header-anchor">#</a> fetch 方案统一与体验细节</h2> <ul><li><p>目标</p> <ul><li>所有分片上传统一用 fetch，便于前端统一管理和后续扩展。</li></ul></li> <li><p>实现细节</p> <ul><li><p>使用 fetch+FormData 进行分片上传，统一所有上传请求格式。</p></li> <li><p>进度条以“分片数量进度”模拟，兼容 fetch 的进度不可控问题。</p></li> <li><p>保留自动重试、断点续传等所有功能。</p></li> <li><p>关键代码片段：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>const res = await fetch(&quot;/api/upload&quot;, {
+  method: &quot;POST&quot;,
+  body: formData,
+  signal: controller.signal,
+});
+</code></pre></div></li></ul></li> <li><p>知识点与扩展</p> <ul><li>fetch API 现代浏览器支持好，适合数据流式传输。</li> <li>进度条用分片进度模拟，实际体验与 xhr 基于事件的进度类似。</li> <li>fetch 信号机制适合实现暂停/取消。</li></ul></li></ul> <h2 id="常见问题与最终优化"><a href="#常见问题与最终优化" class="header-anchor">#</a> 常见问题与最终优化</h2> <ul><li><p>localStorage is not defined</p> <ul><li><p>SSR 阶段 window 不存在，需用 typeof window !== 'undefined' 判断，避免首屏报错。</p></li> <li><p>代码示例：</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>if (typeof window === &quot;undefined&quot;) return null;
+</code></pre></div></li></ul></li> <li><p>Hydration failed</p> <ul><li>localStorage 检查逻辑放到 useEffect，pendingResume 初始为 null，解决 SSR/CSR 不一致导致的 React Hydration 报错。</li></ul></li> <li><p>断点假提示</p> <ul><li>上传成功后同步清理 localStorage 和 UI 状态，避免断点“假提示”误导用户。</li></ul></li> <li><p>其他体验细节</p> <ul><li>进度条下方增加暂停说明提示。</li> <li>断点提示区域直观显示文件名、大小。</li> <li>使用 messageApi 消息防堆叠，防止多次弹窗影响体验。</li></ul></li> <li><p>知识点与扩展</p> <ul><li>SSR/CSR 兼容是 Next.js 项目常见难点，需特别注意状态的初始化时机。</li> <li>状态与 UI 一致性管理，用户体验优化细节。</li></ul></li></ul> <h2 id="最终版代码的核心知识点"><a href="#最终版代码的核心知识点" class="header-anchor">#</a> 最终版代码的核心知识点</h2> <ul><li><p>分片切割与唯一标识</p> <ul><li><p>引入 <code>spark-md5</code> 利用文件内容的 MD5 摘要生成唯一 fileId，保证断点、分片管理准确，防篡改并支持秒传扩展。</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>async function getFileId(file: File): Promise&lt;string&gt; {
+  // 采用抽样切片读取计算，防止大文件卡死浏览器
+  // ... 详见完整代码示例
+}
+</code></pre></div></li></ul></li> <li><p>分片并发上传与自动重试</p> <ul><li>见 concurrentUploadChunks、uploadChunkWithRetry，实现并发和失败重试。</li></ul></li> <li><p>断点检测与 localStorage 管理</p> <ul><li>见 detectPendingResume 和分片进度本地持久化。</li></ul></li> <li><p>状态流转：暂停/继续/取消/放弃断点</p> <ul><li>handlePause、handleResume、handleCancel、handleAbandonResume 各自负责一类状态转换，避免混乱。</li></ul></li> <li><p>合并分片与后端协作</p> <ul><li><p>前端上传完毕后调用合并接口，<strong>提交所有分片的 chunkIndex 和 eTag (MD5) 列表</strong>，后端校验无误后合并分片生成最终文件。</p> <p>TypeScript</p> <div class="language- extra-class"><pre class="language-text"><code>async function mergeChunks(
+  fileId: string,
+  fileName: string,
+  parts: { chunkIndex: number; eTag: string }[]
+) {
+  await fetch(&quot;/api/upload/merge&quot;, {
+    method: &quot;POST&quot;,
+    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+    body: JSON.stringify({ fileId, fileName, parts }),
+  });
+}
+</code></pre></div></li></ul></li> <li><p>SSR/CSR 兼容与 hydration 问题规避</p> <ul><li>所有 window/localStorage 操作均在 useEffect 和客户端执行，保证一致性。</li></ul></li> <li><p>关注点分离与代码结构优化</p> <ul><li>工具函数、分片上传核心、断点检测、UI 渲染完全独立，便于维护和扩展。</li></ul></li></ul> <h2 id="完整代码示例"><a href="#完整代码示例" class="header-anchor">#</a> 完整代码示例</h2> <p>代码段</p> <div class="language- extra-class"><pre class="language-text"><code>//src\app\(upload)\UpLoadFile
+&quot;use client&quot;;
+
+import { useState, useRef, useEffect } from &quot;react&quot;;
+import { Upload, Button, Progress, Modal, message } from &quot;antd&quot;;
+import {
+  UploadOutlined,
+  PauseOutlined,
+  PlayCircleOutlined,
+} from &quot;@ant-design/icons&quot;;
+import SparkMD5 from &quot;spark-md5&quot;; // 需 npm install spark-md5
+
+// ========== 常量 ==========
+const CHUNK_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_CONCURRENT = 3;
+
+// ========== 工具函数 ==========
+async function getFileId(file: File): Promise&lt;string&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    const chunks = Math.ceil(file.size / CHUNK_SIZE);
+    let currentChunk = 0;
+    const spark = new SparkMD5.ArrayBuffer();
+    const fileReader = new FileReader();
+
+    fileReader.onload = (e) =&gt; {
+      spark.append(e.target?.result as ArrayBuffer);
+      currentChunk++;
+      if (currentChunk &lt; chunks) {
+        loadNext();
+      } else {
+        resolve(spark.end());
+      }
+    };
+    fileReader.onerror = reject;
+
+    function loadNext() {
+      const start = currentChunk * CHUNK_SIZE;
+      const end = Math.min(start + CHUNK_SIZE, file.size);
+      fileReader.readAsArrayBuffer(file.slice(start, end));
+    }
+    loadNext();
+  });
+}
+
+async function getUploadedChunks(fileId: string): Promise&lt;{ chunkIndex: number; eTag: string }[]&gt; {
+  const res = await fetch(`/api/upload?fileId=${encodeURIComponent(fileId)}`);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.uploadedChunks || [];
+}
+
+async function mergeChunks(
+  fileId: string,
+  fileName: string,
+  parts: { chunkIndex: number; eTag: string }[]
+) {
+  const res = await fetch(&quot;/api/upload/merge&quot;, {
+    method: &quot;POST&quot;,
+    headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
+    body: JSON.stringify({ fileId, fileName, parts }),
+  });
+  if (!res.ok) throw new Error(&quot;合并失败&quot;);
+  return await res.json();
+}
+
+// ========== 分片上传核心逻辑 ==========
+async function concurrentUploadChunks(
+  file: File,
+  fileId: string,
+  totalChunks: number,
+  uploadedChunks: { chunkIndex: number; eTag: string }[],
+  onProgress: (percent: number) =&gt; void,
+  pausedRef: { current: boolean },
+  canceledRef: { current: boolean },
+  uploadTasksRef: React.RefObject&lt;{ [key: number]: AbortController }&gt;
+): Promise&lt;{ chunkIndex: number; eTag: string }[]&gt; {
+  let nextChunk = 0;
+  const finishedMap = new Map&lt;number, string&gt;(
+    uploadedChunks.map((c) =&gt; [c.chunkIndex, c.eTag])
+  );
+  let progressArr = Array(totalChunks).fill(0);
+
+  function saveProgress() {
+    localStorage.setItem(
+      `upload_${fileId}`,
+      JSON.stringify({
+        fileName: file.name,
+        fileSize: file.size,
+        totalChunks,
+        uploadedChunks: Array.from(finishedMap.entries()).map(
+          ([chunkIndex, eTag]) =&gt; ({ chunkIndex, eTag })
+        ),
+      })
+    );
+  }
+
+  return new Promise&lt;{ chunkIndex: number; eTag: string }[]&gt;((resolve, reject) =&gt; {
+    let activeCount = 0;
+    let error: any = null;
+
+    function uploadNext() {
+      if (canceledRef.current || pausedRef.current || error) return;
+      if (finishedMap.size === totalChunks) {
+        saveProgress();
+        onProgress(100);
+        // 返回排好序的分片摘要数据供合并使用
+        const parts = Array.from(finishedMap.entries())
+          .map(([chunkIndex, eTag]) =&gt; ({ chunkIndex, eTag }))
+          .sort((a, b) =&gt; a.chunkIndex - b.chunkIndex);
+        resolve(parts);
+        return;
+      }
+      while (activeCount &lt; MAX_CONCURRENT &amp;&amp; nextChunk &lt; totalChunks) {
+        if (finishedMap.has(nextChunk)) {
+          progressArr[nextChunk] = 100;
+          onProgress(Math.round((finishedMap.size / totalChunks) * 100));
+          nextChunk++;
+          continue;
+        }
+        const chunkIndex = nextChunk++;
+        activeCount++;
+        const controller = new AbortController();
+        uploadTasksRef.current[chunkIndex] = controller;
+        uploadChunkWithRetry(
+          file,
+          chunkIndex,
+          fileId,
+          totalChunks,
+          controller,
+          (percent: number) =&gt; {
+            progressArr[chunkIndex] = percent;
+            const totalPercent = Math.round(
+              (finishedMap.size / totalChunks) * 100
+            );
+            onProgress(totalPercent);
+          }
+        )
+          .then((eTag: string) =&gt; {
+            delete uploadTasksRef.current[chunkIndex];
+            progressArr[chunkIndex] = 100;
+            finishedMap.set(chunkIndex, eTag);
+            saveProgress();
+            onProgress(Math.round((finishedMap.size / totalChunks) * 100));
+            activeCount--;
+            uploadNext();
+          })
+          .catch(() =&gt; {
+            delete uploadTasksRef.current[chunkIndex];
+            activeCount--;
+            uploadNext();
+          });
+      }
+    }
+    uploadNext();
+  });
+}
+
+function uploadChunkWithRetry(
+  file: File,
+  chunkIndex: number,
+  fileId: string,
+  totalChunks: number,
+  controller: AbortController,
+  onChunkProgress: (percent: number) =&gt; void,
+  retry = 0
+): Promise&lt;string&gt; {
+  return new Promise&lt;string&gt;(async (resolve, reject) =&gt; {
+    const start = chunkIndex * CHUNK_SIZE;
+    const end = Math.min(file.size, start + CHUNK_SIZE);
+    const chunk = file.slice(start, end);
+
+    const formData = new FormData();
+    formData.append(&quot;file&quot;, chunk);
+    formData.append(&quot;fileId&quot;, fileId);
+    formData.append(&quot;chunkIndex&quot;, chunkIndex.toString());
+    formData.append(&quot;totalChunks&quot;, totalChunks.toString());
+    formData.append(&quot;fileName&quot;, file.name);
+
+    try {
+      const res = await fetch(&quot;/api/upload&quot;, {
+        method: &quot;POST&quot;,
+        body: formData,
+        signal: controller.signal,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        onChunkProgress(100);
+        resolve(data.eTag);
+      } else {
+        if (retry &lt; 3) {
+          setTimeout(() =&gt; {
+            uploadChunkWithRetry(
+              file, chunkIndex, fileId, totalChunks, controller, onChunkProgress, retry + 1
+            ).then(resolve).catch(reject);
+          }, 500);
+        } else {
+          reject(new Error(`分片${chunkIndex}上传失败`));
+        }
+      }
+    } catch (e: any) {
+      if (controller.signal.aborted) {
+        reject(new Error(&quot;abort&quot;));
+      } else if (retry &lt; 3) {
+        setTimeout(() =&gt; {
+          uploadChunkWithRetry(
+            file, chunkIndex, fileId, totalChunks, controller, onChunkProgress, retry + 1
+          ).then(resolve).catch(reject);
+        }, 500);
+      } else {
+        reject(new Error(`分片${chunkIndex}上传失败`));
+      }
+    }
+  });
+}
+
+// ========== 断点检测工具 ==========
+function detectPendingResume() {
+  if (typeof window === &quot;undefined&quot;) return null;
+  for (let i = 0; i &lt; localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key &amp;&amp; key.startsWith(&quot;upload_&quot;)) {
+      try {
+        const info = JSON.parse(localStorage.getItem(key)!);
+        if (info &amp;&amp; info.fileName &amp;&amp; info.totalChunks &amp;&amp; info.fileSize) {
+          return {
+            fileId: key.replace(&quot;upload_&quot;, &quot;&quot;),
+            fileName: info.fileName,
+            fileSize: info.fileSize,
+            totalChunks: info.totalChunks,
+            uploadedChunks: info.uploadedChunks || [],
+            progress: Math.round(
+              ((info.uploadedChunks?.length || 0) / info.totalChunks) * 100
+            ),
+          };
+        }
+      } catch {}
+    }
+  }
+  return null;
+}
+
+// ========== 组件 ==========
+export default function UpLoadFile() {
+  // UI状态
+  const [fileUrl, setFileUrl] = useState&lt;string | null&gt;(null);
+  const [fileType, setFileType] = useState&lt;string | null&gt;(null);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [currentFile, setCurrentFile] = useState&lt;File | null&gt;(null);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  // 断点相关
+  const [pendingResume, setPendingResume] =
+    useState&lt;ReturnType&lt;typeof detectPendingResume&gt;&gt;(null);
+  useEffect(() =&gt; {
+    setPendingResume(detectPendingResume());
+  }, []);
+  const fileInputRef = useRef&lt;HTMLInputElement | null&gt;(null);
+
+  // 上传上下文
+  const uploadContext = useRef&lt;{
+    file: File;
+    fileId: string;
+    totalChunks: number;
+    nextChunk: number;
+  } | null&gt;(null);
+
+  // 分片上传相关ref
+  const uploadTasksRef = useRef&lt;{ [key: number]: AbortController }&gt;({});
+  const pausedRef = useRef(false);
+  const canceledRef = useRef(false);
+
+  // 断点恢复时的进度
+  const resumeProgress = pendingResume?.progress || 0;
+
+  // 断点文件选择
+  const handleResumeFileSelect = async (
+    e: React.ChangeEvent&lt;HTMLInputElement&gt;
+  ) =&gt; {
+    const file = e.target.files?.[0];
+    if (file &amp;&amp; pendingResume) {
+      if (
+        file.name === pendingResume.fileName &amp;&amp;
+        file.size === pendingResume.fileSize
+      ) {
+        await beforeUpload(file);
+        setPendingResume(null);
+      } else {
+        messageApi.open({
+          type: &quot;error&quot;,
+          content: &quot;请选择与上次未完成上传相同的文件&quot;,
+        });
+      }
+    }
+  };
+
+  // 暂停/继续控制
+  const handlePause = () =&gt; {
+    setPaused(true);
+    pausedRef.current = true;
+    Object.values(uploadTasksRef.current).forEach((controller) =&gt;
+      controller.abort()
+    );
+  };
+  const handleResume = async () =&gt; {
+    setPaused(false);
+    pausedRef.current = false;
+    if (currentFile &amp;&amp; uploadContext.current) {
+      await continueUpload();
+    }
+  };
+
+  // 取消上传
+  const handleCancel = async () =&gt; {
+    canceledRef.current = true;
+    setPaused(false);
+    pausedRef.current = false;
+    setUploading(false);
+    setProgress(0);
+    setCurrentFile(null);
+    if (uploadContext.current) {
+      const { fileId } = uploadContext.current;
+      await fetch(`/api/upload?fileId=${encodeURIComponent(fileId)}`, {
+        method: &quot;DELETE&quot;,
+      });
+      localStorage.removeItem(`upload_${fileId}`);
+    }
+    messageApi.open({
+      type: &quot;success&quot;,
+      content: &quot;取消上传成功&quot;,
+    });
+  };
+
+  // 分片上传主逻辑
+  const beforeUpload = async (file: File) =&gt; {
+    setUploading(true);
+    setProgress(0);
+    setFileUrl(null);
+    setFileType(null);
+    setPaused(false);
+    pausedRef.current = false;
+    canceledRef.current = false;
+    setCurrentFile(file);
+
+    const fileId = await getFileId(file);
+    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+
+    uploadContext.current = { file, fileId, totalChunks, nextChunk: 0 };
+
+    // 读取localStorage断点
+    let uploadedChunks = [];
+    const saved = localStorage.getItem(`upload_${fileId}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (
+          parsed.fileName === file.name &amp;&amp;
+          parsed.fileSize === file.size &amp;&amp;
+          parsed.totalChunks === totalChunks
+        ) {
+          uploadedChunks = parsed.uploadedChunks || [];
+        }
+      } catch {}
+    } else {
+      uploadedChunks = await getUploadedChunks(fileId);
+    }
+
+    try {
+      const parts = await concurrentUploadChunks(
+        file,
+        fileId,
+        totalChunks,
+        uploadedChunks,
+        setProgress,
+        pausedRef,
+        canceledRef,
+        uploadTasksRef
+      );
+      // 合并
+      const res = await mergeChunks(fileId, file.name, parts);
+      setFileUrl(res.url);
+      setFileType(file.type);
+      setCurrentFile(null);
+      localStorage.removeItem(`upload_${fileId}`);
+      setPendingResume(null);
+    } catch (e) {
+      if (!canceledRef.current) {
+        await fetch(`/api/upload?fileId=${encodeURIComponent(fileId)}`, {
+          method: &quot;DELETE&quot;,
+        });
+        messageApi.open({
+          type: &quot;error&quot;,
+          content: &quot;上传失败&quot;,
+        });
+        localStorage.removeItem(`upload_${fileId}`);
+      }
+    } finally {
+      if (!pausedRef.current &amp;&amp; !canceledRef.current) {
+        setUploading(false);
+      }
+    }
+    return false;
+  };
+
+  // 继续上传
+  const continueUpload = async () =&gt; {
+    if (!uploadContext.current) return;
+    setUploading(true);
+    setPaused(false);
+    pausedRef.current = false;
+    canceledRef.current = false;
+
+    const { file, fileId, totalChunks } = uploadContext.current;
+    let uploadedChunks = [];
+    const saved = localStorage.getItem(`upload_${fileId}`);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (
+          parsed.fileName === file.name &amp;&amp;
+          parsed.fileSize === file.size &amp;&amp;
+          parsed.totalChunks === totalChunks
+        ) {
+          uploadedChunks = parsed.uploadedChunks || [];
+        }
+      } catch {}
+    } else {
+      uploadedChunks = await getUploadedChunks(fileId);
+    }
+
+    try {
+      const parts = await concurrentUploadChunks(
+        file,
+        fileId,
+        totalChunks,
+        uploadedChunks,
+        setProgress,
+        pausedRef,
+        canceledRef,
+        uploadTasksRef
+      );
+      // 合并
+      const res = await mergeChunks(fileId, file.name, parts);
+      setFileUrl(res.url);
+      setFileType(file.type);
+      setCurrentFile(null);
+      localStorage.removeItem(`upload_${fileId}`);
+      setPendingResume(null);
+    } catch (e) {
+      await fetch(`/api/upload?fileId=${encodeURIComponent(fileId)}`, {
+        method: &quot;DELETE&quot;,
+      });
+      messageApi.open({
+        type: &quot;error&quot;,
+        content: &quot;上传失败&quot;,
+      });
+      localStorage.removeItem(`upload_${fileId}`);
+    } finally {
+      if (!pausedRef.current &amp;&amp; !canceledRef.current) {
+        setUploading(false);
+      }
+    }
+  };
+
+  // 放弃断点
+  const handleAbandonResume = async () =&gt; {
+    if (pendingResume) {
+      await fetch(
+        `/api/upload?fileId=${encodeURIComponent(pendingResume.fileId)}`,
+        {
+          method: &quot;DELETE&quot;,
+        }
+      );
+      localStorage.removeItem(`upload_${pendingResume.fileId}`);
+      setPendingResume(null);
+    }
+  };
+
+  // ========== UI渲染 ==========
+  return (
+    &lt;div&gt;
+      {contextHolder}
+      &lt;input
+        type=&quot;file&quot;
+        ref={fileInputRef}
+        style={{ display: &quot;none&quot; }}
+        onChange={handleResumeFileSelect}
+      /&gt;
+      {pendingResume &amp;&amp; !uploading &amp;&amp; !paused &amp;&amp; (
+        &lt;div style={{ marginBottom: 20 }}&gt;
+          &lt;Progress percent={resumeProgress} /&gt;
+          &lt;Button
+            type=&quot;primary&quot;
+            onClick={() =&gt; fileInputRef.current?.click()}
+            style={{ marginLeft: 8 }}
+          &gt;
+            请选择文件以继续上传
+          &lt;/Button&gt;
+          &lt;Button
+            danger
+            onClick={handleAbandonResume}
+            style={{ marginLeft: 8 }}
+          &gt;
+            放弃断点
+          &lt;/Button&gt;
+        &lt;/div&gt;
+      )}
+      &lt;Upload
+        showUploadList={false}
+        beforeUpload={beforeUpload}
+        maxCount={1}
+        disabled={uploading &amp;&amp; !paused}
+      &gt;
+        &lt;Button icon={&lt;UploadOutlined /&gt;} disabled={uploading &amp;&amp; !paused}&gt;
+          上传文件
+        &lt;/Button&gt;
+      &lt;/Upload&gt;
+      &lt;div style={{ marginTop: 20 }}&gt;
+        {(uploading || paused) &amp;&amp; (
+          &lt;&gt;
+            &lt;Progress percent={progress} /&gt;
+            {!paused ? (
+              &lt;Button
+                icon={&lt;PauseOutlined /&gt;}
+                onClick={handlePause}
+                style={{ marginLeft: 8 }}
+              &gt;
+                暂停
+              &lt;/Button&gt;
+            ) : (
+              &lt;Button
+                icon={&lt;PlayCircleOutlined /&gt;}
+                onClick={handleResume}
+                style={{ marginLeft: 8 }}
+              &gt;
+                继续
+              &lt;/Button&gt;
+            )}
+            &lt;Button danger onClick={handleCancel} style={{ marginLeft: 8 }}&gt;
+              取消上传
+            &lt;/Button&gt;
+            &lt;div style={{ color: &quot;#888&quot;, fontSize: 12, marginTop: 4 }}&gt;
+              暂停将在当前分片上传完成后生效
+            &lt;/div&gt;
+          &lt;/&gt;
+        )}
+        {!uploading &amp;&amp; !paused &amp;&amp; fileUrl &amp;&amp; fileType?.startsWith(&quot;audio/&quot;) &amp;&amp; (
+          &lt;audio src={fileUrl} controls style={{ width: 300 }} /&gt;
+        )}
+        {!uploading &amp;&amp; !paused &amp;&amp; fileUrl &amp;&amp; fileType?.startsWith(&quot;video/&quot;) &amp;&amp; (
+          &lt;video src={fileUrl} controls style={{ width: 300 }} /&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div><p>代码段</p> <div class="language- extra-class"><pre class="language-text"><code>// src\app\api\upload\route.ts
+
+import { NextRequest, NextResponse } from &quot;next/server&quot;;
+import { promises as fs } from &quot;fs&quot;;
+import path from &quot;path&quot;;
+import crypto from &quot;crypto&quot;;
+
+// 分片临时存储目录
+const UPLOAD_DIR = path.join(process.cwd(), &quot;public&quot;, &quot;uploads&quot;, &quot;chunks&quot;);
+
+// 工具：确保目录存在
+async function ensureDir(dir: string) {
+  await fs.mkdir(dir, { recursive: true });
+}
+
+// 工具：获取分片文件路径（包含 eTag 方便后续验证）
+function getChunkPath(fileId: string, chunkInfo: string) {
+  return path.join(UPLOAD_DIR, fileId, chunkInfo);
+}
+
+// 工具：获取分片目录
+function getChunkDir(fileId: string) {
+  return path.join(UPLOAD_DIR, fileId);
+}
+
+// GET: 查询已上传分片
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const fileId = searchParams.get(&quot;fileId&quot;);
+  if (!fileId) {
+    return NextResponse.json({ uploadedChunks: [] });
+  }
+  const chunkDir = getChunkDir(fileId);
+  try {
+    const files = await fs.readdir(chunkDir);
+    // 解析带有 MD5 eTag 的分片文件名 chunkIndex_eTag
+    const uploadedChunks = files
+      .map((name) =&gt; {
+        const [indexStr, eTag] = name.split(&quot;_&quot;);
+        const chunkIndex = Number(indexStr);
+        if (!isNaN(chunkIndex) &amp;&amp; eTag) {
+          return { chunkIndex, eTag };
+        }
+        return null;
+      })
+      .filter(Boolean);
+
+    return NextResponse.json({ uploadedChunks });
+  } catch {
+    return NextResponse.json({ uploadedChunks: [] });
+  }
+}
+
+// POST: 接收单个分片
+export async function POST(req: NextRequest) {
+  const formData = await req.formData();
+  const file = formData.get(&quot;file&quot;) as File;
+  const fileId = formData.get(&quot;fileId&quot;) as string;
+  const chunkIndex = formData.get(&quot;chunkIndex&quot;) as string;
+  // 兼容普通上传
+  const fileName = formData.get(&quot;fileName&quot;) as string;
+
+  if (!file || !fileId || !chunkIndex) {
+    // 普通上传
+    if (file &amp;&amp; fileName) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const uploadDir = path.join(process.cwd(), &quot;public&quot;, &quot;uploads&quot;);
+      await ensureDir(uploadDir);
+      const filePath = path.join(uploadDir, fileName);
+      await fs.writeFile(filePath, buffer);
+      const fileUrl = `/uploads/${fileName}`;
+      return NextResponse.json({ url: fileUrl });
+    }
+    return NextResponse.json({ error: &quot;参数不全&quot; }, { status: 400 });
+  }
+
+  // 分片上传
+  const chunkDir = getChunkDir(fileId);
+  await ensureDir(chunkDir);
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  // 服务端计算分片 MD5 并作为 ETag 返回
+  const eTag = crypto.createHash('md5').update(buffer).digest('hex');
+  const chunkPath = getChunkPath(fileId, `${chunkIndex}_${eTag}`);
+
+  await fs.writeFile(chunkPath, buffer);
+
+  return NextResponse.json({ success: true, eTag });
+}
+
+// DELETE: 删除分片目录
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const fileId = searchParams.get(&quot;fileId&quot;);
+  if (!fileId) {
+    return NextResponse.json({ error: &quot;缺少fileId&quot; }, { status: 400 });
+  }
+  const chunkDir = getChunkDir(fileId);
+  try {
+    await fs.rm(chunkDir, { recursive: true, force: true });
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: &quot;删除失败&quot; }, { status: 500 });
+  }
+}
+</code></pre></div><p>代码段</p> <div class="language- extra-class"><pre class="language-text"><code>// src\app\api\upload\merge\route.ts
+import { NextRequest, NextResponse } from &quot;next/server&quot;;
+import { promises as fs } from &quot;fs&quot;;
+import path from &quot;path&quot;;
+
+const UPLOAD_DIR = path.join(process.cwd(), &quot;public&quot;, &quot;uploads&quot;, &quot;chunks&quot;);
+
+function getChunkDir(fileId: string) {
+  return path.join(UPLOAD_DIR, fileId);
+}
+function getFinalFilePath(fileName: string) {
+  return path.join(process.cwd(), &quot;public&quot;, &quot;uploads&quot;, fileName);
+}
+
+export async function POST(req: NextRequest) {
+  // 修改为接收前端传递的完整性验证列表 parts: [{chunkIndex, eTag}]
+  const { fileId, fileName, parts } = await req.json();
+
+  if (!fileId || !fileName || !parts || !Array.isArray(parts)) {
+    return NextResponse.json({ error: &quot;参数不全&quot; }, { status: 400 });
+  }
+
+  const chunkDir = getChunkDir(fileId);
+  const finalPath = getFinalFilePath(fileName);
+
+  try {
+    const writeStream = await fs.open(finalPath, &quot;w&quot;);
+
+    // 合并所有分片，强制依靠前端传入的 eTag 进行定位读取，顺带完成了完整性二次确认
+    for (const part of parts) {
+      const chunkPath = path.join(chunkDir, `${part.chunkIndex}_${part.eTag}`);
+      try {
+        const data = await fs.readFile(chunkPath);
+        await writeStream.write(data);
+      } catch (err) {
+        await writeStream.close();
+        return NextResponse.json({ error: `分片 ${part.chunkIndex} 校验失败或数据丢失` }, { status: 400 });
+      }
+    }
+
+    await writeStream.close();
+
+    // 删除分片目录
+    await fs.rm(chunkDir, { recursive: true, force: true });
+
+    const fileUrl = `/uploads/${fileName}`;
+    return NextResponse.json({ url: fileUrl });
+  } catch (e) {
+    return NextResponse.json({ error: &quot;合并失败&quot; }, { status: 500 });
+  }
+}
+</code></pre></div><p>12</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.d81c5f05.js" defer></script><script src="/jiabinxu-blog/assets/js/3.b2c4be22.js" defer></script><script src="/jiabinxu-blog/assets/js/2.32f92df3.js" defer></script><script src="/jiabinxu-blog/assets/js/108.e3c864df.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>WMB subagent-Driven Development | 贾滨旭的个人技术博客</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/jiabinxu-blog/R-C.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="description" content="Execute implementation plans by dispatching one subagent per feature (not per task). Each subagent continuously executes all tasks within a feature, followed by spec compliance and code quality reviews. Use when: (1) Have clear implementation plans with feature-level organization, (2) Features are relatively independent, (3) Want same-session execution with review checkpoints.">
+    <meta name="algolia-site-verification" content="8AB7B96237F774B9">
+    
+    <link rel="preload" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css" as="style"><link rel="preload" href="/jiabinxu-blog/assets/js/app.d81c5f05.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/3.b2c4be22.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/2.32f92df3.js" as="script"><link rel="preload" href="/jiabinxu-blog/assets/js/81.b606547f.js" as="script"><link rel="prefetch" href="/jiabinxu-blog/assets/js/1.18f24d4d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/100.640ede1d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/101.fce35451.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/102.3c7b2426.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/103.9e5470fd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/104.0f1324a4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/105.da6b0b32.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/106.42623203.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/107.15e9b6ac.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/108.e3c864df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/109.2a5c8cb3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/110.a3e4f661.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/111.ae809737.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/112.b35c422c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/113.61e8b6d1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/114.5a6b440c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/115.1b3f4a0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/116.87080bd6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/117.056b264f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/118.748bcebe.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/12.bb1e7d80.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/13.56af1cc9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/14.255721b2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/15.f3ea0607.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/16.1b110a27.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/17.39648d8b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/18.0ef50842.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/19.8badbe76.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/20.a3699f00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/21.5b1aabee.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/22.81e2aad5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/23.e498e6e1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/24.efe31014.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/25.1714b436.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/26.2c09190f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/27.0480544c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/28.74a54dd8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/29.ecf7ce3e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/30.8d9226f0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/31.d1a9e49f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/32.7f73f4fa.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/33.d9b8ce4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/34.007f5113.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/35.8ecebf95.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/36.d2d1baa4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/37.15cff58d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/38.694051ed.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/39.f7e13c8e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/4.ddc1f692.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/40.84b955d0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/41.ffb4cf64.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/42.21fd83f4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/43.485bb23d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/44.9c0ecf22.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/45.36fa9061.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/46.9866de5d.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/47.9276f9f6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/48.6e6516d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/49.c1de0c0e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/5.619edfc6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/50.d06af4e0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/51.4bfce429.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/52.bf6176b3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/53.b8ad4b8c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/54.90cd6855.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/55.b893ca00.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/56.8320c1a8.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/57.1f2f3eb9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/58.03f834c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/59.cfc76f4e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/6.ea853d0c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/60.083e40f1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/61.85b873a3.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/62.25ea02e7.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/63.cb21a249.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/64.386c2c9c.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/65.797f97b4.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/66.0c3ee44b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/67.c36c6e79.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/68.8fbb8f41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/69.c443ec0b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/7.2b346ea0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/70.83017983.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/71.030b1076.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/72.21a4a7b6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/73.645e2197.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/74.1abd2d41.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/75.1881e672.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/76.f6c69f21.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/77.ab56a3ec.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/78.05db1106.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/79.14173bf2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/8.3762b0df.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/80.2844eadd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/82.8d3747d2.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/83.9a51c557.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/84.bb79b392.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/85.d15c5ed0.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/86.081915cd.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/87.60df60e5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/88.96590f84.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/89.e8765f99.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/9.0867c31b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/90.fcac1ef9.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/91.237627d5.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/92.75533b63.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/93.075f47c1.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/94.60ea1833.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/95.3e5795c6.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/96.a359979e.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/97.07c1a80b.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/98.0b2e516f.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/99.a7810584.js"><link rel="prefetch" href="/jiabinxu-blog/assets/js/vendors~docsearch.c0403f9a.js">
+    <link rel="stylesheet" href="/jiabinxu-blog/assets/css/0.styles.6e2e750c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/jiabinxu-blog/" class="home-link router-link-active"><img src="/jiabinxu-blog/R-C.png" alt="贾滨旭的个人技术博客" class="logo"> <span class="site-name can-hide">贾滨旭的个人技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" placeholder="搜索..." autocomplete="off" spellcheck="false" value="" style="background-image:url(/jiabinxu-blog/search.svg);"> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link router-link-active">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/jiabinxu-blog/Html+Css/" class="nav-link">
+  Html+Css
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JavaScript" class="dropdown-title"><span class="title">JavaScript</span> <span class="arrow down"></span></button> <button type="button" aria-label="JavaScript" class="mobile-dropdown-title"><span class="title">JavaScript</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/handwriting-code/" class="nav-link">
+  常见面试手写题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/scenario-questions/" class="nav-link">
+  常见面试场景题
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/JavaScript/javascript-core-objects/" class="nav-link">
+  JavaScript核心对象
+</a></li></ul></div></div><div class="nav-item"><a href="/jiabinxu-blog/React/" class="nav-link">
+  React
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Hooks" class="dropdown-title"><span class="title">Hooks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Hooks" class="mobile-dropdown-title"><span class="title">Hooks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useState/" class="nav-link">
+  useState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useEffect/" class="nav-link">
+  useEffect
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useRef/" class="nav-link">
+  useRef
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useContext/" class="nav-link">
+  useContext
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemo/" class="nav-link">
+  useMemo
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useCallback/" class="nav-link">
+  useCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useMemoVSuseCallback/" class="nav-link">
+  useMemoVSuseCallback
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useReducer/" class="nav-link">
+  useReducer
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useSyncExternalStore/" class="nav-link">
+  useSyncExternalStore
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useActionState/" class="nav-link">
+  useActionState
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/React/Hooks/useOptimistic/" class="nav-link">
+  useOptimistic
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目实战" class="dropdown-title"><span class="title">项目实战</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目实战" class="mobile-dropdown-title"><span class="title">项目实战</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs/" class="nav-link">
+  nextjs
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/deploy/" class="nav-link">
+  前端部署
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/fileUpload/" class="nav-link">
+  大文件上传
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/macOS_Guide/" class="nav-link">
+  macOS指南
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/popular-libraries/" class="nav-link">
+  常用库
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-i18n/" class="nav-link">
+  Next.js国际化方案
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-auth-refresh/" class="nav-link">
+  Next.js双token无感刷新
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/nextjs-dir/" class="nav-link">
+  Next.js目录深入解读
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/router/" class="nav-link">
+  appRouterVSpageRouterVSreactRouterDom
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter-config/" class="nav-link">
+  flutter环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/flutter/" class="nav-link">
+  flutter
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/chrome-dev-tools/" class="nav-link">
+  Chrome调试工具
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/project/hong/" class="nav-link">
+  洪的学习笔记(webpack,算法,小程序)
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="杂项" class="dropdown-title"><span class="title">杂项</span> <span class="arrow down"></span></button> <button type="button" aria-label="杂项" class="mobile-dropdown-title"><span class="title">杂项</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/others/markdownRules/" class="nav-link">
+  markdown文档规则
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="AI相关" class="dropdown-title"><span class="title">AI相关</span> <span class="arrow down"></span></button> <button type="button" aria-label="AI相关" class="mobile-dropdown-title"><span class="title">AI相关</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/claudeRules/" class="nav-link router-link-active">
+  claudeRules
+</a></li><li class="dropdown-item"><!----> <a href="/jiabinxu-blog/ai/usageExperience/" class="nav-link">
+  ai使用心得
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>WMB subagent-Driven Development</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#术语定义" class="sidebar-link">术语定义</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#执行前检查清单" class="sidebar-link">执行前检查清单</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#核心原则" class="sidebar-link">核心原则</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#设计理念" class="sidebar-link">设计理念</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#执行约束" class="sidebar-link">执行约束</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#审查机制" class="sidebar-link">审查机制</a></li></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#执行流程" class="sidebar-link">执行流程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#_1-初始化阶段" class="sidebar-link">1. 初始化阶段</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#_2-每个功能点的执行循环" class="sidebar-link">2. 每个功能点的执行循环</a></li></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#完成后的行动" class="sidebar-link">完成后的行动</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#subagent-模板" class="sidebar-link">subagent 模板</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#implementer-subagent" class="sidebar-link">implementer subagent</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#implementer-subagent-初始化指南" class="sidebar-link">implementer subagent 初始化指南</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#spec-review-subagent-初始化指南" class="sidebar-link">spec-review subagent 初始化指南</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#quality-reviewer-subagent-初始化指南" class="sidebar-link">quality-reviewer subagent 初始化指南</a></li></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#人类验证处理" class="sidebar-link">人类验证处理</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#controller-行为约束" class="sidebar-link">Controller 行为约束</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#subagent-管理规则" class="sidebar-link">subagent 管理规则</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#代码修改职责表" class="sidebar-link">代码修改职责表</a></li><li class="sidebar-sub-header"><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#controller-职责边界" class="sidebar-link">Controller 职责边界</a></li></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#red-flags" class="sidebar-link">Red Flags</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#与其他技能的集成" class="sidebar-link">与其他技能的集成</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/SKILL.html#示例工作流" class="sidebar-link">示例工作流</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="wmb-subagent-driven-development"><a href="#wmb-subagent-driven-development" class="header-anchor">#</a> WMB subagent-Driven Development</h1> <p>Execute plan by dispatching fresh subagent per feature, with continuous task execution and two-stage review: spec compliance review first, then code quality review.</p> <p><strong>Announce at start:</strong> &quot;我正在使用 wmb-subagent-driven-development skill 来执行技术方案实施&quot;</p> <p><strong>Skill 目录约定</strong>: 本 skill 的脚本和引用文件位于 SKILL.md 同级目录下（<code>scripts/</code>、<code>references/</code>），执行脚本时使用<strong>本 skill 的绝对路径</strong>，而非项目工程目录。</p> <h2 id="术语定义"><a href="#术语定义" class="header-anchor">#</a> 术语定义</h2> <p><strong>功能点（Feature）</strong>:</p> <ul><li>对应一个独立的 feature 文档（如 <code>feature/用户登录.md</code>）</li> <li>提供完整的用户价值</li> <li>是审查的基本单位</li></ul> <p><strong>任务（Task）</strong>:</p> <ul><li>feature 文档内的实施步骤（如任务 1、任务 2、任务 3...）</li> <li>多个任务共同完成一个功能点</li> <li>不单独进行审查，而是在功能点完成后统一审查</li></ul> <p><strong>执行原则</strong>:</p> <ul><li>按 feature 文档连续执行所有任务</li> <li>完成整个 feature 后进行双重审查</li> <li>每个 feature 完成后检查人类验证点</li></ul> <h2 id="执行前检查清单"><a href="#执行前检查清单" class="header-anchor">#</a> 执行前检查清单</h2> <p>开始执行前必须确认：</p> <ul><li>[ ] 已理解：<strong>一个功能点 = 一个 implementer + 一个 spec-reviewer + 一个 quality-reviewer</strong></li> <li>[ ] 已理解：同一功能点的所有修复都复用同一个 implementer（通过 resume）</li> <li>[ ] 已理解：TaskList 仅用于进度跟踪和上下文组织，不是 subagent 分配依据</li> <li>[ ] 已理解：subagent 需要连续执行功能点内的所有任务，保持上下文连续性</li> <li>[ ] 已准备：功能点的完整上下文和所有任务描述</li> <li>[ ] 已验证：主规范文档的文件清单要求已完整覆盖</li></ul> <h2 id="核心原则"><a href="#核心原则" class="header-anchor">#</a> 核心原则</h2> <h3 id="设计理念"><a href="#设计理念" class="header-anchor">#</a> 设计理念</h3> <ul><li><strong>上下文隔离</strong>：每功能点独立 subagent，避免上下文污染和混淆</li> <li><strong>信息前置</strong>：Controller 精心策划上下文，提供完整信息给 subagent，无需 subagent 自己读取文件</li> <li><strong>问题前置</strong>：疑问在工作开始前解决，而不是事后返工</li> <li><strong>质量分层</strong>：先规范符合（做对事），再代码质量（做好事）</li></ul> <h3 id="执行约束"><a href="#执行约束" class="header-anchor">#</a> 执行约束</h3> <ul><li><strong>Controller 禁止直接修改代码</strong>：所有代码修改必须通过 subagent 完成，避免上下文污染</li> <li>MUST FOLLOW <strong>一个功能点 = 固定的 subagent 组合</strong>：1 个 implementer + 1 个 spec-reviewer + 1 个 quality-reviewer</li> <li><strong>Resume 复用原则</strong>：同一功能点的所有修复都复用同一个 implementer（通过 resume）</li> <li><strong>功能点级审查</strong>：完成整个功能点的所有任务后，才进行双重审查</li> <li><strong>人类验证优先</strong>：spec-review 通过后，先人类验证，再 quality-review</li></ul> <h3 id="审查机制"><a href="#审查机制" class="header-anchor">#</a> 审查机制</h3> <ul><li><strong>Self-review</strong>：implementer 在提交前自审，减少低级错误</li> <li><strong>Spec compliance first</strong>：防止过度实现或遗漏需求（做对事）</li> <li><strong>Code quality second</strong>：确保实现质量（做好事）</li> <li><strong>Review loops</strong>：发现问题 → resume implementer 修复 → 重新审查，直到通过</li> <li><strong>双重保障</strong>：规范审查防止做错事，质量审查确保做好事</li></ul> <h2 id="执行流程"><a href="#执行流程" class="header-anchor">#</a> 执行流程</h2> <h3 id="_1-初始化阶段"><a href="#_1-初始化阶段" class="header-anchor">#</a> 1. 初始化阶段</h3> <div class="language-markdown extra-class"><pre class="language-markdown"><code><span class="token bold"><span class="token punctuation">**</span><span class="token content">读取计划</span><span class="token punctuation">**</span></span>:
+
+<span class="token list punctuation">-</span> 读取主计划文档（如 TECHNICAL_SPEC.md）
+<span class="token list punctuation">-</span> 识别所有功能点和对应的子文档
+<span class="token list punctuation">-</span> 读取每个功能点文档，获取完整内容
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">提取任务</span><span class="token punctuation">**</span></span>:
+
+<span class="token list punctuation">1.</span> 从每个功能点文档中提取所有任务
+<span class="token list punctuation">2.</span> 为每个任务保留功能点上下文和整体架构信息
+<span class="token list punctuation">3.</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">规范符合性验证</span><span class="token punctuation">**</span></span>:
+   <span class="token list punctuation">-</span> 仔细对比主规范文档的目录结构和文件清单要求
+   <span class="token list punctuation">-</span> 识别功能点任务中未覆盖的必需文件
+   <span class="token list punctuation">-</span> 为遗漏的文件补充创建/修改任务
+   <span class="token list punctuation">-</span> 确保所有技术要求都有对应的实施步骤
+<span class="token list punctuation">4.</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">完整性确认</span><span class="token punctuation">**</span></span>:
+   <span class="token list punctuation">-</span> 输出完整的文件清单对比表
+   <span class="token list punctuation">-</span> 确认所有必需文件都有对应任务
+   <span class="token list punctuation">-</span> 验证任务分解的完整性
+<span class="token list punctuation">5.</span> 创建完整的 TaskList，按功能点分组排列
+<span class="token list punctuation">6.</span> 明确标识哪些任务属于同一功能点
+
+<span class="token bold"><span class="token punctuation">**</span><span class="token content">重要说明</span><span class="token punctuation">**</span></span>: TaskList 仅用于进度跟踪和上下文组织，不代表每个 Task 需要独立的 subagent。一个功能点的所有任务由同一个 implementer subagent 连续完成。
+</code></pre></div><h3 id="_2-每个功能点的执行循环"><a href="#_2-每个功能点的执行循环" class="header-anchor">#</a> 2. 每个功能点的执行循环</h3> <p><strong>必须遵循该开发流程，不允许在没有进行 spec-review 及 quality-reviewer 开始下一次开发</strong></p> <ul><li>每个功能点<strong>开始前</strong>，Controller 记录基线 commit hash：执行 <code>git rev-parse HEAD</code> 并保存结果（记为 <code>BASELINE</code>）</li> <li>每个功能点<strong>双重审查通过后</strong>，按以下顺序收尾：</li></ul> <p><strong>① 记录改动量</strong>（<strong>严禁</strong>手动写入 <code>changes.json</code>，必须执行脚本）：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">node</span> <span class="token operator">&lt;</span>SKILL_DIR<span class="token operator">&gt;</span>/scripts/record-changes.js <span class="token punctuation">\</span>
+  --design-dir <span class="token string">&quot;docs/design/YYYY-MM-DD-&lt;需求名称&gt;&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--feature</span> <span class="token string">&quot;&lt;功能点名称&gt;&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--base</span> <span class="token string">&quot;&lt;BASELINE commit hash&gt;&quot;</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--changes</span> <span class="token string">&quot;改动点1&quot;</span> <span class="token string">&quot;改动点2&quot;</span> <span class="token string">&quot;改动点3&quot;</span>
+</code></pre></div><blockquote><p><code>&lt;SKILL_DIR&gt;</code> 为本 SKILL.md 所在目录的绝对路径。</p></blockquote> <p><strong>② 向用户展示改动摘要，确认后执行 git commit</strong>：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> <span class="token function">add</span> <span class="token builtin class-name">.</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">&quot;feature(&lt;功能点名称&gt;): &lt;一句话描述&gt;&quot;</span>
+</code></pre></div><blockquote><p>用户不确认则暂停，等待反馈后再继续。</p></blockquote> <div class="language-mermaid extra-class"><pre class="language-mermaid"><code><span class="token keyword">graph</span> TB
+    A<span class="token text string">[开始功能点]</span> <span class="token arrow operator">--&gt;</span> A1<span class="token text string">[记录基线 commit hash]</span>
+    A1 <span class="token arrow operator">--&gt;</span> B<span class="token text string">[创建 implementer subagent]</span>
+    B <span class="token arrow operator">--&gt;</span> C<span class="token text string">[subagent 理解功能点要求]</span>
+    C <span class="token arrow operator">--&gt;</span> D<span class="token text string">{subagent 对要执行的任务有疑惑?}</span>
+    D <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> E<span class="token text string">[回答问题，提供上下文]</span>
+    E <span class="token arrow operator">--&gt;</span> C
+    D <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> F<span class="token text string">[subagent 连续执行功能点内所有任务]</span>
+    F <span class="token arrow operator">--&gt;</span> G<span class="token text string">[subagent 实施、测试、自审所有任务]</span>
+    G <span class="token arrow operator">--&gt;</span> H<span class="token text string">[功能点完成，开始审查]</span>
+    H <span class="token arrow operator">--&gt;</span> I<span class="token text string">[创建 spec-reviewer subagent]</span>
+    I <span class="token arrow operator">--&gt;</span> J<span class="token text string">{规范符合?}</span>
+    J <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> K<span class="token text string">[resume implementer 修复规范问题]</span>
+    K <span class="token arrow operator">--&gt;</span> I
+    J <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> L<span class="token text string">{是否需要人类验证？}</span>
+    L <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> M<span class="token text string">[暂停，等待人类验证]</span>
+    M <span class="token arrow operator">--&gt;</span> N<span class="token text string">{人类验证通过?}</span>
+    N <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> O<span class="token text string">[resume implementer 修复问题]</span>
+    O <span class="token arrow operator">--&gt;</span> M
+    N <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> P<span class="token text string">[创建 quality-reviewer subagent]</span>
+    L <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> P
+    P <span class="token arrow operator">--&gt;</span> Q<span class="token text string">{质量审查通过?}</span>
+    Q <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> R<span class="token text string">[resume implementer 修复质量问题]</span>
+    R <span class="token arrow operator">--&gt;</span> P
+    Q <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> S<span class="token text string">[记录改动量]</span>
+    S <span class="token arrow operator">--&gt;</span> T<span class="token text string">[向用户展示完成摘要]</span>
+    T <span class="token arrow operator">--&gt;</span> U<span class="token text string">{用户确认?}</span>
+    U <span class="token arrow operator">--&gt;</span><span class="token label property">|否|</span> V<span class="token text string">[暂停，等待用户反馈]</span>
+    V <span class="token arrow operator">--&gt;</span> U
+    U <span class="token arrow operator">--&gt;</span><span class="token label property">|是|</span> W<span class="token text string">[git add + git commit]</span>
+    W <span class="token arrow operator">--&gt;</span> X<span class="token text string">[进入下一个功能点]</span>
+</code></pre></div><h2 id="完成后的行动"><a href="#完成后的行动" class="header-anchor">#</a> 完成后的行动</h2> <p><strong>确认完成状态</strong>:</p> <ul><li>所有功能点都通过了 spec-review 和 quality-review</li> <li>所有人类验证点都已通过</li></ul> <p><strong>下一步 (如果用户继续)</strong>:</p> <ul><li>询问：&quot;所有功能点已完成，准备好进行开发收尾了吗？&quot;</li> <li>使用 wmb-finishing-development skill 进行：
+<ul><li>规格漂移检测与文档归档</li> <li>模块 README 文档生成</li></ul></li></ul> <h2 id="subagent-模板"><a href="#subagent-模板" class="header-anchor">#</a> subagent 模板</h2> <h3 id="implementer-subagent"><a href="#implementer-subagent" class="header-anchor">#</a> implementer subagent</h3> <p><strong>执行流程</strong>:</p> <ol><li><strong>理解阶段</strong>：先全面理解功能点要求和所有任务，提出疑问</li> <li><strong>确认阶段</strong>：与 controller 澄清所有疑惑，确保理解正确</li> <li><strong>执行阶段</strong>：连续完成功能点内的所有任务，保持上下文连续性</li></ol> <p><strong>职责</strong>:</p> <ul><li>接收：完整的功能点上下文 + 所有任务列表</li> <li>理解：在开始执行前，充分理解所有要求并澄清疑惑</li> <li>执行：连续完成功能点内的所有任务，保持上下文连续性</li> <li>输出：完整功能点的实现结果</li> <li>禁止：未充分理解就开始执行，或任务间的上下文中断</li></ul> <h3 id="implementer-subagent-初始化指南"><a href="#implementer-subagent-初始化指南" class="header-anchor">#</a> implementer subagent 初始化指南</h3> <p>见 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/references/implementer-prompt.html">implementer-prompt.md</a></p> <h3 id="spec-review-subagent-初始化指南"><a href="#spec-review-subagent-初始化指南" class="header-anchor">#</a> spec-review subagent 初始化指南</h3> <p>见 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/references/spec-reviewer-prompt.html">spec-reviewer-prompt.md</a></p> <h3 id="quality-reviewer-subagent-初始化指南"><a href="#quality-reviewer-subagent-初始化指南" class="header-anchor">#</a> quality-reviewer subagent 初始化指南</h3> <p>见 <a href="/jiabinxu-blog/ai/claudeRules/universal/skills/subagent-driven-development/references/code-quality-reviewer-prompt.html">code-quality-reviewer-prompt.md</a></p> <h2 id="人类验证处理"><a href="#人类验证处理" class="header-anchor">#</a> 人类验证处理</h2> <p>当功能点包含 &quot;🔍 <strong>需要人类搭档验证</strong>&quot; 节点时：</p> <div class="language-markdown extra-class"><pre class="language-markdown"><code><span class="token bold"><span class="token punctuation">**</span><span class="token content">暂停执行，通知人类</span><span class="token punctuation">**</span></span>:
+&quot;功能点 [功能点名称] 技术实现完成，需要人类验证以下内容：
+
+<span class="token list punctuation">-</span> [具体验证项目 1]
+<span class="token list punctuation">-</span> [具体验证项目 2]
+<span class="token list punctuation">-</span> [具体验证项目 3]
+
+请验证后反馈：
+
+<span class="token list punctuation">-</span> ✅ 验证通过 - 继续下一步
+<span class="token list punctuation">-</span> ❌ 需要调整 - 请描述具体问题&quot;
+</code></pre></div><p><strong>根据反馈处理</strong>:</p> <ul><li>通过 → 继续代码质量审查</li> <li>需要调整 → 派遣修复 subagent，然后重新人类验证</li></ul> <h2 id="controller-行为约束"><a href="#controller-行为约束" class="header-anchor">#</a> Controller 行为约束</h2> <p><strong>核心原则：Controller 禁止直接修改代码</strong></p> <p>为了保持上下文清晰、避免 context pollution，所有代码修改必须通过 subagent 完成。</p> <h3 id="subagent-管理规则"><a href="#subagent-管理规则" class="header-anchor">#</a> subagent 管理规则</h3> <p><strong>一个功能点 = 固定的 subagent 组合：</strong></p> <ul><li>1 个 implementer subagent（所有实现和修复）</li> <li>1 个 spec-reviewer subagent（所有规范审查）</li> <li>1 个 quality-reviewer subagent（所有质量审查）</li></ul> <p><strong>复用原则：</strong></p> <ul><li>正常流程中的修复（reviewer 问题、人类反馈）→ <strong>resume</strong> 同一个 subagent</li> <li>这保证了干净的上下文：subagent 了解之前的决策和代码结构</li> <li>只有两种情况创建新 subagent：
+<ol><li>功能点切换时</li> <li>subagent 完全失败时（异常情况，需要全新上下文尝试）</li></ol></li></ul> <h3 id="代码修改职责表"><a href="#代码修改职责表" class="header-anchor">#</a> 代码修改职责表</h3> <table><thead><tr><th>场景</th> <th>正确做法</th> <th>说明</th></tr></thead> <tbody><tr><td>计划中的任务</td> <td>派遣 implementer subagent</td> <td>新功能点开始</td></tr> <tr><td>Reviewer 发现问题</td> <td><strong>resume</strong> 同一个 implementer</td> <td>正常流程，保持上下文</td></tr> <tr><td>人类验证反馈&quot;需要调整&quot;</td> <td><strong>resume</strong> 同一个 implementer</td> <td>正常流程，保持上下文</td></tr> <tr><td>用户中途提出新需求/改进</td> <td><strong>resume</strong> 同一个 implementer</td> <td>视为功能点追加任务</td></tr> <tr><td><strong>subagent 完全失败</strong></td> <td>派遣新的 fix subagent</td> <td>异常情况，需要全新上下文</td></tr></tbody></table> <h3 id="controller-职责边界"><a href="#controller-职责边界" class="header-anchor">#</a> Controller 职责边界</h3> <ul><li>✅ 读取和分析代码（准备 subagent 上下文）</li> <li>✅ 编排和协调 subagent</li> <li>✅ 与用户沟通、澄清需求</li> <li>✅ 审查 subagent 的输出</li> <li>❌ 直接编辑任何代码文件</li> <li>❌ 自己&quot;顺手&quot;修复小问题</li></ul> <h2 id="red-flags"><a href="#red-flags" class="header-anchor">#</a> Red Flags</h2> <p><strong>Never:</strong></p> <ul><li>Controller 直接修改代码（必须通过 subagent，管理上下文）</li> <li>跳过任何审查环节（spec compliance OR code quality）</li> <li>同时派遣多个 implementer subagent（会冲突）</li> <li>让 subagent 读取计划文件（应直接提供完整文本）</li> <li>忽略 subagent 的问题</li> <li>在规范审查通过前开始代码质量审查（顺序错误）</li> <li>在功能点未完成时进行审查（必须等所有任务完成）</li> <li>跳过 review 循环（reviewer 发现问题 → implementer 修复 → 再次 review）</li></ul> <p><strong>If subagent asks questions:</strong></p> <ul><li>Answer clearly and completely</li> <li>Provide additional context if needed</li> <li>Don't rush them into implementation</li></ul> <p><strong>If reviewer finds issues:</strong></p> <ul><li><strong>Resume</strong> same implementer to fix（保持上下文）</li> <li>Reviewer reviews again</li> <li>Repeat until approved</li> <li>Don't skip the re-review</li></ul> <p><strong>If subagent fails task completely:</strong></p> <ul><li>Dispatch <strong>new</strong> fix subagent with specific instructions</li> <li>Don't try to fix manually (context pollution)</li></ul> <h2 id="与其他技能的集成"><a href="#与其他技能的集成" class="header-anchor">#</a> 与其他技能的集成</h2> <p><strong>常用的上游技能</strong>:</p> <ul><li><strong>wmb-technical-design</strong> - 可生成本技能执行的技术方案</li></ul> <h2 id="示例工作流"><a href="#示例工作流" class="header-anchor">#</a> 示例工作流</h2> <div class="language- extra-class"><pre class="language-text"><code>Controller: 我正在使用 wmb-subagent-driven-development skill 来执行技术方案实施
+
+[读取主文档: docs/design/2024-01-15-user-profile/TECHNICAL_SPEC.md]
+[识别功能点: user-avatar-component, user-profile-form, user-settings]
+[读取功能点文档: user-avatar-component.md, user-profile-form.md, user-settings.md]
+[从所有功能点文档中提取任务，创建 TaskList]
+
+提取的 TaskList:
+- Task 1: 创建用户头像组件基础结构 (来自功能点: user-avatar-component)
+- Task 2: 实现头像加载状态和错误处理 (来自功能点: user-avatar-component)
+- Task 3: 创建用户信息表单组件 (来自功能点: user-profile-form)
+- Task 4: 实现表单验证逻辑 (来自功能点: user-profile-form)
+- Task 5: 创建用户设置页面 (来自功能点: user-settings)
+
+功能点: user-avatar-component
+
+[记录基线: git rev-parse HEAD → abc1234]
+[派遣实施 subagent，提供完整功能点上下文 + 所有任务列表]
+
+Implementer: &quot;我需要理解整个功能点的要求。我看到需要完成两个任务：
+1. 创建用户头像组件基础结构
+2. 实现头像加载状态和错误处理
+
+我有几个疑问：
+- 头像组件是否需要支持点击事件？
+- 加载失败时应该显示什么样的 fallback？
+- 需要支持哪些图片格式？&quot;
+
+Controller: &quot;根据设计文档：
+- 暂时不需要点击事件，只负责显示
+- 加载失败时显示默认头像占位符
+- 支持常见的 jpg, png, webp 格式&quot;
+
+Implementer: &quot;明白了，所有要求都清楚了。现在开始连续实施所有任务...&quot;
+
+[Implementer 连续完成所有任务:]
+- Task 1: 创建了 UserAvatar 组件基础结构
+- Task 2: 实现了加载状态和错误处理
+- 完成自审，npm run check 通过
+- 向 Controller 汇报完整功能点实现
+
+[派遣规范审查 subagent]
+Spec Reviewer: ✅ 规范符合 - 用户头像组件功能完整，符合设计要求
+
+[检查是否有人类验证节点]
+Controller: &quot;user-avatar-component 功能点技术实现完成，需要人类验证：
+- 浏览器访问 http://localhost:3000/profile
+- 测试头像加载失败时的 fallback 显示
+- 确认加载状态的 loading 效果
+
+请验证后反馈。&quot;
+
+[人类验证通过后]
+
+[派遣代码质量审查 subagent]
+Code Reviewer: ✅ 代码质量良好 - 类型定义清晰，组件结构合理，错误处理完善
+
+[功能点改动量记录]
+node &lt;SKILL_DIR&gt;/scripts/record-changes.js \
+  --design-dir &quot;docs/design/2024-01-15-user-profile&quot; \
+  --feature &quot;user-avatar-component&quot; \
+  --base &quot;abc1234&quot; \
+  --changes &quot;创建用户头像组件&quot; &quot;实现加载状态和错误处理&quot; &quot;添加 fallback 占位符&quot;
+
+Controller: &quot;功能点 user-avatar-component 已完成全部审查，改动摘要：
+- 📊 统计: 3 个文件, +120 -5 行
+- 📁 文件: src/components/UserAvatar.tsx, src/components/UserAvatar.module.css, src/components/index.ts
+- 📝 改动: 创建用户头像组件、实现加载状态和错误处理、添加 fallback 占位符
+
+确认无误后将执行 git commit，是否继续？&quot;
+
+用户: &quot;✅ 确认&quot;
+
+[执行 git commit]
+git add .
+git commit -m &quot;feature(user-avatar-component): 实现用户头像组件，支持加载状态和错误 fallback&quot;
+
+[标记功能点完成，继续下一个功能点]
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/jiabinxu-blog/assets/js/app.d81c5f05.js" defer></script><script src="/jiabinxu-blog/assets/js/3.b2c4be22.js" defer></script><script src="/jiabinxu-blog/assets/js/2.32f92df3.js" defer></script><script src="/jiabinxu-blog/assets/js/81.b606547f.js" defer></script>
+  </body>
+</html>
