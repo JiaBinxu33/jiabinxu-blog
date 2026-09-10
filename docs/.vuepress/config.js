@@ -115,6 +115,10 @@ module.exports = {
                 link: "/project/nextjs-dir/",
               },
               {
+                text: "appRouterVSpageRouterVSreactRouterDom",
+                link: "/project/router/",
+              },
+              {
                 text: "flutter环境配置",
                 link: "/project/flutter-config/",
               },
