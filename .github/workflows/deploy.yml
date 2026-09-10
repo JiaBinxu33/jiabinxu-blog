@@ -1,41 +1,57 @@
-name: Auto Deploy Blog
+name: Deploy VuePress to GitHub Pages
 
-# 触发条件：当代码推送到 master 分支时运行
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 获取源码
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # 2. 设置 Node.js 环境
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '18' # 根据你的项目修改 Node 版本
+          node-version: '18'
+          cache: yarn
 
-      # 3. 安装依赖 (如果是 yarn 请换成 yarn install)
-      - name: Install Dependencies
-        run: npm install
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-      # 4. 构建文档
-      - name: Build Docs
-        run: |
-          mkdir -p .temp_deploy
-          npx vuepress build docs --dest .temp_deploy
-          
-      # 5. 部署到 blog_pages 分支
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Build
+        run: yarn build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .temp_deploy
-          publish_branch: blog_pages # 部署目标分支
-          commit_message: "Deploy: ${{ github.event.head_commit.message }}"
+          path: docs/.vuepress/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
