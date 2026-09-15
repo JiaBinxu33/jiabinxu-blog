@@ -231,6 +231,10 @@ Success! Created my-app at E:\xxx\my-app
     不需要单独为每个文件配置路径，直接配置根路径，根路径下所有子文件夹都可以被访问到
   - 组件中使用：@/xxx，注意斜杠，要使用@/，不是只有@，根据 jsconfig.json 中的配置作为判断依据
 
+## 用户访问一个 Next.js 页面以后，Next.js 内部经历了什么
+
+用户输入 URL 后，请求首先进入 Next.js Server，如果项目配置了 Proxy，会先进行权限、重定向或者 rewrite 之类的前置处理。然后 Next.js 根据文件系统路由匹配对应的 Layout 和 Page，构建路由树，并判断页面是否可以使用缓存或者需要动态渲染。之后服务端执行 Server Component 和数据请求，生成 RSC Payload，同时在首次访问时生成 HTML 返回给浏览器。如果有慢数据，还可以通过 Suspense 和 Streaming 分块返回。浏览器拿到 HTML 后先渲染出页面，再加载 Client Component 对应的 JavaScript，React 对这些组件进行 Hydration，绑定状态和事件，最后客户端 Router 初始化完成，页面就进入完全可交互状态。
+
 ## Next.js 核心渲染概念
 
 Next.js 提供了多种灵活的渲染策略，以满足不同应用场景，优化性能、SEO 和用户体验。以下内容结合 Next.js 官方文档和社区权威资料详细介绍了主要的渲染机制。
@@ -1491,13 +1495,13 @@ Ant Design 中关于静态方法无法消费 Context 的警告，源于全局静
 
         // 受保护路由
         const isOnProtectedRoute = protectedRoutes.some((route) =>
-          pathname.startsWith(route)
+          pathname.startsWith(route),
         );
         if (isOnProtectedRoute) return isLoggedIn;
 
         // 登录页面
         const isOnAuthRoute = authRoutes.some((route) =>
-          pathname.startsWith(route)
+          pathname.startsWith(route),
         );
         if (isOnAuthRoute) {
           if (isLoggedIn) {
