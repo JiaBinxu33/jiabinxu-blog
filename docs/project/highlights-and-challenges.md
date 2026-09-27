@@ -715,3 +715,11 @@ Next.js（特别是 App Router）推崇一种更安全、更强大的**以服务
   - d. 检查是否**尚未**存在 `Authorization` 请求头 (`if (!headers.has("Authorization"))`)。
   - e. 如果不存在，它会检查 Token 是否已包含 "Bearer " 前缀，如果不包含，则手动添加，然后设置 `headers.set("Authorization", authorizationValue)`。
   - f. 返回被修改后的 `config` 对象。
+
+## 从 0-1 搭建项目需要考虑哪些问题？
+
+如果让我从 0 到 1 搭建一个 Next.js 项目，我首先会根据业务确定技术方案，比如项目是否需要 SEO、SSR，以及状态管理和 UI 组件库怎么选择。  
+项目初始化之后，我会先建设基础架构，包括目录规范、TypeScript、环境变量、请求层封装、登录鉴权、权限、公共组件和公共 Hooks。  
+Next.js 这边我还会重点考虑 Server Component 和 Client Component 的边界，以及不同页面应该使用 SSR、SSG 还是 CSR，同时规划好缓存策略。  
+工程化方面会统一 ESLint、Prettier、Git 和 Commit 规范，同时补充 Loading、Error、404、日志监控和埋点。  
+最后再把 CI/CD 和不同环境的部署流程搭起来。这样后面的业务开发基本都是建立在统一的基础设施之上，而不是每个业务自己重复实现。
