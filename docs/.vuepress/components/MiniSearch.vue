@@ -10,9 +10,10 @@
       autocomplete="off"
       spellcheck="false"
       @input="performSearch"
-      @focus="focused = true"
+      @focus="onFocus"
       @blur="onBlur"
-      @keyup.enter="go(focusIndex)"
+      @keydown.enter="onEnter"
+      @keydown.esc="closeDropdown"
       @keyup.up="onUp"
       @keyup.down="onDown"
     />
@@ -30,7 +31,6 @@
           'suggestion-item': s.type === 'result',
           focused: s.type === 'result' && i === focusIndex,
         }"
-        @mousedown="s.type === 'result' && go(i)"
         @mouseenter="s.type === 'result' && focus(i)"
       >
         <!-- 分组标题 (例如: "工具类") -->
@@ -40,7 +40,11 @@
 
         <!-- 搜索结果项 -->
         <template v-else-if="s.type === 'result'">
-          <router-link :to="s.path" @click.native="closeDropdown">
+          <a
+            :href="$router.resolve({ path: s.path, query: { search_query: searchQuery } }).href"
+            @mousedown.prevent
+            @click.prevent="go(i)"
+          >
             <!-- (新) 层级图标 -->
             <div class="hierarchy-icon">
               <span>#</span>
@@ -52,7 +56,7 @@
               <!-- 内容片段 -->
               <div v-if="s.snippet" class="snippet" v-html="s.snippet"></div>
             </div>
-          </router-link>
+          </a>
         </template>
       </li>
 
@@ -61,7 +65,7 @@
         v-if="suggestions.length === 0 && searchQuery"
         class="suggestion-item no-results"
       >
-        <span>没有找到结果</span>
+        <span>{{ loading ? "搜索索引加载中…" : loadError ? "搜索索引加载失败，请刷新重试" : "没有找到结果" }}</span>
       </li>
     </ul>
   </div>
@@ -76,6 +80,9 @@ export default {
   data() {
     return {
       miniSearch: null,
+      loading: true,
+      loadError: false,
+      blurTimer: null,
       searchIndex: [],
       searchQuery: "",
       suggestions: [],
@@ -89,7 +96,7 @@ export default {
 
   computed: {
     showSuggestions() {
-      return this.focused && (this.suggestions.length > 0 || this.searchQuery);
+      return this.focused && (this.suggestions.length > 0 || this.searchQuery.trim());
     },
     searchInputStyle() {
       return {
@@ -100,11 +107,32 @@ export default {
 
   async mounted() {
     this.placeholder = this.$site.themeConfig.searchPlaceholder || "搜索...";
-    await this.loadIndex();
-    this.initMiniSearch();
+    try {
+      await this.loadIndex();
+      this.initMiniSearch();
+      this.performSearch();
+    } catch (error) {
+      this.loadError = true;
+      console.error("[Search] 索引初始化失败:", error);
+    } finally {
+      this.loading = false;
+    }
+  },
+
+  beforeDestroy() {
+    clearTimeout(this.blurTimer);
   },
 
   methods: {
+    onFocus() {
+      clearTimeout(this.blurTimer);
+      this.focused = true;
+    },
+    onEnter(event) {
+      if (event.isComposing || event.target.composing || event.keyCode === 229) return;
+      event.preventDefault();
+      this.go(this.focusIndex);
+    },
     async loadIndex() {
       try {
         const response = await fetch(this.$withBase("/search-index.json"));
@@ -112,11 +140,12 @@ export default {
           throw new Error(`Search index fetch failed: ${response.status}`);
         }
         this.searchIndex = await response.json();
+        if (!Array.isArray(this.searchIndex)) throw new Error("Invalid search index");
         console.log(
           `[SearchBox Debug] v3 索引已加载, ${this.searchIndex.length} 篇文档.`
         );
       } catch (e) {
-        console.error("[SearchBox Debug] 加载 v3 索引失败:", e);
+        throw e;
       }
     },
 
@@ -143,7 +172,7 @@ export default {
           if (currentTerm.length === 0) return;
 
           const termToPush = currentTermIsCJK
-            ? currentTerm.replace(WHITESPACE_REGEX, "")
+            ? currentTerm.replace(/\s/g, "")
             : currentTerm;
 
           if (termToPush.length === 0) {
@@ -152,9 +181,8 @@ export default {
           }
 
           if (currentTermIsCJK) {
-            if (termToPush.length === 1) {
-              terms.push(termToPush);
-            } else {
+            terms.push(...termToPush);
+            if (termToPush.length > 1) {
               for (let i = 0; i < termToPush.length - 1; i++) {
                 const bigram = termToPush.substring(i, i + 2);
                 terms.push(bigram);
@@ -221,7 +249,7 @@ export default {
     },
 
     performSearch() {
-      if (!this.searchQuery || !this.miniSearch) {
+      if (!this.searchQuery.trim() || !this.miniSearch) {
         this.suggestions = [];
         return;
       }
@@ -257,86 +285,69 @@ export default {
      * 将搜索结果分组并高亮
      */
     groupAndHighlightResults(results, query) {
-      const grouped = {};
-      // (修改) 高亮类名改为 'highlight-text'
-      const regex = new RegExp(`(${this.escapeRegExp(query)})`, "gi");
-      const highlightReplacement = '<span class="highlight-text">$1</span>';
-
+      const grouped = new Map();
       results.slice(0, 15).forEach((result) => {
-        const pageTitleHighlighted = result.pageTitle.replace(
-          regex,
-          highlightReplacement
-        );
-
-        if (!grouped[pageTitleHighlighted]) {
-          grouped[pageTitleHighlighted] = [];
+        const pagePath = result.path.split("#")[0];
+        // match maps actual matched terms to field names, not character offsets.
+        const terms = [query.trim(), ...Object.keys(result.match || {})].filter(Boolean);
+        if (!grouped.has(pagePath)) {
+          grouped.set(pagePath, { title: this.highlight(result.pageTitle, terms), items: [] });
         }
-
-        const headerTitleText = result.headerTitle || "概述"; // 使用 '概述' 作为回退
-        const headerTitleHighlighted = headerTitleText.replace(
-          regex,
-          highlightReplacement
+        const textTerms = Object.keys(result.match || {}).filter(
+          (term) => result.match[term].includes("text")
         );
-
-        const textSnippet = this.createSnippet(
-          result.text,
-          query,
-          result.match.text,
-          regex,
-          highlightReplacement
-        );
-
-        grouped[pageTitleHighlighted].push({
+        grouped.get(pagePath).items.push({
           path: result.path,
-          headerTitle: headerTitleHighlighted,
-          snippet: textSnippet,
+          headerTitle: this.highlight(result.headerTitle || "概述", terms),
+          snippet: this.createSnippet(result.text, query.trim(), textTerms, terms),
         });
       });
-
       const finalSuggestions = [];
-      for (const pageTitle in grouped) {
-        finalSuggestions.push({ type: "groupHeader", title: pageTitle });
-        grouped[pageTitle].forEach((item) => {
-          finalSuggestions.push({ type: "result", ...item });
-        });
-      }
+      grouped.forEach(({ title, items }) => {
+        finalSuggestions.push({ type: "groupHeader", title });
+        items.forEach((item) => finalSuggestions.push({ type: "result", ...item }));
+      });
       return finalSuggestions;
     },
 
-    /**
-     * (工具) 创建高亮的内容片段
-     */
-    createSnippet(text, query, matchDetails, regex, highlightReplacement) {
-      if (!text || !query) return "";
-
-      const queryIndex = text.toLowerCase().indexOf(query.toLowerCase());
-      if (queryIndex === -1 && (!matchDetails || matchDetails.length === 0)) {
-        return text.substring(0, 80) + (text.length > 80 ? "..." : "");
-      }
-
-      let firstMatchStart = queryIndex;
-      if (matchDetails && matchDetails.length > 0) {
-        firstMatchStart = matchDetails[0][0];
-      }
-
-      const snippetLength = 80;
-      const start = Math.max(0, firstMatchStart - snippetLength / 2);
-      const end = Math.min(text.length, start + snippetLength);
-
-      let snippet = text.substring(start, end);
-
-      if (start > 0) snippet = "..." + snippet;
-      if (end < text.length) snippet = snippet + "...";
-
-      // (修改) 使用传入的高亮类名
-      snippet = snippet.replace(regex, highlightReplacement);
-
-      return snippet;
+    escapeHtml(text) {
+      return String(text || "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+      }[char]));
     },
 
-    /**
-     * (工具) 正则表达式特殊字符转义
-     */
+    highlight(text, terms) {
+      text = String(text || "");
+      const alternatives = [...new Set(terms)].filter(Boolean)
+        .sort((a, b) => b.length - a.length).map(this.escapeRegExp);
+      if (!alternatives.length) return this.escapeHtml(text);
+      const regex = new RegExp(alternatives.join("|"), "gi");
+      let html = "";
+      let offset = 0;
+      text.replace(regex, (match, index) => {
+        html += this.escapeHtml(text.slice(offset, index));
+        html += '<span class="highlight-text">' + this.escapeHtml(match) + '</span>';
+        offset = index + match.length;
+        return match;
+      });
+      return html + this.escapeHtml(text.slice(offset));
+    },
+
+    createSnippet(text, query, textTerms, terms) {
+      if (!text || !query) return "";
+      const lowerText = text.toLowerCase();
+      let position = lowerText.indexOf(query.toLowerCase());
+      if (position < 0) {
+        const positions = textTerms.map((term) => lowerText.indexOf(term.toLowerCase()))
+          .filter((index) => index >= 0);
+        position = positions.length ? Math.min(...positions) : 0;
+      }
+      const start = Math.max(0, position - 40);
+      const end = Math.min(text.length, start + Math.max(80, query.length + 40));
+      return (start ? "..." : "") + this.highlight(text.slice(start, end), terms) +
+        (end < text.length ? "..." : "");
+    },
+
     escapeRegExp(string) {
       return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     },
@@ -348,10 +359,15 @@ export default {
       const suggestion = this.suggestions[i];
       if (suggestion && suggestion.type === "result") {
         // 在跳转时, 把当前的 searchQuery 作为 URL query 参数传过去
-        this.$router.push({
+        const destination = {
           path: suggestion.path, // 路径 (例如 /React/Hooks.html#useCallback)
           query: { search_query: this.searchQuery }, // URL 参数 (例如 ?search_query=fiber)
-        });
+        };
+        if (this.$router.resolve(destination).route.fullPath === this.$route.fullPath) {
+          this.$refreshSearchHighlight();
+        } else {
+          this.$router.push(destination);
+        }
         this.closeDropdown();
       }
     },
@@ -364,7 +380,8 @@ export default {
     },
 
     onBlur() {
-      setTimeout(() => {
+      clearTimeout(this.blurTimer);
+      this.blurTimer = setTimeout(() => {
         this.focused = false;
       }, 200);
     },
