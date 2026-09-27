@@ -7,7 +7,9 @@ module.exports = (options, context) => ({
     const documents = [];
     for (const page of pages) {
       const content = page._strippedContent || "";
-      if (page.path === "/404.html" || !page.title || !content) continue;
+      if (page.path === "/404.html" || !content) continue;
+      // Pages without an H1/frontmatter title still contain searchable content.
+      const pageTitle = page.title || (page.headers || [])[0]?.title || page.path;
       // Use VuePress's parser and IDs rather than matching headings in raw text.
       const headers = new Map((page.headers || []).map((header) => [header.slug, header]));
       const sections = markdown.parse(content, {}).filter((token) =>
@@ -19,7 +21,7 @@ module.exports = (options, context) => ({
         documents.push({
           id: header ? page.key + "#" + header.slug : page.key,
           path: header ? page.path + "#" + header.slug : page.path,
-          pageTitle: page.title,
+          pageTitle,
           headerTitle: header ? header.title : null,
           text: text + "\n\n" + squashed,
         });

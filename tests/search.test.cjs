@@ -67,6 +67,32 @@ test('IME Enter confirms input without navigating', () => {
   vm.onEnter({ target: {}, keyCode: 229 });
 });
 
+test('router page without an H1 is indexed and its Chinese phrase is searchable', async () => {
+  const markdown = require('@vuepress/markdown')();
+  const { extractHeaders, inferTitle } = require('@vuepress/shared-utils');
+  const content = fs.readFileSync(path.join(__dirname, '../docs/project/router.md'), 'utf8');
+  const headers = extractHeaders(content, ['h2', 'h3'], markdown);
+  const sourceDir = fs.mkdtempSync(path.join(os.tmpdir(), 'blog-search-'));
+  try {
+    const plugin = require('../docs/.vuepress/plugins/generate-search-index')({}, {
+      sourceDir, markdown,
+      pages: [{ key: 'router', path: '/project/router.html', title: inferTitle({}, content), headers, _strippedContent: content }],
+    });
+    await plugin.ready();
+    const vm = instance();
+    vm.searchIndex = JSON.parse(fs.readFileSync(path.join(sourceDir, '.vuepress/public/search-index.json'), 'utf8'));
+    vm.initMiniSearch();
+    vm.searchQuery = '集中式路由表映射';
+    vm.performSearch();
+    const result = vm.suggestions.find((item) => item.type === 'result');
+    assert(result);
+    assert.equal(result.path, '/project/router.html#' + headers[0].slug);
+    assert(result.snippet.includes('<span class="highlight-text">集中式路由表映射</span>'));
+  } finally {
+    fs.rmSync(sourceDir, { recursive: true });
+  }
+});
+
 test('index uses real Markdown headings, including formatted and Setext headings', async () => {
   const markdown = require('@vuepress/markdown')();
   const { extractHeaders } = require('@vuepress/shared-utils');
