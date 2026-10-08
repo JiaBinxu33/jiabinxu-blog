@@ -60,6 +60,10 @@ module.exports = {
                 text: "JavaScript核心对象",
                 link: "/JavaScript/javascript-core-objects/",
               },
+              {
+                text: "TypeScript",
+                link: "/JavaScript/ts/",
+              },
             ],
           },
           {
