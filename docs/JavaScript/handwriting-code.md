@@ -175,9 +175,9 @@ Function.prototype.myCall = function(context,...args){
 }
 ```
 
-### 实现 PromiseallSettled()方法
+### 实现 Promise.allSettled()方法
 
-- 说明：PromiseallSettled() 方法返回一个 Promise，该 Promise 在所有给定的 Promise 都已经成功解决(fulfilled) 或拒绝(rejected)之后解决，并返回一个对象数组，每个对象都描述了每个 Promise 的结果。与 Promise 不同的是, Promise.all 一旦遇到错误就会立即拒绝，而 PromiseallSettled 则会等待所有 Promise 都结束(无论成功还是失败)
+- 说明：Promise.allSettled() 方法返回一个 Promise，该 Promise 在所有给定的 Promise 都已经成功解决(fulfilled) 或拒绝(rejected)之后解决，并返回一个对象数组，每个对象都描述了每个 Promise 的结果。与 Promise 不同的是, Promise.all 一旦遇到错误就会立即拒绝，而 Promise.allSettled 则会等待所有 Promise 都结束(无论成功还是失败)
 
 ```JavaScript
 function promiseAllSettled(iterable) {
