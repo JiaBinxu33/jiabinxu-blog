@@ -151,6 +151,10 @@ module.exports = {
             ],
           },
           {
+            text: "python",
+            items: [{ text: "python入门", link: "/python/" }],
+          },
+          {
             text: "AI相关",
             items: [
               { text: "claudeRules", link: "/ai/claudeRules/" },
