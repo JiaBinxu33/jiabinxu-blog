@@ -876,16 +876,636 @@ print(f"符合条件的数字有{count}个，总和是{sums}")
 - 计数和求和变量在循环前初始化，在符合条件的分支中更新。
 - `c % 3 and not c % 5` 语法正确，但含义是“不能被 3 整除、能被 5 整除”，与题目要求相反。
 
-## 当前学习进度与待补内容
+## 函数的定义与调用
 
-本次已学习或练习：数据输入、基本判断、elif、多层判断、while 基础、for 遍历、range 基础，以及筛选计数求和。
+函数把一段逻辑封装起来，方便重复使用。Python 使用 `def`，对应 JavaScript 的 `function`；用冒号和缩进组织函数体。
 
-按照学习大纲，循环部分接下来还需要学习：
+```python
+def greet(name):
+    return f"你好，{name}"
 
-- while 和 for 的嵌套。
-- 九九乘法表等嵌套循环练习。
-- for 循环变量的作用域。
-- continue 和 break。
-- 猜数字等循环综合案例。
+message = greet("Shanoria")
+print(message)
+```
 
-此前的“字面量”和“Python 解释器”尚未在聊天中确认系统学习完成，可后续补充。MacOS、Linux 安装属于拓展内容，可按需要学习。
+- 定义函数时不会执行函数体，调用时才执行。
+- 参数接收传入的数据，参数也是函数内的局部变量。
+- `return` 返回结果，并立即结束本次函数执行。
+
+## 函数参数：位置参数与关键字参数
+
+```python
+def add(a, b):
+    return a + b
+
+print(add(3, 5))      # 按位置对应，结果8
+print(add(b=5, a=3))  # 按参数名对应，结果8
+```
+
+关键字参数可以调整顺序。普通必填参数不能遗漏，也不能对同一个参数重复传值。更多参数形式后续学习。
+
+## return、print 与 None
+
+`print()` 显示内容；`return` 将结果交给调用者，类似 JavaScript 的 `console.log()` 与 `return`。
+
+```python
+def check_number(number):
+    if number % 2 == 0:
+        return "偶数"
+    else:
+        return "奇数"
+
+number = int(input("请输入一个整数："))
+result = check_number(number)
+print(result)
+```
+
+函数没有执行带返回值的 `return` 时，默认返回 `None`。裸写 `return` 也返回 `None`。
+
+```python
+def show_number(number):
+    print(number)
+
+result = show_number(7)  # 显示7
+print(result)           # None
+```
+
+这与 JavaScript 默认返回 `undefined` 的行为类似，但 Python 使用的是 `None`。
+
+## 函数作用域与循环变量作用域
+
+函数创建局部的函数作用域，不叫块级作用域。Python 的普通 `if`、`for`、`while` 不创建独立的块级作用域。
+
+```python
+def test():
+    for number in range(3):
+        message = "你好"
+
+    print(number)   # 2
+    print(message)  # 你好
+
+test()
+# print(number)  # 不能访问函数内的这个局部变量
+```
+
+在模块顶层执行循环，循环变量会留在模块作用域中：
+
+```python
+for number in range(3):
+    pass
+
+print(number)  # 2
+```
+
+如果循环一次都没执行，循环变量不会因此得到赋值；若此前也未定义，访问时会报错。JavaScript 的 `let`、`const` 则具有块级作用域。
+
+## 循环嵌套
+
+外层每执行一轮，内层都会重新开始。
+
+```python
+for i in range(1, 3):
+    for j in range(1, 4):
+        print(i, j)
+```
+
+外层 2 轮、内层每轮 3 次，总共打印 6 次：先打印 `1 1`、`1 2`、`1 3`，再打印 `2 1`、`2 2`、`2 3`。
+
+嵌套 `while` 时，内层计数变量通常需要在每轮外层循环中重新初始化：
+
+```python
+i = 1
+while i <= 2:
+    j = 1
+    while j <= 3:
+        print(i, j)
+        j += 1
+    i += 1
+```
+
+## break 与 continue
+
+| 语句       | 本轮剩余代码 | 后续循环     |
+| ---------- | ------------ | ------------ |
+| `break`    | 不执行       | 结束当前循环 |
+| `continue` | 不执行       | 继续下一轮   |
+
+它们只影响最近的一层循环，基本行为和 JavaScript 一样。
+
+```python
+for a in range(1, 4):
+    for b in range(1, 6):
+        if b == 2:
+            continue
+        if b == 4:
+            break
+        print(a, b)
+
+```
+
+输出：
+
+```text
+1 1
+1 3
+2 1
+2 3
+3 1
+3 3
+
+```
+
+内层遇到 4 结束，外层仍然继续。两个独立的 `if` 写法合法；执行 `continue` 后不会执行本轮后面的代码。
+
+## while 中 continue 的易错点
+
+不要让 `continue` 跳过计数更新，导致无限循环。
+
+```python
+number = 0
+while number < 5:
+    number += 1
+    if number == 2:
+        continue
+    print(number)  # 依次输出1、3、4、5
+
+```
+
+如果把自增放在 `continue` 后，且跳过条件一直成立，变量就可能不再变化。
+
+## 五种数据容器对比
+
+| 类型       | 定义示例               | 顺序           | 是否可修改       | 是否允许重复           |
+| ---------- | ---------------------- | -------------- | ---------------- | ---------------------- |
+| 列表 list  | `[1, 2]`               | 有序           | 可以             | 可以                   |
+| 元组 tuple | `(1, 2)`               | 有序           | 不能替换元素位置 | 可以                   |
+| 字符串 str | `"hello"`              | 有序           | 不可修改         | 可以                   |
+| 集合 set   | `{1, 2}`               | 无可依赖的顺序 | 可以             | 不可以                 |
+| 字典 dict  | `{"name": "Shanoria"}` | 按键插入顺序   | 可以             | 键不能重复，值可以重复 |
+
+JavaScript 的数组对应 Python 列表；保存类似 JavaScript 对象的键值对数据，通常用字典。Python 的“对象”是更广泛的概念，不等同于字典。
+
+## 列表的定义、访问和修改
+
+```python
+names = ["Shanoria", "小明", "小红"]
+empty = []
+
+print(names[0])   # Shanoria
+print(names[-1])  # 小红
+print(len(names)) # 3
+
+names[1] = "小李"
+
+```
+
+下标从 0 开始，负下标从末尾定位。长度使用 `len()`，不是 JavaScript 的 `.length`。单个下标越界会报错，不会返回 `undefined`。
+
+## 列表的常用方法
+
+| 写法                         | 作用                                   |
+| ---------------------------- | -------------------------------------- |
+| `items.append(value)`        | 末尾添加一个元素                       |
+| `items.extend(values)`       | 逐个添加传入容器中的元素               |
+| `items.insert(index, value)` | 在指定位置插入                         |
+| `items.remove(value)`        | 删除第一个匹配项，不存在报错           |
+| `items.pop(index)`           | 删除并返回指定位置的元素，默认最后一个 |
+| `items.clear()`              | 清空                                   |
+| `items.index(value)`         | 找首个匹配下标，不存在报错             |
+| `items.count(value)`         | 统计出现次数                           |
+| `items.sort()`               | 原地排序，默认升序                     |
+| `items.reverse()`            | 原地反转                               |
+
+```python
+a = [1, 2]
+a.append([3, 4])
+print(a)  # [1, 2, [3, 4]]
+
+b = [1, 2]
+b.extend([3, 4])
+print(b)  # [1, 2, 3, 4]
+
+```
+
+`append()` 添加一个整体，`extend()` 添加其中的各个元素。
+
+## 列表方法的返回值与排序
+
+`append()`、`extend()`、`insert()`、`remove()`、`clear()`、`sort()`、`reverse()` 都返回 `None`。`pop()` 返回被删除的元素。
+
+```python
+numbers = [3, 1, 2]
+result = numbers.sort()
+print(numbers)  # [1, 2, 3]
+print(result)   # None
+
+```
+
+不要写 `numbers = numbers.sort()`，否则变量会变成 `None`。
+
+`sorted()` 是函数，返回排序后的新列表：
+
+```python
+numbers = [3, 1, 2]
+new_numbers = sorted(numbers)
+print(numbers)      # [3, 1, 2]
+print(new_numbers)  # [1, 2, 3]
+
+```
+
+## 字典的定义、访问与成员判断
+
+```python
+user = {"name": "Shanoria", "age": 25}
+empty = {}
+
+print(user["name"])
+print(user.get("city"))          # None
+print(user.get("city", "未知"))  # 未知
+print("name" in user)            # True
+
+```
+
+- 使用 `user["name"]`，不能用 `user.name` 访问字典中的键。
+- 直接访问不存在的键会报错；`get()` 支持默认值。
+- `in` 默认检查键，不是值。
+- `len(user)` 返回键值对数量。
+
+## 字典的增删改与常用方法
+
+```python
+user = {"name": "Shanoria", "age": 25}
+user["age"] = 26              # 修改
+user["city"] = "大连"         # 新增
+user.update({"age": 27, "job": "前端工程师"})
+
+city = user.pop("city")       # 删除，并返回对应值
+del user["job"]               # 删除
+
+```
+
+| 方法                | 作用                                     |
+| ------------------- | ---------------------------------------- |
+| `get(key, default)` | 获取值，支持默认值                       |
+| `update(data)`      | 添加或更新多个键值对                     |
+| `pop(key)`          | 删除键并返回值，不存在且没给默认值时报错 |
+| `keys()`            | 键的视图                                 |
+| `values()`          | 值的视图                                 |
+| `items()`           | 键值对的视图                             |
+| `clear()`           | 清空                                     |
+
+## 列表和字典组合：筛选学生
+
+```python
+students = [
+    {"name": "Shanoria", "score": 85},
+    {"name": "小明", "score": 59},
+    {"name": "小红", "score": 92}
+]
+students.append({"name": "小李", "score": 76})
+
+passed_names = []
+for student in students:
+    print(student["name"], student["score"])
+    if student["score"] >= 60:
+        passed_names.append(student["name"])
+
+print(passed_names)       # ['Shanoria', '小红', '小李']
+print(len(passed_names))  # 3
+
+```
+
+`append(student)` 保存整个字典；`append(student["name"])` 只保存姓名。两种写法都合法，应按后续需要选择。
+
+## 元组的定义与不可修改性
+
+```python
+info = ("Shanoria", 25, "大连")
+single = (10,)  # 单元素元组必须有逗号
+empty = ()
+
+print(info[0])
+print(info[-1])
+print(len(info))
+
+```
+
+`(10)` 是整数，不是元组。元组支持 `count()`、`index()`、`in`、遍历和切片，但不能添加、删除或替换元素。
+
+元组中包含的可变对象仍可以修改：
+
+```python
+data = ("成绩", [80, 90])
+data[1].append(100)
+print(data)  # ('成绩', [80, 90, 100])
+
+```
+
+不能替换 `data[1]`，但它指向的列表本身可变。
+
+## 解包赋值：不只元组支持
+
+Python 通常叫“解包”，类似 JavaScript 的解构。列表、元组、字符串等可迭代对象都可以解包。
+
+```python
+name, age = ["Shanoria", 25]
+name, age = ("Shanoria", 25)
+a, b = "Hi"  # a是H，b是i
+
+first, *rest = [10, 20, 30, 40]
+print(first)  # 10
+print(rest)   # [20, 30, 40]
+
+```
+
+普通解包要求数量一致。`*` 收集剩余元素，结果是列表；一个解包目标中最多有一个这样的星号目标。
+
+直接解包字典取得的是键，不是像 JavaScript 那样按属性名提取值。
+
+## Python 的三目表达式
+
+格式：`条件成立时的值 if 条件 else 条件不成立时的值`。
+
+```python
+age = 20
+result = "成年人" if age >= 18 else "未成年人"
+
+def check_number(number):
+    return "偶数" if number % 2 == 0 else "奇数"
+
+```
+
+对应 JavaScript 的 `条件 ? 值1 : 值2`。只会计算被选中的那个值。
+
+## 字符串的访问与不可修改性
+
+```python
+text = "Python"
+print(text[0])       # P
+print(text[-1])      # n
+print(len(text))    # 6
+print("Py" in text) # True
+
+```
+
+字符串不可修改，不能写 `text[0] = "p"`。字符串处理方法返回新字符串，不会改变原字符串：
+
+```python
+new_text = text.lower()
+print(text)      # Python
+print(new_text)  # python
+
+```
+
+## 字符串的常用方法
+
+| 写法                  | 作用                           | JavaScript 中类似操作     |
+| --------------------- | ------------------------------ | ------------------------- |
+| `strip()`             | 去掉两端空白                   | trim                      |
+| `lower()` / `upper()` | 转小写 / 大写                  | toLowerCase / toUpperCase |
+| `replace(old, new)`   | 默认替换全部匹配项             | 字符串参数的 replaceAll   |
+| `split(sep)`          | 拆成列表                       | split                     |
+| `sep.join(items)`     | 拼接字符串元素                 | 数组 join                 |
+| `find(sub)`           | 返回首个匹配下标，找不到返回-1 | indexOf                   |
+| `count(sub)`          | 统计不重叠匹配次数             | 无直接对应                |
+| `startswith(sub)`     | 判断开头                       | startsWith                |
+| `endswith(sub)`       | 判断结尾                       | endsWith                  |
+
+```python
+print("  hello  ".strip())        # hello
+print("banana".replace("a", "o")) # bonono
+print("banana".replace("a", "o", 1))  # bonana
+print("banana".count("a"))        # 3
+print("banana".find("z"))         # -1
+
+```
+
+`strip("ab")` 删除两端连续出现的字符 a 或 b，不是删除完整的 ab 子串。无参数的 `split()` 按连续空白拆分；指定分隔符则按该分隔符拆分。
+
+## join 的调用方向与 JavaScript 不同
+
+```python
+names = ["Shanoria", "小明", "小红"]
+print(" / ".join(names))  # Shanoria / 小明 / 小红
+
+```
+
+Python 是 `"分隔符".join(列表)`；JavaScript 是 `数组.join("分隔符")`。
+
+列表没有 `join()` 方法，写 `names.join(" / ")` 会产生 AttributeError。待拼接元素必须都是字符串。
+
+## 切片的基本规则
+
+列表、元组、字符串支持 `容器[start:stop:step]`。
+
+- 包含起点，不包含终点。
+- 步长默认 1，不能为 0。
+- 正步长向右，负步长向左。
+- 省略边界时，默认值随步长方向变化。
+- 切片越界通常不会报错，单个下标越界会报错。
+
+```python
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(numbers[:3])    # [0, 1, 2]
+print(numbers[-2:])   # [8, 9]
+print(numbers[::-1])  # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+```
+
+`[0:3]` 取下标 0、1、2，共 3 个；下标 3 对应第 4 个元素，因此排除下标 3 不等于只取两个。
+
+切片不修改原容器。列表切片是浅拷贝：得到新列表，但嵌套对象仍共享引用，类似 JavaScript 的数组 slice。
+
+## 切片的步长与负下标
+
+步长表示每取一个元素后，下标移动多少。`2` 表示下标加 2，不是“跳过两个”；`-2` 表示下标减 2。
+
+```python
+print(numbers[1:8:2])  # [1, 3, 5, 7]
+print(numbers[8:2:-2]) # [8, 6, 4]
+print(numbers[2:8:-1]) # []，方向不匹配
+
+```
+
+负下标负责定位，负步长负责方向和移动距离：
+
+```python
+text = "abcdefghij"
+print(text[-2:1:-2])  # igec
+
+```
+
+起点 `-2` 对应正下标 8，取 8、6、4、2，不取终点 1。
+
+## 切片练习与正确结果
+
+使用 `numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`、`text = "abcdefghij"`。
+
+| 表达式            | 取到的下标    | 结果            |
+| ----------------- | ------------- | --------------- |
+| `numbers[1:9:2]`  | 1、3、5、7    | [1, 3, 5, 7]    |
+| `numbers[::3]`    | 0、3、6、9    | [0, 3, 6, 9]    |
+| `numbers[8:1:-2]` | 8、6、4、2    | [8, 6, 4, 2]    |
+| `numbers[::-2]`   | 9、7、5、3、1 | [9, 7, 5, 3, 1] |
+| `numbers[2:8:-1]` | 无            | []              |
+| `text[-2:1:-2]`   | 8、6、4、2    | igec            |
+| `numbers[2:9:3]`  | 2、5、8       | [2, 5, 8]       |
+| `text[::-2]`      | 9、7、5、3、1 | jhfdb           |
+
+省略终点不表示排除最后一个元素。`[::3]` 中的下标 9 可以取到。
+
+## 集合的定义与去重
+
+```python
+numbers = {1, 2, 2, 3}  # 只保留1、2、3
+empty = set()          # 空集合；{}是空字典
+
+names = ["小明", "小红", "小明"]
+unique_names = set(names)
+print(len(unique_names))  # 2
+
+```
+
+集合不支持下标和切片，也没有可依赖的排列顺序。元素必须可哈希，整数、字符串通常可以；列表、字典、集合不能直接作为集合元素。
+
+## 集合的常用方法与集合运算
+
+| 写法             | 作用                                 |
+| ---------------- | ------------------------------------ |
+| `add(value)`     | 添加一个元素                         |
+| `update(values)` | 添加多个元素                         |
+| `remove(value)`  | 删除，不存在报错                     |
+| `discard(value)` | 删除，不存在也不报错                 |
+| `pop()`          | 删除并返回任意一个元素，不是末尾元素 |
+| `clear()`        | 清空                                 |
+
+```python
+a = {1, 2, 3}
+b = {3, 4, 5}
+print(a & b)  # 交集：{3}
+print(a | b)  # 并集：包含1、2、3、4、5
+print(a - b)  # 差集：{1, 2}
+print(b - a)  # 差集：{4, 5}
+
+```
+
+这些运算返回新集合。差集有方向，左右交换会改变结果。集合显示时的元素顺序不应作为结果要求。
+
+## in 在不同容器中的含义
+
+| 容器       | in 检查什么            |
+| ---------- | ---------------------- |
+| 列表、元组 | 是否存在相等的完整元素 |
+| 字符串     | 是否包含指定子字符串   |
+| 集合       | 是否存在完整元素       |
+| 字典       | 是否存在指定键         |
+
+```python
+text = "小明,小红"
+names = {"小明", "小红"}
+print("小" in text)   # True
+print("小" in names)  # False
+print("小红" in names) # True
+
+```
+
+字符串包含“小”，不代表姓名集合中存在完整元素“小”。
+
+## 姓名名单综合处理
+
+```python
+text = " Shanoria,小明,小红,小明,小李 "
+names = text.strip().split(",")
+first_three = " / ".join(names[:3])
+unique_names = set(names)
+
+print(first_three)                 # Shanoria / 小明 / 小红
+print(len(unique_names))           # 4
+print("小红" in unique_names)       # True
+
+name, age = ("Shanoria", 25)
+print(name, age)
+
+```
+
+先去两端空白，再拆分，之后按需要切片、拼接或去重。这里 `strip()` 只清理整个字符串的两端；若每个姓名也带空白，需要分别清理每个姓名。
+
+## 列表、元组和字符串的遍历
+
+直接 `for` 得到元素；字符串每次得到一个字符。类似 JavaScript 的 for...of。
+
+```python
+names = ["Shanoria", "小明"]
+for name in names:
+    print(name)
+
+for index, name in enumerate(names):
+    print(index, name)  # 同时得到下标和元素
+
+students = [("Shanoria", 85), ("小明", 59)]
+for name, score in students:
+    print(name, score)  # 对每一项进行解包
+
+```
+
+元组和字符串同样支持 `enumerate()`。遍历列表时直接增删原列表可能漏处理或不断延长遍历，通常改为遍历副本或构造新列表。
+
+## 集合和字典的遍历
+
+```python
+names = {"Shanoria", "小明"}
+for name in names:
+    print(name)
+
+user = {"name": "Shanoria", "age": 25}
+for key in user:
+    print(key)
+
+for value in user.values():
+    print(value)
+
+for key, value in user.items():
+    print(key, value)
+
+```
+
+| 容器   | 直接遍历取得什么 | 特殊点         |
+| ------ | ---------------- | -------------- |
+| 列表   | 元素             | 按排列顺序     |
+| 元组   | 元素             | 按排列顺序     |
+| 字符串 | 字符             | 按字符顺序     |
+| 集合   | 元素             | 无可依赖的顺序 |
+| 字典   | 键               | 按键插入顺序   |
+
+- `enumerate(set)` 的编号只是本次遍历计数，不是集合下标。
+- `enumerate(dict)` 得到编号和键，不是键和值。
+- 字典更新已有键的值不会改变键的位置。
+- 遍历字典时可以更新已有键的值，但不要增删键；遍历集合时不要增删原集合元素。
+- 要有序遍历可排序的数据，可以用 `sorted()`。
+
+## 函数与方法的区别
+
+入门时，独立定义、直接调用的通常称为函数；定义在类中、通过类或对象使用的通常称为方法。
+
+```python
+def greet(name):
+    return f"你好，{name}"
+
+class Person:
+    def greet(self):
+        return "你好"
+
+print(greet("Shanoria"))
+person = Person()
+print(person.greet())
+
+```
+
+普通实例方法的 `self` 表示当前对象，类似 JavaScript 的 this；调用 `person.greet()` 时，Python 自动将对象传给 self。
+
+严格来说，普通实例方法在类中是用 def 定义的函数，通过实例访问时会绑定对象。静态方法等细节后续学习。
+
+| 例子                                                  | 类型 |
+| ----------------------------------------------------- | ---- |
+| `len(names)`、`print(text)`、`type(user)`             | 函数 |
+| `names.append(value)`、`text.strip()`、`user.items()` | 方法 |
